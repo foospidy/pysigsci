@@ -1,0 +1,9 @@
+future
+requests
+PyCrypto
+autopep8
+coverage
+flake8
+mock
+codestyle
+pylint

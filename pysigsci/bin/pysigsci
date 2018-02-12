@@ -1,0 +1,117 @@
+#!/usr/bin/env python
+"""
+Signal Sciences CLI Tool
+
+API credentials must be exported to environment variables:
+export SIGSCI_EMAIL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export SIGSCI_PASSWORD=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export SIGSCI_CORP=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export SIGSCI_SITE=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+"""
+
+from __future__ import print_function
+import os
+import sys
+import json
+import argparse
+from pysigsci import sigsciapi
+
+
+def print_json_data(json_data, pretty=False):
+    """
+    Print JSON data, with option of pretty printing
+    """
+    if pretty:
+        print(json.dumps(json_data, indent=4))
+    else:
+        print(json.dumps(json_data))
+
+def main():
+    """
+    Main function for Signal Sciences CLI tool
+    """
+    try:
+        email = os.environ["SIGSCI_EMAIL"]
+        password = os.environ["SIGSCI_PASSWORD"]
+
+    except KeyError as error:
+        print("Environment variable not set {}".format(str(error)))
+        sys.exit()
+
+    # Create sigsciapi object
+    sigsci = sigsciapi.SigSciApi(email, password)
+
+    if "SIGSCI_CORP" in os.environ:
+        sigsci.corp = os.environ['SIGSCI_CORP']
+    else:
+        print('SIGSCI_CORP required.')
+        sys.exit()
+
+    if "SIGSCI_SITE" in os.environ:
+        sigsci.site = os.environ['SIGSCI_SITE']
+    else:
+        print('SIGSCI_SITE required.')
+        sys.exit()
+
+    # Parse arguments
+    parser = argparse.ArgumentParser(
+        description="Process command line arguments.")
+
+    parser.add_argument(
+        '--get',
+        help='Get data from the API.',
+        default='requests',
+        choices=['corps', 'corp', 'corp-users', 'corp-sites',
+                 'corp-site', 'custom-alerts', 'custom-alert', 'events',
+                 'requests', 'request-feed', 'whitelist', 'blacklist',
+                 'redactions', 'integrations', 'parameter-whitelist', 'activity',
+                 'header-links', 'site-members', 'agents', 'suspicious-ips',
+                 'top-attacks', 'timeseries-requests'])
+    parser.add_argument(
+        '--from-time',
+        help='From timestamp.')
+    parser.add_argument(
+        '--until-time',
+        help='Until timestamp.')
+    parser.add_argument(
+        '--query',
+        help='Search query.')
+    parser.add_argument(
+        '--pretty',
+        help='Print JSON in pretty format.',
+        default=False,
+        action="store_true")
+
+    args = parser.parse_args()
+
+    if args.get:
+        try:
+            method = getattr(sigsci, 'get_' + args.get.replace("-", "_"))
+
+        except AttributeError as error:
+            print(str(error))
+
+        else:
+            try:
+                params = dict()
+
+                if args.from_time:
+                    params['from'] = args.from_time
+
+                if args.until_time:
+                    params['until'] = args.until_time
+
+                if args.query:
+                    params['q'] = args.query
+
+                num_params = len(params)
+                if num_params > 0:
+                    print_json_data(method(parameters=params), args.pretty)
+                else:
+                    print_json_data(method(), args.pretty)
+
+            except Exception as error:
+                print(str(error))
+
+if __name__ == '__main__':
+    main()

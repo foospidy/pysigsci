@@ -1,2 +1,7 @@
 # pysigsci
-Python module for Signal Sciences
+
+Python module and CLI for Signal Sciences
+
+### installation
+
+`pip isntall pysigsci`
