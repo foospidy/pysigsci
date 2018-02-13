@@ -4,4 +4,4 @@ python:
 
 install: make install
 
-script: make make lint
+script: make lint
