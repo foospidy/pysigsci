@@ -99,6 +99,15 @@ class SigSciApi(object):
         """
         return self._make_request(
             "{}/{}/users".format(self.ep_corps, self.corp))
+    
+    def get_corp_user(self, email):
+        """
+        Get corp user by email
+        https://docs.signalsciences.net/api/#_corps__corpName__users__userEmail__get
+        GET /corps/{corpName}/users/{userEmail}
+        """
+        return self._make_request(
+            "{}/{}/users/{}".format(self.ep_corps, self.corp, email))
 
     # SITES
     def get_corp_sites(self):
