@@ -2,6 +2,24 @@
 
 Python module and CLI for Signal Sciences
 
-### installation
+### Installation
 
-`pip isntall pysigsci`
+`pip install pysigsci`
+
+### CLI Usage
+
+`$ pysigsci --get requests`
+
+### Module Usage
+
+```
+from pysigsci import sigsciapi
+sigsci = sigsciapi.SigSciApi("myemail", "mypassword")
+sigsci.corp = "mycorp"
+sigsci.site = "mysite"
+
+params = {"q": "from:-1d tag:XSS"}
+print(sigsci.get_requests(parameters=params))
+```
+
+Also see [example.py](example.py) as a reference.
