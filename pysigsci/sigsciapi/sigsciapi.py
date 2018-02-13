@@ -49,7 +49,7 @@ class SigSciApi(object):
             result = requests.post(url, data=data, headers=headers)
         elif method == "PATCH":
             result = requests.post(url, json=data, headers=headers)
-        elif method =="DELETE":
+        elif method == "DELETE":
             result = requests.delete(url, params=data, headers=headers)
         else:
             raise Exception("InvalidRequestMethod: " + str(method))
@@ -101,7 +101,7 @@ class SigSciApi(object):
         """
         return self._make_request(
             "{}/{}/users".format(self.ep_corps, self.corp))
-    
+
     def get_corp_user(self, email):
         """
         Get corp user by email
@@ -110,7 +110,7 @@ class SigSciApi(object):
         """
         return self._make_request(
             "{}/{}/users/{}".format(self.ep_corps, self.corp, email))
-    
+
     def delete_corp_user(self, email):
         """
         Delete user from corp
