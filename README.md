@@ -1,5 +1,7 @@
 # pysigsci
 
+[![Build Status](https://travis-ci.org/foospidy/pysigsci.svg?branch=master)](https://travis-ci.org/foospidy/pysigsci)
+
 Python module and CLI for Signal Sciences
 
 ### Installation

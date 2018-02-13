@@ -28,6 +28,9 @@ env:
 	&& pip install --upgrade setuptools \
 	&& pip install --upgrade -r requirements.txt
 
+install:
+	pip install -r requirements.txt
+
 wheel:
 	python setup.py bdist_wheel --universal
 
