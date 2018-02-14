@@ -120,6 +120,15 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/users/{}".format(self.ep_corps, self.corp, email), method="DELETE")
 
+    def invite_corp_user(self, email, data):
+        """
+        Invite user to corp
+        https://docs.signalsciences.net/api/#_corps__corpName__users__userEmail__invite_post
+        POST /corps/{corpName}/users/{userEmail}/invite
+        """
+        return self._make_request(
+            "{}/{}/users/{}/invite".format(self.ep_corps, self.corp, email), data, method="POST")
+
     # SITES
     def get_corp_sites(self):
         """
