@@ -133,6 +133,17 @@ class SigSciApi(object):
             data,
             method="POST_JSON")
 
+    # OVERVIEW REPORT
+    def get_overview_report(self, parameters=dict()):
+        """
+        Get overview report data
+        https://docs.signalsciences.net/api/#_corps__corpName__reports_attacks_get
+        GET /corps/{corpName}/reports/attacks
+        """
+        return self._make_request(
+            "{}/{}/reports/attacks".format(self.ep_corps, self.corp),
+            options=parameters)
+
     # SITES
     def get_corp_sites(self):
         """
