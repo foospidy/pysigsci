@@ -47,6 +47,8 @@ class SigSciApi(object):
             result = requests.get(url, params=data, headers=headers)
         elif method == "POST":
             result = requests.post(url, data=data, headers=headers)
+        elif method == "POST_JSON":
+            result = requests.post(url, json=data, headers=headers)
         elif method == "PATCH":
             result = requests.post(url, json=data, headers=headers)
         elif method == "DELETE":
@@ -127,7 +129,7 @@ class SigSciApi(object):
         POST /corps/{corpName}/users/{userEmail}/invite
         """
         return self._make_request(
-            "{}/{}/users/{}/invite".format(self.ep_corps, self.corp, email), data, method="POST")
+            "{}/{}/users/{}/invite".format(self.ep_corps, self.corp, email), data, method="POST_JSON")
 
     # SITES
     def get_corp_sites(self):
