@@ -129,7 +129,9 @@ class SigSciApi(object):
         POST /corps/{corpName}/users/{userEmail}/invite
         """
         return self._make_request(
-            "{}/{}/users/{}/invite".format(self.ep_corps, self.corp, email), data, method="POST_JSON")
+            "{}/{}/users/{}/invite".format(self.ep_corps, self.corp, email),
+            data,
+            method="POST_JSON")
 
     # SITES
     def get_corp_sites(self):
