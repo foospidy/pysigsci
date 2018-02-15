@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/foospidy/pysigsci.svg?branch=master)](https://travis-ci.org/foospidy/pysigsci)
 
-Python module and CLI for Signal Sciences
+Python module and CLI tool for the [Signal Sciences](https://docs.signalsciences.net/api/) API.
 
 ### Installation
 
