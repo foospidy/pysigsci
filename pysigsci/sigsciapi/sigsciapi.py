@@ -163,6 +163,15 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}".format(self.ep_corps, self.corp, site_name))
 
+    def update_site(self, data):
+        """
+        Update a site by name
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__patch
+        PATCH /corps/{corpName}/sites/{siteName}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}".format(self.ep_corps, self.corp, self.site), data, "PATCH")
+
     # CUSTOM ALERTS
     def get_custom_alerts(self):
         """
