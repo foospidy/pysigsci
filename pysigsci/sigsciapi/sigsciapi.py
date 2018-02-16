@@ -213,6 +213,16 @@ class SigSciApi(object):
             options=data,
             method="PATCH")
 
+    def delete_custom_alert(self, alertid):
+        """
+        Delete alert
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__delete
+        DELETE /corps/{corpName}/sites/{siteName}/alerts/{alertID}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/alerts/{}".format(self.ep_corps, self.corp, self.site, alertid),
+            method="DELETE")
+
     # EVENTS
     def get_events(self):
         """
