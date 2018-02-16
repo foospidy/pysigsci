@@ -182,6 +182,17 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/alerts".format(self.ep_corps, self.corp, self.site))
 
+    def create_custom_alert(self, data):
+        """
+        Create custom alert
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts_post
+        POST /corps/{corpName}/sites/{siteName}/alerts
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/alerts".format(self.ep_corps, self.corp, self.site),
+            options=data,
+            method="POST_JSON")
+
     def get_custom_alert(self, alert_id):
         """
         Get custom alert
