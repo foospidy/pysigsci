@@ -202,6 +202,17 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/alerts/{}".format(self.ep_corps, self.corp, self.site, alert_id))
 
+    def update_custom_alert(self, alertid, data):
+        """
+        Update custom alert
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__patch
+        PATCH /corps/{corpName}/sites/{siteName}/alerts/{alertID}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/alerts/{}".format(self.ep_corps, self.corp, self.site, alertid),
+            options=data,
+            method="PATCH")
+
     # EVENTS
     def get_events(self):
         """
