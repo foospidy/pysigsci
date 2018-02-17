@@ -202,25 +202,25 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/alerts/{}".format(self.ep_corps, self.corp, self.site, alert_id))
 
-    def update_custom_alert(self, alertid, data):
+    def update_custom_alert(self, alert_id, data):
         """
         Update custom alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__patch
         PATCH /corps/{corpName}/sites/{siteName}/alerts/{alertID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/alerts/{}".format(self.ep_corps, self.corp, self.site, alertid),
+            "{}/{}/sites/{}/alerts/{}".format(self.ep_corps, self.corp, self.site, alert_id),
             options=data,
             method="PATCH")
 
-    def delete_custom_alert(self, alertid):
+    def delete_custom_alert(self, alert_id):
         """
         Delete alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__delete
         DELETE /corps/{corpName}/sites/{siteName}/alerts/{alertID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/alerts/{}".format(self.ep_corps, self.corp, self.site, alertid),
+            "{}/{}/sites/{}/alerts/{}".format(self.ep_corps, self.corp, self.site, alert_id),
             method="DELETE")
 
     # EVENTS
@@ -233,14 +233,14 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/events".format(self.ep_corps, self.corp, self.site))
 
-    def get_event(self, eventid):
+    def get_event(self, event_id):
         """
         Get event by ID
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__events__eventID__get
         GET /corps/{corpName}/sites/{siteName}/events/{eventID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/events{}".format(self.ep_corps, self.corp, self.site, eventid))
+            "{}/{}/sites/{}/events{}".format(self.ep_corps, self.corp, self.site, event_id))
 
     # REQUESTS
     def get_requests(self, parameters=dict()):
