@@ -233,6 +233,15 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/events".format(self.ep_corps, self.corp, self.site))
 
+    def get_event(self, eventid):
+        """
+        Get event by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__events__eventID__get
+        GET /corps/{corpName}/sites/{siteName}/events/{eventID}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/events{}".format(self.ep_corps, self.corp, self.site, eventid))
+
     # REQUESTS
     def get_requests(self, parameters=dict()):
         """
