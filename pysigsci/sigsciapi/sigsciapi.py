@@ -281,7 +281,7 @@ class SigSciApi(object):
             self.ep_corps, self.corp, self.site), options=parameters)
 
     # WHITELISTS
-    def get_whitelists(self):
+    def get_whitelist(self):
         """
         Get whitelist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__whitelist_get
