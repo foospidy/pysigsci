@@ -240,7 +240,16 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/events/{eventID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/events{}".format(self.ep_corps, self.corp, self.site, event_id))
+            "{}/{}/sites/{}/events/{}".format(self.ep_corps, self.corp, self.site, event_id))
+
+    def expire_event(self, event_id):
+        """
+        Expire an event by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__events__eventID__expire_post
+        POST /corps/{corpName}/sites/{siteName}/events/{eventID}/expire
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/events/{}/expire".format(self.ep_corps, self.corp, self.site, event_id))
 
     # REQUESTS
     def get_requests(self, parameters=dict()):
