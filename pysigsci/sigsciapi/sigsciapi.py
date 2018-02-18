@@ -290,6 +290,17 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/whitelist".format(self.ep_corps, self.corp, self.site))
 
+    def add_to_whitelist(self, data):
+        """
+        Add to whitelist
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__whitelist_put
+        PUT /corps/{corpName}/sites/{siteName}/whitelist
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/whitelist".format(self.ep_corps, self.corp, self.site),
+            options=data,
+            method="PUT")
+
     # BLACKLISTS
     def get_blacklists(self):
         """
