@@ -262,6 +262,15 @@ class SigSciApi(object):
             "{}/{}/sites/{}/requests".format(self.ep_corps, self.corp, self.site),
             options=parameters)
 
+    def get_request(self, request_id):
+        """
+        Get request by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__requests__requestID__get
+        GET /corps/{corpName}/sites/{siteName}/requests/{requestID}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/requests/{}".format(self.ep_corps, self.corp, self.site, request_id))
+
     def get_request_feed(self, parameters=dict()):
         """
         Get request feed
