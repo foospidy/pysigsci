@@ -5,8 +5,8 @@ Signal Sciences
     :target: https://pypi.python.org/pypi/pysigsci/
     :alt: Latest Version
 
-.. image:: https://travis-ci.org/pyca/pysigsci.svg?branch=master
-    :target: https://travis-ci.org/pyca/pysigsci
+.. image:: https://travis-ci.org/foospidy/pysigsci.svg?branch=master
+    :target: https://travis-ci.org/foospidy/pysigsci
 
 ``pysigsci`` is a Python wrapper and CLI tool for the `Signal Sciences REST API`_.
 
