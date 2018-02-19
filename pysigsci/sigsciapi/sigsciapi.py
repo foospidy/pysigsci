@@ -354,6 +354,28 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/redactions".format(self.ep_corps, self.corp, self.site))
 
+    def add_to_redactions(self, data):
+        """
+        Add to redactions
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__redactions_put
+        PUT /corps/{corpName}/sites/{siteName}/redactions
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/redactions".format(self.ep_corps, self.corp, self.site),
+            options=data,
+            method="PUT")
+
+    def delete_from_redactions(self, data, field):
+        """
+        Delete from redactions
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__redactions__id__delete
+        DELETE /corps/{corpName}/sites/{siteName}/redactions/{field}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/redactions/{}".format(self.ep_corps, self.corp, self.site, field),
+            options=data,
+            method="DELETE")
+
     # INTEGRATIONS
     def get_integrations(self):
         """
