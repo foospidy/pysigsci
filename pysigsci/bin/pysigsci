@@ -61,12 +61,18 @@ def main():
         '--get',
         help='Get data from the API.',
         default='requests',
-        choices=['corps', 'corp', 'corp-users', 'corp-sites',
-                 'corp-site', 'custom-alerts', 'custom-alert', 'events',
-                 'requests', 'request-feed', 'whitelist', 'blacklist',
-                 'redactions', 'integrations', 'parameter-whitelist', 'activity',
-                 'header-links', 'site-members', 'agents', 'suspicious-ips',
-                 'overview-report', 'top-attacks', 'timeseries-requests'])
+        choices=['corps', 'corp', 'corp-users', 'corp-user', 'overview-report',
+                 'corp-sites', 'corp-site', 'custom-alerts', 'custom-alert',
+                 'events', 'event', 'requests', 'request', 'request-feed',
+                 'whitelist', 'blacklist', 'redactions', 'integrations',
+                 'parameter-whitelist', 'path-whitelist', 'activity',
+                 'header-links', 'site-members', 'site-monitor', 'agents',
+                 'suspicious-ips', 'top-attacks', 'timeseries-requests'])
+    parser.add_argument(
+        '--update',
+        help='Update data via the API.',
+        default=None,
+        choices=['corp', 'corp-site', 'custom-alert'])
     parser.add_argument(
         '--from-time',
         help='From timestamp.')
@@ -76,6 +82,18 @@ def main():
     parser.add_argument(
         '--query',
         help='Search query.')
+    parser.add_argument(
+        '--email',
+        help='Corp user email address.')
+    parser.add_argument(
+        '--alert-id',
+        help='Alert ID.')
+    parser.add_argument(
+        '--event-id',
+        help='Event ID.')
+    parser.add_argument(
+        '--request-id',
+        help='Request ID.')
     parser.add_argument(
         '--pretty',
         help='Print JSON in pretty format.',
@@ -94,6 +112,7 @@ def main():
         else:
             try:
                 params = dict()
+                identifier = None
 
                 if args.from_time:
                     params['from'] = args.from_time
@@ -104,11 +123,27 @@ def main():
                 if args.query:
                     params['q'] = args.query
 
+                if args.email:
+                    identifier = args.email
+
+                if args.alert_id:
+                    identifier = args.alert_id
+
+                if args.event_id:
+                    identifier = args.event_id
+
+                if args.request_id:
+                    identifier = args.request_id
+
                 num_params = len(params)
+
                 if num_params > 0:
                     print_json_data(method(parameters=params), args.pretty)
                 else:
-                    print_json_data(method(), args.pretty)
+                    if identifier is not None:
+                        print_json_data(method(identifier), args.pretty)
+                    else:
+                        print_json_data(method(), args.pretty)
 
             except Exception as error:
                 print(str(error))
