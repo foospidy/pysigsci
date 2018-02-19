@@ -301,6 +301,17 @@ class SigSciApi(object):
             options=data,
             method="PUT")
 
+    def delete_from_whitelist(self, data, identifier):
+        """
+        Delete from whitelist
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__whitelist__id__delete
+        DELETE /corps/{corpName}/sites/{siteName}/whitelist/{id}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/whitelist/{}".format(self.ep_corps, self.corp, self.site, identifier),
+            options=data,
+            method="DELETE")
+
     # BLACKLISTS
     def get_blacklist(self):
         """
