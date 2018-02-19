@@ -92,14 +92,8 @@ def main():
         '--site',
         help='Corp site short name.')
     parser.add_argument(
-        '--alert-id',
-        help='Alert ID.')
-    parser.add_argument(
-        '--event-id',
-        help='Event ID.')
-    parser.add_argument(
-        '--request-id',
-        help='Request ID.')
+        '--id',
+        help='Record identfier.')
     parser.add_argument(
         '--pretty',
         help='Print JSON in pretty format.',
@@ -138,14 +132,8 @@ def main():
                 if args.site:
                     identifier = args.site
 
-                if args.alert_id:
-                    identifier = args.alert_id
-
-                if args.event_id:
-                    identifier = args.event_id
-
-                if args.request_id:
-                    identifier = args.request_id
+                if args.id:
+                    identifier = args.id
 
                 num_params = len(params)
 
