@@ -322,6 +322,28 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/blacklist".format(self.ep_corps, self.corp, self.site))
 
+    def add_to_blacklist(self, data):
+        """
+        Add to blacklist
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__blacklist_put
+        PUT /corps/{corpName}/sites/{siteName}/blacklist
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/blacklist".format(self.ep_corps, self.corp, self.site),
+            options=data,
+            method="PUT")
+
+    def delete_from_blacklist(self, data, identifier):
+        """
+        Delete from blacklist
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__blacklist__id__delete
+        DELETE /corps/{corpName}/sites/{siteName}/blacklist/{id}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/blacklist/{}".format(self.ep_corps, self.corp, self.site, identifier),
+            options=data,
+            method="DELETE")
+
     # PRIVACY REDACTIONS
     def get_redactions(self):
         """
