@@ -302,7 +302,7 @@ class SigSciApi(object):
             method="PUT")
 
     # BLACKLISTS
-    def get_blacklists(self):
+    def get_blacklist(self):
         """
         Get blacklist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__blacklist_get
