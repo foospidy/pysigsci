@@ -89,6 +89,9 @@ def main():
         '--email',
         help='Corp user email address.')
     parser.add_argument(
+        '--field',
+        help='Field specified for redactions.')
+     parser.add_argument(
         '--site',
         help='Corp site short name.')
     parser.add_argument(
@@ -128,6 +131,9 @@ def main():
 
                 if args.email:
                     identifier = args.email
+
+                if args.field:
+                    identifier = args.field
 
                 if args.site:
                     identifier = args.site
