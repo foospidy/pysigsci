@@ -125,7 +125,7 @@ def main():
 
                 if args.until_time:
                     params['until'] = args.until_time
-                
+
                 if args.tag:
                     params['tag'] = args.tag
 
