@@ -91,7 +91,7 @@ def main():
     parser.add_argument(
         '--field',
         help='Field specified for redactions.')
-     parser.add_argument(
+    parser.add_argument(
         '--site',
         help='Corp site short name.')
     parser.add_argument(
