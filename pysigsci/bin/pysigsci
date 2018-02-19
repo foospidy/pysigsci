@@ -86,6 +86,9 @@ def main():
         '--email',
         help='Corp user email address.')
     parser.add_argument(
+        '--site',
+        help='Corp site short name.')
+    parser.add_argument(
         '--alert-id',
         help='Alert ID.')
     parser.add_argument(
@@ -125,6 +128,9 @@ def main():
 
                 if args.email:
                     identifier = args.email
+
+                if args.site:
+                    identifier = args.site
 
                 if args.alert_id:
                     identifier = args.alert_id
