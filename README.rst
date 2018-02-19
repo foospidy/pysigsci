@@ -1,6 +1,13 @@
 Signal Sciences
 ==================
 
+.. image:: https://img.shields.io/pypi/v/pysigsci.svg
+    :target: https://pypi.python.org/pypi/pysigsci/
+    :alt: Latest Version
+
+.. image:: https://travis-ci.org/pyca/pysigsci.svg?branch=master
+    :target: https://travis-ci.org/pyca/pysigsci
+
 ``pysigsci`` is a Python wrapper and CLI tool for the `Signal Sciences REST API`_.
 
 Installation
