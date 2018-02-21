@@ -26,6 +26,7 @@ def print_json_data(json_data, pretty=False):
     else:
         print(json.dumps(json_data))
 
+
 def main():
     """
     Main function for Signal Sciences CLI tool
@@ -153,6 +154,7 @@ def main():
 
             except Exception as error:
                 print(str(error))
+
 
 if __name__ == '__main__':
     main()

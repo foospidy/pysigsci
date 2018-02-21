@@ -20,6 +20,7 @@ else:
     print('SIGSCI_PASSWORD required.')
     sys.exit()
 
+
 def main():
     """
     Example main function
@@ -47,7 +48,7 @@ def main():
         # Get corp by name
         print(sigsci.get_corp())
         # Update corp by name
-        data = {"displayName":"My Display Name"}
+        data = {"displayName": "My Display Name"}
         print(sigsci.update_corp(data))
         # List corp users
         print(sigsci.get_corp_users())
@@ -63,6 +64,7 @@ def main():
         sigsci.site = "mysite"
         params = {"from": "-1d", "tags": "xss"}
         print(sigsci.get_request_feed(parameters=params))
+
 
 if __name__ == '__main__':
     main()
