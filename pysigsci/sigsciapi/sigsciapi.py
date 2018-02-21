@@ -389,7 +389,7 @@ class SigSciApi(object):
     def add_to_integrations(self, data):
         """
         Add to integrations
-        _corps__corpName__sites__siteName__integrations_post
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__integrations_post
         POST /corps/{corpName}/sites/{siteName}/integrations
         """
         return self._make_request(
