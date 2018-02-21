@@ -386,6 +386,26 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/integrations".format(self.ep_corps, self.corp, self.site))
 
+    def add_to_integrations(self, data):
+        """
+        Add to integrations
+        _corps__corpName__sites__siteName__integrations_post
+        POST /corps/{corpName}/sites/{siteName}/integrations
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/integrations".format(self.ep_corps, self.corp, self.site),
+            options=data,
+            method="PUT")
+
+    def get_integration(self, integration_id):
+        """
+        Get integration by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__integrations__integrationID__get
+        GET /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/integrations/{}".format(self.ep_corps, self.corp, self.site, integration_id))
+
     # PARAMETER WHITELIST
     def get_parameter_whitelist(self):
         """
