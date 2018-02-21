@@ -406,6 +406,26 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/integrations/{}".format(self.ep_corps, self.corp, self.site, integration_id))
 
+     def update_integration(self, integration_id, data):
+        """
+        Update an integration by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__integrations__integrationID__patch
+        PATCH /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/integrations/{}".format(self.ep_corps, self.corp, self.site, integration_id),
+            options=data,
+            method="PATCH")
+
+    def delete_integration(self, integration_id):
+        """
+        Delete from integrations
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__integrations__integrationID__delete
+        DELETE /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
+        """
+        return self._make_request(
+            "{}/{}/users/{}".format(self.ep_corps, self.corp, integration_id), method="DELETE")
+
     # PARAMETER WHITELIST
     def get_parameter_whitelist(self):
         """
