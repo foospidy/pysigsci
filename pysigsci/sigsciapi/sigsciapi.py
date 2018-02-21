@@ -215,7 +215,7 @@ class SigSciApi(object):
             options=data,
             method="PATCH")
 
-    def delete_custom_alert(self, alert_id):
+    def delete_custom_alert(self, identifier):
         """
         Delete alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__delete
@@ -223,7 +223,7 @@ class SigSciApi(object):
         """
         return self._make_request(
             "{}/{}/sites/{}/alerts/{}".format(self.ep_corps,
-                                              self.corp, self.site, alert_id),
+                                              self.corp, self.site, identifier),
             method="DELETE")
 
     # EVENTS
@@ -306,7 +306,7 @@ class SigSciApi(object):
             options=data,
             method="PUT")
 
-    def delete_from_whitelist(self, data, identifier):
+    def delete_from_whitelist(self, identifier):
         """
         Delete from whitelist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__whitelist__id__delete
@@ -315,7 +315,6 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/whitelist/{}".format(
                 self.ep_corps, self.corp, self.site, identifier),
-            options=data,
             method="DELETE")
 
     # BLACKLISTS
@@ -340,7 +339,7 @@ class SigSciApi(object):
             options=data,
             method="PUT")
 
-    def delete_from_blacklist(self, data, identifier):
+    def delete_from_blacklist(self, identifier):
         """
         Delete from blacklist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__blacklist__id__delete
@@ -349,7 +348,6 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/blacklist/{}".format(
                 self.ep_corps, self.corp, self.site, identifier),
-            options=data,
             method="DELETE")
 
     # PRIVACY REDACTIONS
@@ -374,7 +372,7 @@ class SigSciApi(object):
             options=data,
             method="PUT")
 
-    def delete_from_redactions(self, data, field):
+    def delete_from_redactions(self, field):
         """
         Delete from redactions
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__redactions__id__delete
@@ -383,7 +381,6 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/redactions/{}".format(
                 self.ep_corps, self.corp, self.site, field),
-            options=data,
             method="DELETE")
 
     # INTEGRATIONS
@@ -406,7 +403,7 @@ class SigSciApi(object):
             "{}/{}/sites/{}/integrations".format(
                 self.ep_corps, self.corp, self.site),
             options=data,
-            method="PUT")
+            method="POST")
 
     def get_integration(self, integration_id):
         """
@@ -431,14 +428,14 @@ class SigSciApi(object):
             options=data,
             method="PATCH")
 
-    def delete_integration(self, integration_id):
+    def delete_integration(self, identifier):
         """
         Delete from integrations
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__integrations__integrationID__delete
         DELETE /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
         """
         return self._make_request(
-            "{}/{}/users/{}".format(self.ep_corps, self.corp, integration_id), method="DELETE")
+            "{}/{}/users/{}".format(self.ep_corps, self.corp, identifier), method="DELETE")
 
     # PARAMETER WHITELIST
     def get_parameter_whitelist(self):
@@ -450,6 +447,29 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/paramwhitelist".format(self.ep_corps, self.corp, self.site))
 
+    def add_to_parameter_whitelist(self, data):
+        """
+        Add to parameter whitelist
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__paramwhitelist_post
+        POST /corps/{corpName}/sites/{siteName}/paramwhitelist
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/paramwhitelist".format(
+                self.ep_corps, self.corp, self.site),
+            options=data,
+            method="POST")
+
+    def delete_from_parameter_whitelist(self, identifier):
+        """
+        Delete from parameter whitelist
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__paramwhitelist__paramID__delete
+        DELETE /corps/{corpName}/sites/{siteName}/paramwhitelist/{paramID}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/paramwhitelist/{}".format(
+                self.ep_corps, self.corp, self.site, identifier),
+            method="DELETE")
+
     # PATH WHITELIST
     def get_path_whitelist(self):
         """
@@ -459,6 +479,29 @@ class SigSciApi(object):
         """
         return self._make_request(
             "{}/{}/sites/{}/pathwhitelist".format(self.ep_corps, self.corp, self.site))
+
+    def add_to_path_whitelist(self, data):
+        """
+        Add to path whitelist
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__pathwhitelist_post
+        POST /corps/{corpName}/sites/{siteName}/pathwhitelist
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/pathwhitelist".format(
+                self.ep_corps, self.corp, self.site),
+            options=data,
+            method="POST")
+
+    def delete_from_path_whitelist(self, identifier):
+        """
+        Delete from path whitelist
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__pathwhitelist__pathID__delete
+        DELETE /corps/{corpName}/sites/{siteName}/pathwhitelist/{pathID}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/pathwhitelist/{}".format(
+                self.ep_corps, self.corp, self.site, identifier),
+            method="DELETE")
 
     # ACTIVITY
     def get_activity(self):
@@ -480,6 +523,29 @@ class SigSciApi(object):
         return self._make_request(
             "{}/{}/sites/{}/headerLinks".format(self.ep_corps, self.corp, self.site))
 
+    def add_to_header_links(self, data):
+        """
+        Add to header links
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__headerLinks_post
+        POST /corps/{corpName}/sites/{siteName}/headerLinks
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/headerLinks".format(
+                self.ep_corps, self.corp, self.site),
+            options=data,
+            method="POST")
+
+    def delete_from_header_links(self, identifier):
+        """
+        Delete from header links
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__headerLinks__headerLinkID__delete
+        DELETE /corps/{corpName}/sites/{siteName}/headerLinks/{headerLinkID}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/headerLinks/{}".format(
+                self.ep_corps, self.corp, self.site, identifier),
+            method="DELETE")
+
     # SITE MEMBERS
     def get_site_members(self):
         """
@@ -489,6 +555,17 @@ class SigSciApi(object):
         """
         return self._make_request(
             "{}/{}/sites/{}/members".format(self.ep_corps, self.corp, self.site))
+
+    def delete_from_site_members(self, email):
+        """
+        Delete from site members
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__delete
+        DELETE /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
+        """
+        return self._make_request(
+            "{}/{}/sites/{}/members/{}".format(
+                self.ep_corps, self.corp, self.site, email),
+            method="DELETE")
 
     # SITE MONITOR
     def get_site_monitor(self):
