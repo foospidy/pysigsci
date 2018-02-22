@@ -27,32 +27,33 @@ class SigSciApi(object):
         if email is not None:
             self.auth(email, password)
 
-    def _make_request(self, endpoint, options=dict(), method="GET"):
-        data = dict()
+    def _make_request(self,
+                      endpoint,
+                      params=None,
+                      data=None,
+                      json=None,
+                      method="GET"):
         headers = dict()
 
         if endpoint != self.ep_auth:
             headers["Authorization"] = "Bearer {}".format(self.token['token'])
             headers["Content-Type"] = "application/json"
 
-        # Add any passed in options to the data dictionary to be included
-        # in the web request.
-        for key in options:
-            data[key] = options[key]
-
         url = self.base_url + self.api_version + endpoint
 
         result = None
         if method == "GET":
-            result = requests.get(url, params=data, headers=headers)
+            result = requests.get(url, params=params, headers=headers)
         elif method == "POST":
             result = requests.post(url, data=data, headers=headers)
         elif method == "POST_JSON":
-            result = requests.post(url, json=data, headers=headers)
+            result = requests.post(url, json=json, headers=headers)
+        elif method == "PUT":
+            result = requests.post(url, json=json, headers=headers)
         elif method == "PATCH":
-            result = requests.post(url, json=data, headers=headers)
+            result = requests.post(url, json=json, headers=headers)
         elif method == "DELETE":
-            result = requests.delete(url, params=data, headers=headers)
+            result = requests.delete(url, params=params, headers=headers)
         else:
             raise Exception("InvalidRequestMethod: " + str(method))
 
@@ -64,8 +65,11 @@ class SigSciApi(object):
         https://docs.signalsciences.net/api/#_auth_post
         POST /auth
         """
-        options = {"email": email, "password": password}
-        self.token = self._make_request(self.ep_auth, options, "POST")
+        data = {"email": email, "password": password}
+        self.token = self._make_request(
+            endpoint=self.ep_auth,
+            data=data,
+            method="POST")
         return True
 
     # CORPS
@@ -75,7 +79,7 @@ class SigSciApi(object):
         https://docs.signalsciences.net/api/#_corps_get
         GET /corps/
         """
-        return self._make_request(self.ep_corps)
+        return self._make_request(endpoint=self.ep_corps)
 
     def get_corp(self):
         """
@@ -92,7 +96,9 @@ class SigSciApi(object):
         PATCH /corps/{corpName}
         """
         return self._make_request(
-            "{}/{}".format(self.ep_corps, self.corp), data, "PATCH")
+            endpoint="{}/{}".format(self.ep_corps, self.corp),
+            json=data,
+            method="PATCH")
 
     # CORP USERS
     def get_corp_users(self):
@@ -102,7 +108,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/users
         """
         return self._make_request(
-            "{}/{}/users".format(self.ep_corps, self.corp))
+            endpoint="{}/{}/users".format(self.ep_corps, self.corp))
 
     def get_corp_user(self, email):
         """
@@ -111,7 +117,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/users/{userEmail}
         """
         return self._make_request(
-            "{}/{}/users/{}".format(self.ep_corps, self.corp, email))
+            endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, email))
 
     def delete_corp_user(self, email):
         """
@@ -120,7 +126,8 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/users/{userEmail}
         """
         return self._make_request(
-            "{}/{}/users/{}".format(self.ep_corps, self.corp, email), method="DELETE")
+            endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, email),
+            method="DELETE")
 
     def invite_corp_user(self, email, data):
         """
@@ -129,8 +136,8 @@ class SigSciApi(object):
         POST /corps/{corpName}/users/{userEmail}/invite
         """
         return self._make_request(
-            "{}/{}/users/{}/invite".format(self.ep_corps, self.corp, email),
-            data,
+            endpoint="{}/{}/users/{}/invite".format(self.ep_corps, self.corp, email),
+            json=data,
             method="POST_JSON")
 
     # OVERVIEW REPORT
@@ -141,8 +148,8 @@ class SigSciApi(object):
         GET /corps/{corpName}/reports/attacks
         """
         return self._make_request(
-            "{}/{}/reports/attacks".format(self.ep_corps, self.corp),
-            options=parameters)
+            endpoint="{}/{}/reports/attacks".format(self.ep_corps, self.corp),
+            params=parameters)
 
     # SITES
     def get_corp_sites(self):
@@ -152,7 +159,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites
         """
         return self._make_request(
-            "{}/{}/sites".format(self.ep_corps, self.corp))
+            endpoint="{}/{}/sites".format(self.ep_corps, self.corp))
 
     def get_corp_site(self, site_name):
         """
@@ -161,7 +168,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}
         """
         return self._make_request(
-            "{}/{}/sites/{}".format(self.ep_corps, self.corp, site_name))
+            endpoint="{}/{}/sites/{}".format(self.ep_corps, self.corp, site_name))
 
     def update_corp_site(self, data):
         """
@@ -170,7 +177,9 @@ class SigSciApi(object):
         PATCH /corps/{corpName}/sites/{siteName}
         """
         return self._make_request(
-            "{}/{}/sites/{}".format(self.ep_corps, self.corp, self.site), data, "PATCH")
+            endpoint="{}/{}/sites/{}".format(self.ep_corps, self.corp, self.site),
+            json=data,
+            method="PATCH")
 
     # CUSTOM ALERTS
     def get_custom_alerts(self):
@@ -180,7 +189,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/alerts
         """
         return self._make_request(
-            "{}/{}/sites/{}/alerts".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/alerts".format(self.ep_corps, self.corp, self.site))
 
     def create_custom_alert(self, data):
         """
@@ -189,30 +198,32 @@ class SigSciApi(object):
         POST /corps/{corpName}/sites/{siteName}/alerts
         """
         return self._make_request(
-            "{}/{}/sites/{}/alerts".format(self.ep_corps,
-                                           self.corp, self.site),
-            options=data,
+            endpoint="{}/{}/sites/{}/alerts".format(self.ep_corps, self.corp, self.site),
+            json=data,
             method="POST_JSON")
 
-    def get_custom_alert(self, alert_id):
+    def get_custom_alert(self, identifier):
         """
         Get custom alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__get
         GET /corps/{corpName}/sites/{siteName}/alerts/{alertID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/alerts/{}".format(self.ep_corps, self.corp, self.site, alert_id))
+            endpoint="{}/{}/sites/{}/alerts/{}".format(self.ep_corps,
+                                                       self.corp,
+                                                       self.site,
+                                                       identifier))
 
-    def update_custom_alert(self, alert_id, data):
+    def update_custom_alert(self, identifier, data):
         """
         Update custom alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__patch
         PATCH /corps/{corpName}/sites/{siteName}/alerts/{alertID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/alerts/{}".format(self.ep_corps,
-                                              self.corp, self.site, alert_id),
-            options=data,
+            endpoint="{}/{}/sites/{}/alerts/{}".format(self.ep_corps,
+                                                       self.corp, self.site, identifier),
+            json=data,
             method="PATCH")
 
     def delete_custom_alert(self, identifier):
@@ -222,8 +233,8 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/alerts/{alertID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/alerts/{}".format(self.ep_corps,
-                                              self.corp, self.site, identifier),
+            endpoint="{}/{}/sites/{}/alerts/{}".format(self.ep_corps,
+                                                       self.corp, self.site, identifier),
             method="DELETE")
 
     # EVENTS
@@ -234,16 +245,19 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/events
         """
         return self._make_request(
-            "{}/{}/sites/{}/events".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/events".format(self.ep_corps, self.corp, self.site))
 
-    def get_event(self, event_id):
+    def get_event(self, identifier):
         """
         Get event by ID
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__events__eventID__get
         GET /corps/{corpName}/sites/{siteName}/events/{eventID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/events/{}".format(self.ep_corps, self.corp, self.site, event_id))
+            endpoint="{}/{}/sites/{}/events/{}".format(self.ep_corps,
+                                                       self.corp,
+                                                       self.site,
+                                                       identifier))
 
     def expire_event(self, event_id):
         """
@@ -252,7 +266,10 @@ class SigSciApi(object):
         POST /corps/{corpName}/sites/{siteName}/events/{eventID}/expire
         """
         return self._make_request(
-            "{}/{}/sites/{}/events/{}/expire".format(self.ep_corps, self.corp, self.site, event_id))
+            endpoint="{}/{}/sites/{}/events/{}/expire".format(self.ep_corps,
+                                                              self.corp,
+                                                              self.site,
+                                                              event_id))
 
     # REQUESTS
     def get_requests(self, parameters=dict()):
@@ -262,18 +279,22 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/requests
         """
         return self._make_request(
-            "{}/{}/sites/{}/requests".format(self.ep_corps,
-                                             self.corp, self.site),
-            options=parameters)
+            endpoint="{}/{}/sites/{}/requests".format(self.ep_corps,
+                                                      self.corp,
+                                                      self.site),
+            params=parameters)
 
-    def get_request(self, request_id):
+    def get_request(self, identifier):
         """
         Get request by ID
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__requests__requestID__get
         GET /corps/{corpName}/sites/{siteName}/requests/{requestID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/requests/{}".format(self.ep_corps, self.corp, self.site, request_id))
+            endpoint="{}/{}/sites/{}/requests/{}".format(self.ep_corps,
+                                                         self.corp,
+                                                         self.site,
+                                                         identifier))
 
     def get_request_feed(self, parameters=dict()):
         """
@@ -281,8 +302,9 @@ class SigSciApi(object):
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__feed_requests_get
         GET /corps/{corpName}/sites/{siteName}/feed/requests
         """
-        return self._make_request("{}/{}/sites/{}/feed/requests".format(
-            self.ep_corps, self.corp, self.site), options=parameters)
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/feed/requests".format(self.ep_corps, self.corp, self.site),
+            params=parameters)
 
     # WHITELISTS
     def get_whitelist(self):
@@ -292,7 +314,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/whitelist
         """
         return self._make_request(
-            "{}/{}/sites/{}/whitelist".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/whitelist".format(self.ep_corps, self.corp, self.site))
 
     def add_to_whitelist(self, data):
         """
@@ -301,9 +323,9 @@ class SigSciApi(object):
         PUT /corps/{corpName}/sites/{siteName}/whitelist
         """
         return self._make_request(
-            "{}/{}/sites/{}/whitelist".format(self.ep_corps,
-                                              self.corp, self.site),
-            options=data,
+            endpoint="{}/{}/sites/{}/whitelist".format(self.ep_corps,
+                                                       self.corp, self.site),
+            json=data,
             method="PUT")
 
     def delete_from_whitelist(self, identifier):
@@ -313,7 +335,7 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/whitelist/{id}
         """
         return self._make_request(
-            "{}/{}/sites/{}/whitelist/{}".format(
+            endpoint="{}/{}/sites/{}/whitelist/{}".format(
                 self.ep_corps, self.corp, self.site, identifier),
             method="DELETE")
 
@@ -325,7 +347,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/blacklist
         """
         return self._make_request(
-            "{}/{}/sites/{}/blacklist".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/blacklist".format(self.ep_corps, self.corp, self.site))
 
     def add_to_blacklist(self, data):
         """
@@ -334,9 +356,9 @@ class SigSciApi(object):
         PUT /corps/{corpName}/sites/{siteName}/blacklist
         """
         return self._make_request(
-            "{}/{}/sites/{}/blacklist".format(self.ep_corps,
-                                              self.corp, self.site),
-            options=data,
+            endpoint="{}/{}/sites/{}/blacklist".format(self.ep_corps,
+                                                       self.corp, self.site),
+            json=data,
             method="PUT")
 
     def delete_from_blacklist(self, identifier):
@@ -346,7 +368,7 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/blacklist/{id}
         """
         return self._make_request(
-            "{}/{}/sites/{}/blacklist/{}".format(
+            endpoint="{}/{}/sites/{}/blacklist/{}".format(
                 self.ep_corps, self.corp, self.site, identifier),
             method="DELETE")
 
@@ -358,7 +380,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/redactions
         """
         return self._make_request(
-            "{}/{}/sites/{}/redactions".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/redactions".format(self.ep_corps, self.corp, self.site))
 
     def add_to_redactions(self, data):
         """
@@ -367,9 +389,9 @@ class SigSciApi(object):
         PUT /corps/{corpName}/sites/{siteName}/redactions
         """
         return self._make_request(
-            "{}/{}/sites/{}/redactions".format(self.ep_corps,
-                                               self.corp, self.site),
-            options=data,
+            endpoint="{}/{}/sites/{}/redactions".format(self.ep_corps,
+                                                        self.corp, self.site),
+            json=data,
             method="PUT")
 
     def delete_from_redactions(self, field):
@@ -379,7 +401,7 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/redactions/{field}
         """
         return self._make_request(
-            "{}/{}/sites/{}/redactions/{}".format(
+            endpoint="{}/{}/sites/{}/redactions/{}".format(
                 self.ep_corps, self.corp, self.site, field),
             method="DELETE")
 
@@ -391,41 +413,40 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/integrations
         """
         return self._make_request(
-            "{}/{}/sites/{}/integrations".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/integrations".format(self.ep_corps, self.corp, self.site))
 
-    def add_to_integrations(self, data):
+    def add_integration(self, data):
         """
         Add to integrations
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__integrations_post
         POST /corps/{corpName}/sites/{siteName}/integrations
         """
         return self._make_request(
-            "{}/{}/sites/{}/integrations".format(
+            endpoint="{}/{}/sites/{}/integrations".format(
                 self.ep_corps, self.corp, self.site),
-            options=data,
-            method="POST")
+            json=data,
+            method="POST_JSON")
 
-    def get_integration(self, integration_id):
+    def get_integration(self, identifier):
         """
         Get integration by ID
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__integrations__integrationID__get
         GET /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/integrations/{}".format(self.ep_corps, self.corp,
-                                                    self.site,
-                                                    integration_id))
+            endpoint="{}/{}/sites/{}/integrations/{}".format(self.ep_corps, self.corp,
+                                                             self.site, identifier))
 
-    def update_integration(self, integration_id, data):
+    def update_integration(self, identifier, data):
         """
         Update an integration by ID
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__integrations__integrationID__patch
         PATCH /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/integrations/{}".format(
-                self.ep_corps, self.corp, self.site, integration_id),
-            options=data,
+            endpoint="{}/{}/sites/{}/integrations/{}".format(
+                self.ep_corps, self.corp, self.site, identifier),
+            json=data,
             method="PATCH")
 
     def delete_integration(self, identifier):
@@ -435,7 +456,8 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
         """
         return self._make_request(
-            "{}/{}/users/{}".format(self.ep_corps, self.corp, identifier), method="DELETE")
+            endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, identifier),
+            method="DELETE")
 
     # PARAMETER WHITELIST
     def get_parameter_whitelist(self):
@@ -445,7 +467,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/paramwhitelist
         """
         return self._make_request(
-            "{}/{}/sites/{}/paramwhitelist".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/paramwhitelist".format(self.ep_corps, self.corp, self.site))
 
     def add_to_parameter_whitelist(self, data):
         """
@@ -454,9 +476,9 @@ class SigSciApi(object):
         POST /corps/{corpName}/sites/{siteName}/paramwhitelist
         """
         return self._make_request(
-            "{}/{}/sites/{}/paramwhitelist".format(
+            endpoint="{}/{}/sites/{}/paramwhitelist".format(
                 self.ep_corps, self.corp, self.site),
-            options=data,
+            json=data,
             method="POST")
 
     def delete_from_parameter_whitelist(self, identifier):
@@ -466,7 +488,7 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/paramwhitelist/{paramID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/paramwhitelist/{}".format(
+            endpoint="{}/{}/sites/{}/paramwhitelist/{}".format(
                 self.ep_corps, self.corp, self.site, identifier),
             method="DELETE")
 
@@ -478,7 +500,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/pathwhitelist
         """
         return self._make_request(
-            "{}/{}/sites/{}/pathwhitelist".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/pathwhitelist".format(self.ep_corps, self.corp, self.site))
 
     def add_to_path_whitelist(self, data):
         """
@@ -487,9 +509,9 @@ class SigSciApi(object):
         POST /corps/{corpName}/sites/{siteName}/pathwhitelist
         """
         return self._make_request(
-            "{}/{}/sites/{}/pathwhitelist".format(
+            endpoint="{}/{}/sites/{}/pathwhitelist".format(
                 self.ep_corps, self.corp, self.site),
-            options=data,
+            json=data,
             method="POST")
 
     def delete_from_path_whitelist(self, identifier):
@@ -499,7 +521,7 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/pathwhitelist/{pathID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/pathwhitelist/{}".format(
+            endpoint="{}/{}/sites/{}/pathwhitelist/{}".format(
                 self.ep_corps, self.corp, self.site, identifier),
             method="DELETE")
 
@@ -511,7 +533,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/analytics/events
         """
         return self._make_request(
-            "{}/{}/sites/{}/analytics/events".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/analytics/events".format(self.ep_corps, self.corp, self.site))
 
     # HEADER LINKS
     def get_header_links(self):
@@ -521,7 +543,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/headerLinks
         """
         return self._make_request(
-            "{}/{}/sites/{}/headerLinks".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/headerLinks".format(self.ep_corps, self.corp, self.site))
 
     def add_to_header_links(self, data):
         """
@@ -530,9 +552,9 @@ class SigSciApi(object):
         POST /corps/{corpName}/sites/{siteName}/headerLinks
         """
         return self._make_request(
-            "{}/{}/sites/{}/headerLinks".format(
+            endpoint="{}/{}/sites/{}/headerLinks".format(
                 self.ep_corps, self.corp, self.site),
-            options=data,
+            json=data,
             method="POST")
 
     def delete_from_header_links(self, identifier):
@@ -542,7 +564,7 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/headerLinks/{headerLinkID}
         """
         return self._make_request(
-            "{}/{}/sites/{}/headerLinks/{}".format(
+            endpoint="{}/{}/sites/{}/headerLinks/{}".format(
                 self.ep_corps, self.corp, self.site, identifier),
             method="DELETE")
 
@@ -554,7 +576,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/members
         """
         return self._make_request(
-            "{}/{}/sites/{}/members".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/members".format(self.ep_corps, self.corp, self.site))
 
     def delete_from_site_members(self, email):
         """
@@ -563,7 +585,7 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
         """
         return self._make_request(
-            "{}/{}/sites/{}/members/{}".format(
+            endpoint="{}/{}/sites/{}/members/{}".format(
                 self.ep_corps, self.corp, self.site, email),
             method="DELETE")
 
@@ -575,7 +597,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/monitors
         """
         return self._make_request(
-            "{}/{}/sites/{}/monitors".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/monitors".format(self.ep_corps, self.corp, self.site))
 
     # AGENTS
     def get_agents(self):
@@ -585,7 +607,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/agents
         """
         return self._make_request(
-            "{}/{}/sites/{}/agents".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/agents".format(self.ep_corps, self.corp, self.site))
 
     # SUSPICIOUS IPS
     def get_suspicious_ips(self):
@@ -595,7 +617,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/suspiciousIPs
         """
         return self._make_request(
-            "{}/{}/sites/{}/suspiciousIPs".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/suspiciousIPs".format(self.ep_corps, self.corp, self.site))
 
     # TOP ATTACKS
     def get_top_attacks(self):
@@ -605,7 +627,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/top/attacks
         """
         return self._make_request(
-            "{}/{}/sites/{}/top/attacks".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/top/attacks".format(self.ep_corps, self.corp, self.site))
 
     # TIMESERIES
     def get_timeseries_requests(self, parameters=dict()):
@@ -614,5 +636,8 @@ class SigSciApi(object):
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__timeseries_requests_get
         GET /corps/{corpName}/sites/{siteName}/timeseries/requests
         """
-        return self._make_request("{}/{}/sites/{}/timeseries/requests".format(
-            self.ep_corps, self.corp, self.site), options=parameters)
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/timeseries/requests".format(self.ep_corps,
+                                                                 self.corp,
+                                                                 self.site),
+            params=parameters)

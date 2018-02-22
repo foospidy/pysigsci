@@ -42,6 +42,10 @@ def main():
     # Create sigsciapi object
     sigsci = sigsciapi.SigSciApi(email, password)
 
+    if 'message' in sigsci.token and 'Unauthorized' in sigsci.token['message']:
+        print(sigsci.token['message'])
+        sys.exit()
+
     if "SIGSCI_CORP" in os.environ:
         sigsci.corp = os.environ['SIGSCI_CORP']
     else:
@@ -61,7 +65,6 @@ def main():
     parser.add_argument(
         '--get',
         help='Get data from the API.',
-        default='requests',
         choices=['corps', 'corp', 'corp-users', 'corp-user', 'overview-report',
                  'corp-sites', 'corp-site', 'custom-alerts', 'custom-alert',
                  'events', 'event', 'requests', 'request', 'request-feed',
@@ -73,19 +76,16 @@ def main():
     parser.add_argument(
         '--add',
         help='Add data via the API.',
-        default=None,
         choices=['custom-alert', 'whitelist', 'blacklist',
                  'redaction', 'integration', 'parameter-whitelst',
                  'path-whitelist', 'header-links'])
     parser.add_argument(
         '--update',
         help='Update data via the API.',
-        default=None,
         choices=['corp', 'corp-site', 'custom-alert', 'integration'])
     parser.add_argument(
         '--delete',
         help='Delete data via the API.',
-        default=None,
         choices=['corp-user', 'custom-alert', 'whitelist', 'blacklist',
                  'redaction', 'integration', 'parameter-whitelst',
                  'path-whitelist', 'header-links', 'site-member'])
@@ -124,9 +124,12 @@ def main():
 
     args = parser.parse_args()
 
-    if args.get:
+    if args.get or args.add:
         try:
-            method = getattr(sigsci, 'get_' + args.get.replace("-", "_"))
+            if args.get:
+                method = getattr(sigsci, 'get_' + args.get.replace("-", "_"))
+            elif args.add:
+                method = getattr(sigsci, 'add_' + args.add.replace("-", "_"))
 
         except AttributeError as error:
             print(str(error))
@@ -148,6 +151,9 @@ def main():
                 if args.query:
                     params['q'] = args.query
 
+                if args.data:
+                    data = args.data
+
                 if args.email:
                     identifier = args.email
 
@@ -165,7 +171,7 @@ def main():
                 if num_params > 0:
                     print_json_data(method(parameters=params), args.pretty)
                 elif args.data:
-                    print_json_data(method(data=params), args.pretty)
+                    print_json_data(method(data=data), args.pretty)
                 else:
                     if identifier is not None:
                         print_json_data(method(identifier), args.pretty)
@@ -174,7 +180,6 @@ def main():
 
             except Exception as error:
                 print(str(error))
-
 
 if __name__ == '__main__':
     main()

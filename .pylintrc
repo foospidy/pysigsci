@@ -1,2 +1,2 @@
 [MASTER]
-disable=dangerous-default-value,too-many-public-methods,broad-except,too-many-branches,too-many-statements
+disable=dangerous-default-value,too-many-public-methods,broad-except,too-many-branches,too-many-statements,too-many-arguments
