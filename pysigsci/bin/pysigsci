@@ -171,6 +171,9 @@ def main():
             method = getattr(sigsci, 'expire_event')
         elif args.generate_site_monitor_url:
             method = getattr(sigsci, 'generate_site_monitor_url')
+        else:
+            parser.print_help()
+            sys.exit()
 
     except AttributeError as error:
         print(str(error))
