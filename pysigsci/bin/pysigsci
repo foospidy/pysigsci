@@ -91,6 +91,28 @@ def main():
                  'redaction', 'integration', 'parameter-whitelst',
                  'path-whitelist', 'header-links', 'site-member'])
     parser.add_argument(
+        '--expire-event',
+        help='Expire an event by ID.',
+        default=False,
+        action='store_true'
+    )
+    parser.add_argument(
+        '--generate-site-monitor-url',
+        help='Generate site monitor URL.',
+        default=False,
+        action='store_true'
+    )
+    parser.add_argument(
+        '--enable',
+        help='Enable site monitor.',
+        choices=['site-monitor']
+    )
+    parser.add_argument(
+        '--disable',
+        help='Disable site monitor.',
+        choices=['site-monitor']
+    )
+    parser.add_argument(
         '--from-time',
         help='From timestamp.')
     parser.add_argument(
@@ -125,62 +147,73 @@ def main():
 
     args = parser.parse_args()
 
-    if args.get or args.add:
+    try:
+        if args.get:
+            method = getattr(sigsci, 'get_' + args.get.replace("-", "_"))
+        elif args.add:
+            method = getattr(sigsci, 'add_' + args.add.replace("-", "_"))
+        elif args.update:
+            method = getattr(sigsci, 'update_' + args.update.replace("-", "_"))
+        elif args.delete:
+            method = getattr(sigsci, 'delete_' + args.delete.replace("-", "_"))
+        elif args.enable:
+            method = getattr(sigsci, 'enable_' + args.enable.replace("-", "_"))
+        elif args.disable:
+            method = getattr(sigsci, 'disable_' + args.disable.replace("-", "_"))
+        elif args.expire_event:
+            method = getattr(sigsci, 'expire_event')
+        elif args.generate_site_monitor_url:
+            method = getattr(sigsci, 'generate_site_monitor_url')
+
+    except AttributeError as error:
+        print(str(error))
+
+    else:
         try:
-            if args.get:
-                method = getattr(sigsci, 'get_' + args.get.replace("-", "_"))
-            elif args.add:
-                method = getattr(sigsci, 'add_' + args.add.replace("-", "_"))
+            params = dict()
+            identifier = None
 
-        except AttributeError as error:
-            print(str(error))
+            if args.from_time:
+                params['from'] = args.from_time
 
-        else:
-            try:
-                params = dict()
-                identifier = None
+            if args.until_time:
+                params['until'] = args.until_time
 
-                if args.from_time:
-                    params['from'] = args.from_time
+            if args.tag:
+                params['tag'] = args.tag
 
-                if args.until_time:
-                    params['until'] = args.until_time
+            if args.query:
+                params['q'] = args.query
 
-                if args.tag:
-                    params['tag'] = args.tag
+            if args.data:
+                data = args.data
 
-                if args.query:
-                    params['q'] = args.query
+            if args.email:
+                identifier = args.email
 
-                if args.data:
-                    data = args.data
+            if args.field:
+                identifier = args.field
 
-                if args.email:
-                    identifier = args.email
+            if args.site:
+                identifier = args.site
 
-                if args.field:
-                    identifier = args.field
+            if args.id:
+                identifier = args.id
 
-                if args.site:
-                    identifier = args.site
+            num_params = len(params)
 
-                if args.id:
-                    identifier = args.id
-
-                num_params = len(params)
-
-                if num_params > 0:
-                    print_json_data(method(parameters=params), args.pretty)
-                elif args.data:
-                    print_json_data(method(data=data), args.pretty)
+            if num_params > 0:
+                print_json_data(method(parameters=params), args.pretty)
+            elif args.data:
+                print_json_data(method(data=data), args.pretty)
+            else:
+                if identifier is not None:
+                    print_json_data(method(identifier), args.pretty)
                 else:
-                    if identifier is not None:
-                        print_json_data(method(identifier), args.pretty)
-                    else:
-                        print_json_data(method(), args.pretty)
+                    print_json_data(method(), args.pretty)
 
-            except Exception as error:
-                print(str(error))
+        except Exception as error:
+            print(str(error))
 
 
 if __name__ == '__main__':
