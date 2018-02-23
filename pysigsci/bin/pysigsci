@@ -60,7 +60,8 @@ def main():
 
     # Parse arguments
     parser = argparse.ArgumentParser(
-        description="CLI tool for the Signal Sciences REST API (https://docs.signalsciences.net/api/).")
+        description="CLI tool for the Signal Sciences REST API \
+            (https://docs.signalsciences.net/api/).")
 
     parser.add_argument(
         '--get',
