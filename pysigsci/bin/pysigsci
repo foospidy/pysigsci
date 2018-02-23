@@ -76,13 +76,14 @@ def main():
     parser.add_argument(
         '--add',
         help='Add data via the API.',
-        choices=['custom-alert', 'whitelist', 'blacklist',
+        choices=['corp-user', 'custom-alert', 'whitelist', 'blacklist',
                  'redaction', 'integration', 'parameter-whitelst',
-                 'path-whitelist', 'header-links'])
+                 'path-whitelist', 'header-links', 'site-member'])
     parser.add_argument(
         '--update',
         help='Update data via the API.',
-        choices=['corp', 'corp-site', 'custom-alert', 'integration'])
+        choices=['corp', 'corp-site', 'custom-alert', 'integration',
+                 'site-member'])
     parser.add_argument(
         '--delete',
         help='Delete data via the API.',

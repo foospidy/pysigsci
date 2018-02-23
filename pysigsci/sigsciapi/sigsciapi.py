@@ -129,7 +129,7 @@ class SigSciApi(object):
             endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, email),
             method="DELETE")
 
-    def invite_corp_user(self, email, data):
+    def add_corp_user(self, email, data):
         """
         Invite user to corp
         https://docs.signalsciences.net/api/#_corps__corpName__users__userEmail__invite_post
@@ -193,7 +193,7 @@ class SigSciApi(object):
         return self._make_request(
             endpoint="{}/{}/sites/{}/alerts".format(self.ep_corps, self.corp, self.site))
 
-    def create_custom_alert(self, data):
+    def add_custom_alert(self, data):
         """
         Create custom alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts_post
@@ -645,7 +645,7 @@ class SigSciApi(object):
             json=data,
             method="PATCH")
 
-    def delete_from_site_members(self, email):
+    def delete_from_site_member(self, email):
         """
         Delete from site members
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__delete
@@ -656,7 +656,7 @@ class SigSciApi(object):
                 self.ep_corps, self.corp, self.site, email),
             method="DELETE")
 
-    def invite_site_members(self, email, data):
+    def add_site_member(self, email, data):
         """
         Invite a site member
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__invite_post
