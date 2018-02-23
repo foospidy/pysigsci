@@ -533,7 +533,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/pathwhitelist/{pathID}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/pathwhitelist".format(self.ep_corps,
+            endpoint="{}/{}/sites/{}/pathwhitelist/{}".format(self.ep_corps,
                                                            self.corp,
                                                            self.site,
                                                            identifier))
@@ -580,6 +580,18 @@ class SigSciApi(object):
                 self.ep_corps, self.corp, self.site),
             json=data,
             method="POST")
+
+    def get_header_link(self, identifier):
+        """
+        Get header link by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__headerLinks__headerLinkID__get
+        GET /corps/{corpName}/sites/{siteName}/headerLinks/{headerLinkID}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/headerLinks/{}".format(self.ep_corps,
+                                                         self.corp,
+                                                         self.site,
+                                                         identifier))
 
     def delete_from_header_links(self, identifier):
         """
