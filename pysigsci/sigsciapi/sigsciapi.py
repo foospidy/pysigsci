@@ -58,7 +58,7 @@ class SigSciApi(object):
             raise Exception("InvalidRequestMethod: " + str(method))
 
         if result.status_code == 204:
-            return dict({'message':'{} {}'.format(method, 'successful.')})
+            return dict({'message': '{} {}'.format(method, 'successful.')})
 
         return result.json()
 

@@ -26,6 +26,7 @@ def print_json_data(json_data, pretty=False):
     else:
         print(json.dumps(json_data))
 
+
 def main():
     """
     Main function for Signal Sciences CLI tool
@@ -159,7 +160,12 @@ def main():
         elif args.enable:
             method = getattr(sigsci, 'enable_' + args.enable.replace("-", "_"))
         elif args.disable:
-            method = getattr(sigsci, 'disable_' + args.disable.replace("-", "_"))
+            method = getattr(
+                sigsci,
+                'disable_' +
+                args.disable.replace(
+                    "-",
+                    "_"))
         elif args.expire_event:
             method = getattr(sigsci, 'expire_event')
         elif args.generate_site_monitor_url:
