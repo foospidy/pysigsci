@@ -136,7 +136,8 @@ class SigSciApi(object):
         POST /corps/{corpName}/users/{userEmail}/invite
         """
         return self._make_request(
-            endpoint="{}/{}/users/{}/invite".format(self.ep_corps, self.corp, email),
+            endpoint="{}/{}/users/{}/invite".format(
+                self.ep_corps, self.corp, email),
             json=data,
             method="POST_JSON")
 
@@ -177,7 +178,8 @@ class SigSciApi(object):
         PATCH /corps/{corpName}/sites/{siteName}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}".format(self.ep_corps, self.corp, self.site),
+            endpoint="{}/{}/sites/{}".format(self.ep_corps,
+                                             self.corp, self.site),
             json=data,
             method="PATCH")
 
@@ -198,7 +200,8 @@ class SigSciApi(object):
         POST /corps/{corpName}/sites/{siteName}/alerts
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/alerts".format(self.ep_corps, self.corp, self.site),
+            endpoint="{}/{}/sites/{}/alerts".format(
+                self.ep_corps, self.corp, self.site),
             json=data,
             method="POST_JSON")
 
@@ -303,7 +306,8 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/feed/requests
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/feed/requests".format(self.ep_corps, self.corp, self.site),
+            endpoint="{}/{}/sites/{}/feed/requests".format(
+                self.ep_corps, self.corp, self.site),
             params=parameters)
 
     # WHITELISTS
@@ -456,7 +460,8 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
         """
         return self._make_request(
-            endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, identifier),
+            endpoint="{}/{}/users/{}".format(self.ep_corps,
+                                             self.corp, identifier),
             method="DELETE")
 
     # PARAMETER WHITELIST
@@ -481,7 +486,7 @@ class SigSciApi(object):
             json=data,
             method="POST")
 
-    def get_parameter_whitelist_parameter(self, identifier):
+    def get_parameter_whitelist_param(self, identifier):
         """
         Get whitelisted parameter by ID
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__paramwhitelist__paramID__get
@@ -534,9 +539,9 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/pathwhitelist/{}".format(self.ep_corps,
-                                                           self.corp,
-                                                           self.site,
-                                                           identifier))
+                                                              self.corp,
+                                                              self.site,
+                                                              identifier))
 
     def delete_from_path_whitelist(self, identifier):
         """
@@ -589,9 +594,9 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/headerLinks/{}".format(self.ep_corps,
-                                                         self.corp,
-                                                         self.site,
-                                                         identifier))
+                                                            self.corp,
+                                                            self.site,
+                                                            identifier))
 
     def delete_from_header_links(self, identifier):
         """
@@ -621,7 +626,10 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/members/{}}".format(self.ep_corps, self.corp, self.site, email))
+            endpoint="{}/{}/sites/{}/members/{}".format(self.ep_corps,
+                                                        self.corp,
+                                                        self.site,
+                                                        email))
 
     def update_site_member(self, email, data):
         """
@@ -630,7 +638,10 @@ class SigSciApi(object):
         PATCH /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/members/{}}".format(self.ep_corps, self.corp, self.site, email),
+            endpoint="{}/{}/sites/{}/members/{}".format(self.ep_corps,
+                                                        self.corp,
+                                                        self.site,
+                                                        email),
             json=data,
             method="PATCH")
 
@@ -652,7 +663,10 @@ class SigSciApi(object):
         POST /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}/invite
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/members/{}/invite".format(self.ep_corps, self.corp, self.site, email),
+            endpoint="{}/{}/sites/{}/members/{}/invite".format(self.ep_corps,
+                                                               self.corp,
+                                                               self.site,
+                                                               email),
             json=data,
             method="POST_JSON")
 
@@ -673,7 +687,8 @@ class SigSciApi(object):
         POST /corps/{corpName}/sites/{siteName}/monitors
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/monitors".format(self.ep_corps, self.corp, self.site),
+            endpoint="{}/{}/sites/{}/monitors".format(
+                self.ep_corps, self.corp, self.site),
             json=data,
             method="POST_JSON")
 
@@ -684,17 +699,19 @@ class SigSciApi(object):
         POST /corps/{corpName}/sites/{siteName}/monitors/enable
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/monitors/enable".format(self.ep_corps, self.corp, self.site),
+            endpoint="{}/{}/sites/{}/monitors/enable".format(
+                self.ep_corps, self.corp, self.site),
             method="POST")
 
-    def disable_site_monitor(self, data):
+    def disable_site_monitor(self):
         """
         Disable site monitor
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__monitors_disable_post
         POST /corps/{corpName}/sites/{siteName}/monitors/disable
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/monitors/disable".format(self.ep_corps, self.corp, self.site),
+            endpoint="{}/{}/sites/{}/monitors/disable".format(
+                self.ep_corps, self.corp, self.site),
             method="POST")
 
     # AGENTS
@@ -706,6 +723,30 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/agents".format(self.ep_corps, self.corp, self.site))
+
+    def get_agent(self, identifier):
+        """
+        Agent Details
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__agents__agentName__get
+        GET /corps/{corpName}/sites/{siteName}/agents/{agentName}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/agents/{}".format(self.ep_corps,
+                                                       self.corp,
+                                                       self.site,
+                                                       identifier))
+
+    def get_agent_logs(self, identifier):
+        """
+        Get agent logs by agent name
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__agents__agentName__logs_get
+        GET /corps/{corpName}/sites/{siteName}/agents/{agentName}/logs
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/agents/{}/logs".format(self.ep_corps,
+                                                            self.corp,
+                                                            self.site,
+                                                            identifier))
 
     # SUSPICIOUS IPS
     def get_suspicious_ips(self):
