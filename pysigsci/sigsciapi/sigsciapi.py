@@ -614,6 +614,26 @@ class SigSciApi(object):
         return self._make_request(
             endpoint="{}/{}/sites/{}/members".format(self.ep_corps, self.corp, self.site))
 
+    def get_site_member(self, email):
+        """
+        Get site member by email
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__get
+        GET /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/members/{}}".format(self.ep_corps, self.corp, self.site, email))
+
+    def update_site_member(self, email, data):
+        """
+        Update a site member by email
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__patch
+        PATCH /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/members/{}}".format(self.ep_corps, self.corp, self.site, email),
+            json=data,
+            method="PATCH")
+
     def delete_from_site_members(self, email):
         """
         Delete from site members
@@ -624,6 +644,17 @@ class SigSciApi(object):
             endpoint="{}/{}/sites/{}/members/{}".format(
                 self.ep_corps, self.corp, self.site, email),
             method="DELETE")
+
+    def invite_site_members(self, email, data):
+        """
+        Invite a site member
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__invite_post
+        POST /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}/invite
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/members/{}/invite".format(self.ep_corps, self.corp, self.site, email),
+            json=data,
+            method="POST_JSON")
 
     # SITE MONITOR
     def get_site_monitor(self):
