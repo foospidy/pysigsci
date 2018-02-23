@@ -60,7 +60,7 @@ def main():
 
     # Parse arguments
     parser = argparse.ArgumentParser(
-        description="Process command line arguments.")
+        description="CLI tool for the Signal Sciences REST API (https://docs.signalsciences.net/api/).")
 
     parser.add_argument(
         '--get',
@@ -115,16 +115,16 @@ def main():
     )
     parser.add_argument(
         '--from-time',
-        help='From timestamp.')
+        help='The POSIX Unix time to start.')
     parser.add_argument(
         '--until-time',
-        help='Until timestamp.')
+        help='The POSIX Unix time to end.')
     parser.add_argument(
         '--tag',
         help='Filter based on tag.')
     parser.add_argument(
         '--query',
-        help='Search query.')
+        help='Search query (syntax https://docs.signalsciences.net/faq/search-syntax/).')
     parser.add_argument(
         '--data',
         help='Request data in JSON format.')
