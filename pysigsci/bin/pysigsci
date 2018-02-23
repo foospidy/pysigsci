@@ -26,7 +26,6 @@ def print_json_data(json_data, pretty=False):
     else:
         print(json.dumps(json_data))
 
-
 def main():
     """
     Main function for Signal Sciences CLI tool
@@ -69,9 +68,10 @@ def main():
                  'corp-sites', 'corp-site', 'custom-alerts', 'custom-alert',
                  'events', 'event', 'requests', 'request', 'request-feed',
                  'whitelist', 'blacklist', 'redactions', 'integrations',
-                 'integration',
-                 'parameter-whitelist', 'path-whitelist', 'activity',
-                 'header-links', 'site-members', 'site-monitor', 'agents',
+                 'integration', 'parameter-whitelist', 'parameter-whitelist-param',
+                 'path-whitelist', 'path-whitelist-path', 'activity',
+                 'header-links', 'header-link', 'site-members', 'site-member',
+                 'site-monitor', 'agents', 'agent', 'agent-logs',
                  'suspicious-ips', 'top-attacks', 'timeseries-requests'])
     parser.add_argument(
         '--add',
