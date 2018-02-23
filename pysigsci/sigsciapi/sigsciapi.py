@@ -666,6 +666,37 @@ class SigSciApi(object):
         return self._make_request(
             endpoint="{}/{}/sites/{}/monitors".format(self.ep_corps, self.corp, self.site))
 
+    def generate_site_monitor_url(self, data):
+        """
+        Generate site monitor URL
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__monitors_post
+        POST /corps/{corpName}/sites/{siteName}/monitors
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/monitors".format(self.ep_corps, self.corp, self.site),
+            json=data,
+            method="POST_JSON")
+
+    def enable_site_monitor(self):
+        """
+        Enable site monito
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__monitors_enable_post
+        POST /corps/{corpName}/sites/{siteName}/monitors/enable
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/monitors/enable".format(self.ep_corps, self.corp, self.site),
+            method="POST")
+
+    def disable_site_monitor(self, data):
+        """
+        Disable site monitor
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__monitors_disable_post
+        POST /corps/{corpName}/sites/{siteName}/monitors/disable
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/monitors/disable".format(self.ep_corps, self.corp, self.site),
+            method="POST")
+
     # AGENTS
     def get_agents(self):
         """
