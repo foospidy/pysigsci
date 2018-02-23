@@ -13,6 +13,8 @@ Python module and CLI tool for the [Signal Sciences](https://docs.signalsciences
 
 `$ pysigsci --get requests`
 
+To see all options run: `$ pysigsci --help`
+
 ### Module Usage
 
 ```

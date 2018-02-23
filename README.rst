@@ -22,6 +22,8 @@ CLI usage
 
     $ pysigsci --get requests
 
+To see all options run: $ pysigsci --help
+
 Module usage
 ------------
 .. code-block:: python
