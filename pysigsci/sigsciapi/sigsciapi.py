@@ -750,6 +750,86 @@ class SigSciApi(object):
                                                             self.site,
                                                             identifier))
 
+    def enable_agent_alerts(self):
+        """
+        Uses: List custom alerts & Update custom alerts
+        Alert names:
+        - requests_total - The average RPS across all agents is less than 10
+        - agent_scoreboards - The site's Online Agent count is zero
+        """
+        alerts = self.get_custom_alerts()['data']
+        responses = []
+
+        for alert in alerts:
+            if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
+                alert['enabled'] = True
+                identifier = alert['id']
+                responses.append(self.update_custom_alert(identifier, alert))
+
+        return responses
+
+    def enable_agent_alerts_all_sites(self):
+        """
+        Uses: Get corp sites, List custom alerts, & Update custom alerts
+        Alert names:
+        - requests_total - The average RPS across all agents is less than 10
+        - agent_scoreboards - The site's Online Agent count is zero
+        """
+        sites = self.get_corp_sites()['data']
+        response = []
+
+        for site in sites:
+            self.site = site['name']
+            alerts = self.get_custom_alerts()['data']
+
+            for alert in alerts:
+                if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
+                    alert['enabled'] = True
+                    identifier = alert['id']
+                    response.append(self.update_custom_alert(identifier, alert))
+
+        return response
+
+    def disable_agent_alerts(self):
+        """
+        Uses: List custom alerts & Update custom alerts
+        Alert names:
+        - requests_total - The average RPS across all agents is less than 10
+        - agent_scoreboards - The site's Online Agent count is zero
+        """
+        alerts = self.get_custom_alerts()['data']
+        responses = []
+
+        for alert in alerts:
+            if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
+                alert['enabled'] = False
+                identifier = alert['id']
+                responses.append(self.update_custom_alert(identifier, alert))
+
+        return responses
+
+    def disable_agent_alerts_all_sites(self):
+        """
+        Uses: Get corp sites, List custom alerts, & Update custom alerts
+        Alert names:
+        - requests_total - The average RPS across all agents is less than 10
+        - agent_scoreboards - The site's Online Agent count is zero
+        """
+        sites = self.get_corp_sites()['data']
+        responses = []
+
+        for site in sites:
+            self.site = site['name']
+            alerts = self.get_custom_alerts()['data']
+
+            for alert in alerts:
+                if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
+                    alert['enabled'] = False
+                    identifier = alert['id']
+                    responses.append(self.update_custom_alert(identifier, alert))
+
+        return responses
+
     # SUSPICIOUS IPS
     def get_suspicious_ips(self):
         """

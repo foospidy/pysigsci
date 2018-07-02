@@ -107,12 +107,12 @@ def main():
     parser.add_argument(
         '--enable',
         help='Enable site monitor.',
-        choices=['site-monitor']
+        choices=['site-monitor', 'agent-alerts', 'agent-alerts-all-sites']
     )
     parser.add_argument(
         '--disable',
         help='Disable site monitor.',
-        choices=['site-monitor']
+        choices=['site-monitor', 'agent-alerts', 'agent-alerts-all-sites']
     )
     parser.add_argument(
         '--from-time',
