@@ -379,6 +379,43 @@ class SigSciApi(object):
                 self.ep_corps, self.corp, self.site, identifier),
             method="DELETE")
 
+    # RULES
+    def get_request_rules(self):
+        """
+        Get Request Rules
+        # WARNING: This is an undocumented endpoint. No support provided, and the endpoint may change.
+        # /corps/{corpName}/sites/{siteName}/requestRules
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/requestRules".format(self.ep_corps, self.corp, self.site))
+
+    def get_signal_rules(self):
+        """
+        Get Signal Rules
+        # WARNING: This is an undocumented endpoint. No support provided, and the endpoint may change.
+        # /corps/{corpName}/sites/{siteName}/signalRules
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/signalRules".format(self.ep_corps, self.corp, self.site))
+
+    def get_templated_rules(self):
+        """
+        Get Templated Rules
+        # WARNING: This is an undocumented endpoint. No support provided, and the endpoint may change.
+        # /corps/{corpName}/sites/{siteName}/configuredtemplates
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/configuredtemplates".format(self.ep_corps, self.corp, self.site))
+
+    def get_advanced_rules(self):
+        """
+        Get Advanced Rules
+        # WARNING: This is an undocumented endpoint. No support provided, and the endpoint may change.
+        # /corps/{corpName}/sites/{siteName}/advancedRules
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/advancedRules".format(self.ep_corps, self.corp, self.site))
+
     # PRIVACY REDACTIONS
     def get_redactions(self):
         """
