@@ -1,0 +1,256 @@
+#!/usr/bin/env python
+"""
+Signal Sciences CLI Tool for Auditing Corp Config
+
+API credentials must be exported to environment variables:
+export SIGSCI_EMAIL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export SIGSCI_PASSWORD=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export SIGSCI_CORP=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export SIGSCI_SITE=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+"""
+
+from __future__ import print_function
+import os
+import sys
+import json
+import argparse
+from deepdiff import DeepDiff
+from pysigsci import sigsciapi
+
+SIGSCI_CONFIGS = ['request_rules', 'signal_rules', 'templated_rules', 'advanced_rules',
+                  'redactions', 'custom_signals', 'custom_alerts', 'header_links',
+                  'integrations']
+
+
+def get_site_config(sigsciobj, name, directory='/tmp/pysigsci/audit'):
+    """
+    Get all config for a site
+    """
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    sigsciobj.site = name
+
+    with open('{}/{}.request_rules.json'.format(directory, name), 'w') as outfile:
+        json.dump(sigsciobj.get_request_rules(), outfile)
+
+    with open('{}/{}.signal_rules.json'.format(directory, name), 'w') as outfile:
+        json.dump(sigsciobj.get_signal_rules(), outfile)
+
+    with open('{}/{}.templated_rules.json'.format(directory, name), 'w') as outfile:
+        json.dump(sigsciobj.get_templated_rules(), outfile)
+
+    with open('{}/{}.advanced_rules.json'.format(directory, name), 'w') as outfile:
+        json.dump(sigsciobj.get_advanced_rules(), outfile)
+
+    with open('{}/{}.redactions.json'.format(directory, name), 'w') as outfile:
+        json.dump(sigsciobj.get_redactions(), outfile)
+
+    with open('{}/{}.custom_signals.json'.format(directory, name), 'w') as outfile:
+        json.dump(sigsciobj.get_custom_signals(), outfile)
+
+    with open('{}/{}.custom_alerts.json'.format(directory, name), 'w') as outfile:
+        json.dump(sigsciobj.get_custom_alerts(), outfile)
+
+    with open('{}/{}.header_links.json'.format(directory, name), 'w') as outfile:
+        json.dump(sigsciobj.get_header_links(), outfile)
+
+    with open('{}/{}.integrations.json'.format(directory, name), 'w') as outfile:
+        json.dump(sigsciobj.get_integrations(), outfile)
+
+
+def diff_config(config, site1, site2, directory='/tmp/pysigsci/audit'):
+    """
+    Perform comparison of a specific configuration between two sites
+    """
+    with open('{}/{}.{}.json'.format(directory, site1, config), 'r') as infile:
+        config1 = json.load(infile)['data']
+        size1 = len(config1)
+
+        for i in range(size1):
+            try:
+                if 'id' in config1[i]:
+                    del config1[i]['id']
+                if 'createdBy' in config1[i]:
+                    del config1[i]['createdBy']
+                if 'updated' in config1[i]:
+                    del config1[i]['updated']
+                if 'created' in config1[i]:
+                    del config1[i]['created']
+                # for templated rules
+                if 'detections' in config1[i]:
+                    detections = config1[i]['detections']
+
+                    for detection in detections:
+                        del detection['id']
+                        del detection['createdBy']
+                        del detection['created']
+
+                if 'alerts' in config1[i]:
+                    alerts = config1[i]['alerts']
+
+                    for alert in alerts:
+                        del alert['id']
+                        del alert['createdBy']
+                        del alert['created']
+
+            except Exception as error:
+                print('{} not in {}'.format(error, config1[i]))
+                sys.exit()
+
+    with open('{}/{}.{}.json'.format(directory, site2, config), 'r') as infile:
+        config2 = json.load(infile)['data']
+        size2 = len(config2)
+
+        for i in range(size2):
+            try:
+                if 'id' in config2[i]:
+                    del config2[i]['id']
+                if 'createdBy' in config2[i]:
+                    del config2[i]['createdBy']
+                if 'updated' in config2[i]:
+                    del config2[i]['updated']
+                if 'created' in config2[i]:
+                    del config2[i]['created']
+                # for templated rules
+                if 'detections' in config2[i]:
+                    detections = config2[i]['detections']
+
+                    for detection in detections:
+                        del detection['id']
+                        del detection['createdBy']
+                        del detection['created']
+
+                if 'alerts' in config2[i]:
+                    alerts = config2[i]['alerts']
+
+                    for alert in alerts:
+                        del alert['id']
+                        del alert['createdBy']
+                        del alert['created']
+
+            except Exception as error:
+                print('{} not in {}'.format(error, config2[i]))
+                sys.exit()
+
+    ddiff = DeepDiff(config1, config2, ignore_order=True)
+
+    print('#### {}'.format(config.upper()))
+    print('######################################################')
+
+    if 'iterable_item_removed' in ddiff:
+        print("\tIn {} but not in {}".format(site1, site2))
+        dump = json.dumps(ddiff['iterable_item_removed'], indent=4)
+        print(dump.replace('{', '\t{', 1).replace('\n', '\n\t'))
+
+    if 'iterable_item_added' in ddiff:
+        print('\t##############################################')
+        print("\tNot in {} but is in {}".format(site1, site2))
+        dump = json.dumps(ddiff['iterable_item_added'], indent=4)
+        print(dump.replace('{', '\t{', 1).replace('\n', '\n\t'))
+
+    print('######################################################')
+
+
+def main():
+    """
+    Main function for Signal Sciences CLI Tool for Auditing Corp Config
+    """
+    try:
+        email = os.environ["SIGSCI_EMAIL"]
+        password = os.environ["SIGSCI_PASSWORD"]
+
+    except KeyError as error:
+        print("Environment variable not set {}".format(str(error)))
+        sys.exit()
+
+    # Create sigsciapi object
+    sigsci = sigsciapi.SigSciApi(email, password)
+
+    if 'message' in sigsci.token and 'Unauthorized' in sigsci.token['message']:
+        print(sigsci.token['message'])
+        sys.exit()
+
+    if "SIGSCI_CORP" in os.environ:
+        sigsci.corp = os.environ['SIGSCI_CORP']
+    else:
+        print('SIGSCI_CORP required.')
+        sys.exit()
+
+    if "SIGSCI_SITE" in os.environ:
+        sigsci.site = os.environ['SIGSCI_SITE']
+    else:
+        print('SIGSCI_SITE required.')
+        sys.exit()
+
+    parser = argparse.ArgumentParser(
+        description="SigSci CLI tool for Auditing Configuration.")
+
+    parser.add_argument(
+        '--get-config',
+        help='Get config for all sites',
+        default=False,
+        action="store_true")
+
+    parser.add_argument(
+        '--compare',
+        help='Site to compare against.')
+
+    parser.add_argument(
+        '--to',
+        help='Site to compare with. If you do not specify this option all sites will be compared')
+
+    parser.add_argument(
+        '--configs',
+        help='Specify a config for comparison. Default is all configs.',
+        nargs='+',
+        choices=SIGSCI_CONFIGS)
+
+    args = parser.parse_args()
+
+    try:
+        if args.get_config:
+            # get sites
+            sites = sigsci.get_corp_sites()['data']
+
+            for site in sites:
+                print(
+                    'Retreiving configuration for {}...'.format(
+                        site['name']))
+                get_site_config(sigsci, name=site['name'])
+
+        elif args.compare:
+            print('## Signal Sciences Configuration Audit Report')
+            print('######################################################')
+            if not args.configs:
+                args.configs = SIGSCI_CONFIGS
+
+            if args.to:
+                for config in args.configs:
+                    diff_config(
+                        config=config,
+                        site1=args.compare,
+                        site2=args.to)
+            else:
+                # get sites
+                sites = sigsci.get_corp_sites()['data']
+
+                for site in sites:
+                    print(
+                        'Comparing configuration for {}...'.format(
+                            site['name']))
+                    diff_config(
+                        config=config,
+                        site1=args.compare,
+                        site2='crdz')
+
+        else:
+            parser.print_help()
+            sys.exit()
+
+    except AttributeError as error:
+        print(str(error))
+
+
+if __name__ == '__main__':
+    main()
