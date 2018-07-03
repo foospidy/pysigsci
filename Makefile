@@ -4,6 +4,7 @@ codestyle:
 	pycodestyle pysigsci/sigsciapi/__init__.py
 	pycodestyle pysigsci/sigsciapi/sigsciapi.py
 	pycodestyle pysigsci/bin/pysigsci
+	pycodestyle pysigsci/bin/pysigscia
 	pycodestyle example.py
 
 fix-codestyle:
@@ -12,6 +13,7 @@ fix-codestyle:
 	autopep8 --in-place --aggressive pysigsci/sigsciapi/__init__.py
 	autopep8 --in-place --aggressive pysigsci/sigsciapi/sigsciapi.py
 	autopep8 --in-place --aggressive pysigsci/bin/pysigsci
+	autopep8 --in-place --aggressive pysigsci/bin/pysigscia
 	autopep8 --in-place --aggressive example.py
 
 lint:
@@ -19,6 +21,7 @@ lint:
 	pylint pysigsci/sigsciapi/__init__.py
 	pylint pysigsci/sigsciapi/sigsciapi.py
 	pylint pysigsci/bin/pysigsci
+	pylint pysigsci/bin/pysigscia
 	pylint example.py
 
 env:

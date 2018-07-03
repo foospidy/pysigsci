@@ -172,7 +172,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}".format(self.ep_corps, self.corp, site_name))
+            endpoint="{}/{}/sites/{}".format(self.ep_corps,
+                                             self.corp,
+                                             site_name))
 
     def update_corp_site(self, data):
         """
@@ -182,7 +184,8 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}".format(self.ep_corps,
-                                             self.corp, self.site),
+                                             self.corp,
+                                             self.site),
             json=data,
             method="PATCH")
 
@@ -190,11 +193,14 @@ class SigSciApi(object):
     def get_custom_signals(self):
         """
         Get Custom Signals
-        WARNING: This is an undocumented endpoint. No support provided, and the endpoint may change.
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
         /corps/{corpName}/sites/{siteName}/tags
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/tags".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/tags".format(self.ep_corps,
+                                                  self.corp,
+                                                  self.site))
 
     # CUSTOM ALERTS
     def get_custom_alerts(self):
@@ -204,7 +210,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/alerts
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/alerts".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/alerts".format(self.ep_corps,
+                                                    self.corp,
+                                                    self.site))
 
     def add_custom_alert(self, data):
         """
@@ -238,7 +246,9 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/alerts/{}".format(self.ep_corps,
-                                                       self.corp, self.site, identifier),
+                                                       self.corp,
+                                                       self.site,
+                                                       identifier),
             json=data,
             method="PATCH")
 
@@ -250,7 +260,9 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/alerts/{}".format(self.ep_corps,
-                                                       self.corp, self.site, identifier),
+                                                       self.corp,
+                                                       self.site,
+                                                       identifier),
             method="DELETE")
 
     # EVENTS
@@ -261,7 +273,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/events
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/events".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/events".format(self.ep_corps,
+                                                    self.corp,
+                                                    self.site))
 
     def get_event(self, identifier):
         """
@@ -331,7 +345,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/whitelist
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/whitelist".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/whitelist".format(self.ep_corps,
+                                                       self.corp,
+                                                       self.site))
 
     def add_to_whitelist(self, data):
         """
@@ -341,7 +357,8 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/whitelist".format(self.ep_corps,
-                                                       self.corp, self.site),
+                                                       self.corp,
+                                                       self.site),
             json=data,
             method="PUT")
 
@@ -364,7 +381,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/blacklist
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/blacklist".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/blacklist".format(self.ep_corps,
+                                                       self.corp,
+                                                       self.site))
 
     def add_to_blacklist(self, data):
         """
@@ -393,38 +412,50 @@ class SigSciApi(object):
     def get_request_rules(self):
         """
         Get Request Rules
-        # WARNING: This is an undocumented endpoint. No support provided, and the endpoint may change.
-        # /corps/{corpName}/sites/{siteName}/requestRules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/requestRules
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/requestRules".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/requestRules".format(self.ep_corps,
+                                                          self.corp,
+                                                          self.site))
 
     def get_signal_rules(self):
         """
         Get Signal Rules
-        # WARNING: This is an undocumented endpoint. No support provided, and the endpoint may change.
-        # /corps/{corpName}/sites/{siteName}/signalRules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/signalRules
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/signalRules".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/signalRules".format(self.ep_corps,
+                                                         self.corp,
+                                                         self.site))
 
     def get_templated_rules(self):
         """
         Get Templated Rules
-        # WARNING: This is an undocumented endpoint. No support provided, and the endpoint may change.
-        # /corps/{corpName}/sites/{siteName}/configuredtemplates
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/configuredtemplates
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/configuredtemplates".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/configuredtemplates".format(self.ep_corps,
+                                                                 self.corp,
+                                                                 self.site))
 
     def get_advanced_rules(self):
         """
         Get Advanced Rules
-        # WARNING: This is an undocumented endpoint. No support provided, and the endpoint may change.
-        # /corps/{corpName}/sites/{siteName}/advancedRules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/advancedRules
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/advancedRules".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/advancedRules".format(self.ep_corps,
+                                                           self.corp,
+                                                           self.site))
 
     # PRIVACY REDACTIONS
     def get_redactions(self):
@@ -434,7 +465,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/redactions
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/redactions".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/redactions".format(self.ep_corps,
+                                                        self.corp,
+                                                        self.site))
 
     def add_to_redactions(self, data):
         """
@@ -444,7 +477,8 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/redactions".format(self.ep_corps,
-                                                        self.corp, self.site),
+                                                        self.corp,
+                                                        self.site),
             json=data,
             method="PUT")
 
@@ -467,7 +501,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/integrations
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/integrations".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/integrations".format(self.ep_corps,
+                                                          self.corp,
+                                                          self.site))
 
     def add_integration(self, data):
         """
@@ -488,8 +524,10 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/integrations/{}".format(self.ep_corps, self.corp,
-                                                             self.site, identifier))
+            endpoint="{}/{}/sites/{}/integrations/{}".format(self.ep_corps,
+                                                             self.corp,
+                                                             self.site,
+                                                             identifier))
 
     def update_integration(self, identifier, data):
         """
@@ -522,7 +560,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/paramwhitelist
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/paramwhitelist".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/paramwhitelist".format(self.ep_corps,
+                                                            self.corp,
+                                                            self.site))
 
     def add_to_parameter_whitelist(self, data):
         """
@@ -567,7 +607,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/pathwhitelist
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/pathwhitelist".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/pathwhitelist".format(self.ep_corps,
+                                                           self.corp,
+                                                           self.site))
 
     def add_to_path_whitelist(self, data):
         """
@@ -612,7 +654,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/analytics/events
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/analytics/events".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/analytics/events".format(self.ep_corps,
+                                                              self.corp,
+                                                              self.site))
 
     # HEADER LINKS
     def get_header_links(self):
@@ -622,7 +666,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/headerLinks
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/headerLinks".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/headerLinks".format(self.ep_corps,
+                                                         self.corp,
+                                                         self.site))
 
     def add_to_header_links(self, data):
         """
@@ -667,7 +713,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/members
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/members".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/members".format(self.ep_corps,
+                                                     self.corp,
+                                                     self.site))
 
     def get_site_member(self, email):
         """
@@ -728,7 +776,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/monitors
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/monitors".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/monitors".format(self.ep_corps,
+                                                      self.corp,
+                                                      self.site))
 
     def generate_site_monitor_url(self):
         """
@@ -771,7 +821,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/agents
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/agents".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/agents".format(self.ep_corps,
+                                                    self.corp,
+                                                    self.site))
 
     def get_agent(self, identifier):
         """
@@ -833,7 +885,9 @@ class SigSciApi(object):
                 if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
                     alert['enabled'] = True
                     identifier = alert['id']
-                    response.append(self.update_custom_alert(identifier, alert))
+                    response.append(
+                        self.update_custom_alert(
+                            identifier, alert))
 
         return response
 
@@ -873,7 +927,9 @@ class SigSciApi(object):
                 if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
                     alert['enabled'] = False
                     identifier = alert['id']
-                    responses.append(self.update_custom_alert(identifier, alert))
+                    responses.append(
+                        self.update_custom_alert(
+                            identifier, alert))
 
         return responses
 
@@ -885,7 +941,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/suspiciousIPs
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/suspiciousIPs".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/suspiciousIPs".format(self.ep_corps,
+                                                           self.corp,
+                                                           self.site))
 
     # TOP ATTACKS
     def get_top_attacks(self):
@@ -895,7 +953,9 @@ class SigSciApi(object):
         GET /corps/{corpName}/sites/{siteName}/top/attacks
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/top/attacks".format(self.ep_corps, self.corp, self.site))
+            endpoint="{}/{}/sites/{}/top/attacks".format(self.ep_corps,
+                                                         self.corp,
+                                                         self.site))
 
     # TIMESERIES
     def get_timeseries_requests(self, parameters=dict()):
