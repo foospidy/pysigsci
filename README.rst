@@ -24,6 +24,15 @@ CLI usage
 
 To see all options run: $ pysigsci --help
 
+CLI configuration audit tool
+---------
+.. code-block:: bash
+
+    $ pysigscia --get-config
+    $ pysigscia --compare site1 --to site2
+
+To see all options run: $ pysigscia --help
+
 Module usage
 ------------
 .. code-block:: python

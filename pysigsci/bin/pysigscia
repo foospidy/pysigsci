@@ -239,10 +239,13 @@ def main():
                     print(
                         'Comparing configuration for {}...'.format(
                             site['name']))
-                    diff_config(
-                        config=config,
-                        site1=args.compare,
-                        site2='crdz')
+
+                    if site['name'] != args.compare:
+                        for config in args.configs:
+                            diff_config(
+                                config=config,
+                                site1=args.compare,
+                                site2=site['name'])
 
         else:
             parser.print_help()
