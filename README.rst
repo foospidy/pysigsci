@@ -25,7 +25,7 @@ CLI usage
 To see all options run: $ pysigsci --help
 
 CLI configuration audit tool
----------
+----------------------------
 .. code-block:: bash
 
     $ pysigscia --get-config
