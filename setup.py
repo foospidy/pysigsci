@@ -28,5 +28,5 @@ setup(
         "License :: OSI Approved :: MIT License",
     ],
     install_requires=['requests', 'pyopenssl', 'deepdiff'],
-    scripts=['pysigsci/bin/pysigsci'],
+    scripts=['pysigsci/bin/pysigsci', 'pysigsci/bin/pysigscia'],
 )
