@@ -60,6 +60,9 @@ class SigSciApi(object):
         if result.status_code == 204:
             return dict({'message': '{} {}'.format(method, 'successful.')})
 
+        if result.status_code == 400:
+            raise Exception('400 Bad Request: {}'.format(result.json()['message']))
+
         return result.json()
 
     def auth(self, email, password):
@@ -849,7 +852,7 @@ class SigSciApi(object):
                                                             self.site,
                                                             identifier))
 
-    def enable_agent_alerts(self):
+    def enable_agent_alerts(self, identifier=None):
         """
         Uses: List custom alerts & Update custom alerts
         Alert names:
@@ -858,16 +861,20 @@ class SigSciApi(object):
         """
         alerts = self.get_custom_alerts()['data']
         responses = []
+        agent_alert_tagnames = ['requests_total', 'agent_scoreboards']
+
+        if identifier is not None and identifier in agent_alert_tagnames:
+            agent_alert_tagnames = [identifier]
 
         for alert in alerts:
-            if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
+            if alert['tagName'] in agent_alert_tagnames:
                 alert['enabled'] = True
                 identifier = alert['id']
                 responses.append(self.update_custom_alert(identifier, alert))
 
         return responses
 
-    def enable_agent_alerts_all_sites(self):
+    def enable_agent_alerts_all_sites(self, identifier=None):
         """
         Uses: Get corp sites, List custom alerts, & Update custom alerts
         Alert names:
@@ -876,13 +883,17 @@ class SigSciApi(object):
         """
         sites = self.get_corp_sites()['data']
         response = []
+        agent_alert_tagnames = ['requests_total', 'agent_scoreboards']
+
+        if identifier is not None and identifier in agent_alert_tagnames:
+            agent_alert_tagnames = [identifier]
 
         for site in sites:
             self.site = site['name']
             alerts = self.get_custom_alerts()['data']
 
             for alert in alerts:
-                if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
+                if alert['tagName'] in agent_alert_tagnames:
                     alert['enabled'] = True
                     identifier = alert['id']
                     response.append(
@@ -891,7 +902,7 @@ class SigSciApi(object):
 
         return response
 
-    def disable_agent_alerts(self):
+    def disable_agent_alerts(self, identifier=None):
         """
         Uses: List custom alerts & Update custom alerts
         Alert names:
@@ -900,16 +911,20 @@ class SigSciApi(object):
         """
         alerts = self.get_custom_alerts()['data']
         responses = []
+        agent_alert_tagnames = ['requests_total', 'agent_scoreboards']
+
+        if identifier is not None and identifier in agent_alert_tagnames:
+            agent_alert_tagnames = [identifier]
 
         for alert in alerts:
-            if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
+            if alert['tagName'] in agent_alert_tagnames:
                 alert['enabled'] = False
                 identifier = alert['id']
                 responses.append(self.update_custom_alert(identifier, alert))
 
         return responses
 
-    def disable_agent_alerts_all_sites(self):
+    def disable_agent_alerts_all_sites(self, identifier=None):
         """
         Uses: Get corp sites, List custom alerts, & Update custom alerts
         Alert names:
@@ -918,13 +933,17 @@ class SigSciApi(object):
         """
         sites = self.get_corp_sites()['data']
         responses = []
+        agent_alert_tagnames = ['requests_total', 'agent_scoreboards']
+
+        if identifier is not None and identifier in agent_alert_tagnames:
+            agent_alert_tagnames = [identifier]
 
         for site in sites:
             self.site = site['name']
             alerts = self.get_custom_alerts()['data']
 
             for alert in alerts:
-                if alert['tagName'] in ['requests_total', 'agent_scoreboards']:
+                if alert['tagName'] in agent_alert_tagnames:
                     alert['enabled'] = False
                     identifier = alert['id']
                     responses.append(

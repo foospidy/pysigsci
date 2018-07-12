@@ -142,6 +142,9 @@ def main():
         '--id',
         help='Record identfier.')
     parser.add_argument(
+        '--alert-tag-name',
+        help='Specify an alert tagName.')
+    parser.add_argument(
         '--pretty',
         help='Print JSON in pretty format.',
         default=False,
@@ -209,6 +212,9 @@ def main():
 
             if args.id:
                 identifier = args.id
+
+            if args.alert_tag_name:
+                identifier = args.alert_tag_name
 
             num_params = len(params)
 
