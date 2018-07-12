@@ -11,7 +11,7 @@ with open(os.path.join(HERE, 'README.rst')) as f:
 
 setup(
     name="pysigsci",
-    version="1.1.2",
+    version="1.1.3",
     author="foospidy",
     description=("A python wrapper for the Signal Sciences API - "
                  "https://docs.signalsciences.net/api/"),
@@ -27,6 +27,6 @@ setup(
         "Programming Language :: Python :: 2.7",
         "License :: OSI Approved :: MIT License",
     ],
-    install_requires=['requests', 'pyopenssl', 'deepdiff'],
+    install_requires=['json', 'requests', 'pyopenssl', 'deepdiff'],
     scripts=['pysigsci/bin/pysigsci', 'pysigsci/bin/pysigscia'],
 )
