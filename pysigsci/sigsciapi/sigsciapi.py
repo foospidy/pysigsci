@@ -2,6 +2,7 @@
 Signal Sciences API Client
 """
 
+import json as j
 import requests
 
 
@@ -47,7 +48,7 @@ class SigSciApi(object):
         elif method == "POST":
             result = requests.post(url, data=data, headers=headers)
         elif method == "POST_JSON":
-            result = requests.post(url, json=json, headers=headers)
+            result = requests.post(url, json=j.loads(json), headers=headers)
         elif method == "PUT":
             result = requests.put(url, json=json, headers=headers)
         elif method == "PATCH":
