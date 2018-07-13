@@ -218,18 +218,6 @@ class SigSciApi(object):
                                                     self.corp,
                                                     self.site))
 
-    def add_custom_alert(self, data):
-        """
-        Create custom alert
-        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts_post
-        POST /corps/{corpName}/sites/{siteName}/alerts
-        """
-        return self._make_request(
-            endpoint="{}/{}/sites/{}/alerts".format(
-                self.ep_corps, self.corp, self.site),
-            json=data,
-            method="POST_JSON")
-
     def get_custom_alert(self, identifier):
         """
         Get custom alert
@@ -241,6 +229,18 @@ class SigSciApi(object):
                                                        self.corp,
                                                        self.site,
                                                        identifier))
+
+    def add_custom_alert(self, data):
+        """
+        Create custom alert
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts_post
+        POST /corps/{corpName}/sites/{siteName}/alerts
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/alerts".format(
+                self.ep_corps, self.corp, self.site),
+            json=data,
+            method="POST_JSON")
 
     def update_custom_alert(self, identifier, data):
         """
@@ -353,7 +353,7 @@ class SigSciApi(object):
                                                        self.corp,
                                                        self.site))
 
-    def add_to_whitelist(self, data):
+    def add_whitelist(self, data):
         """
         Add to whitelist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__whitelist_put
@@ -366,7 +366,7 @@ class SigSciApi(object):
             json=data,
             method="PUT")
 
-    def delete_from_whitelist(self, identifier):
+    def delete_whitelist(self, identifier):
         """
         Delete from whitelist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__whitelist__id__delete
@@ -401,7 +401,7 @@ class SigSciApi(object):
             json=data,
             method="PUT")
 
-    def delete_from_blacklist(self, identifier):
+    def delete_blacklist(self, identifier):
         """
         Delete from blacklist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__blacklist__id__delete
@@ -473,7 +473,7 @@ class SigSciApi(object):
                                                         self.corp,
                                                         self.site))
 
-    def add_to_redactions(self, data):
+    def add_redactions(self, data):
         """
         Add to redactions
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__redactions_put
@@ -486,7 +486,7 @@ class SigSciApi(object):
             json=data,
             method="PUT")
 
-    def delete_from_redactions(self, field):
+    def delete_redactions(self, field):
         """
         Delete from redactions
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__redactions__id__delete
@@ -568,7 +568,7 @@ class SigSciApi(object):
                                                             self.corp,
                                                             self.site))
 
-    def add_to_parameter_whitelist(self, data):
+    def add_parameter_whitelist(self, data):
         """
         Add to parameter whitelist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__paramwhitelist_post
@@ -592,7 +592,7 @@ class SigSciApi(object):
                                                                self.site,
                                                                identifier))
 
-    def delete_from_parameter_whitelist(self, identifier):
+    def delete_parameter_whitelist(self, identifier):
         """
         Delete from parameter whitelist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__paramwhitelist__paramID__delete
@@ -615,7 +615,7 @@ class SigSciApi(object):
                                                            self.corp,
                                                            self.site))
 
-    def add_to_path_whitelist(self, data):
+    def add_path_whitelist(self, data):
         """
         Add to path whitelist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__pathwhitelist_post
@@ -639,7 +639,7 @@ class SigSciApi(object):
                                                               self.site,
                                                               identifier))
 
-    def delete_from_path_whitelist(self, identifier):
+    def delete_path_whitelist(self, identifier):
         """
         Delete from path whitelist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__pathwhitelist__pathID__delete
@@ -674,7 +674,7 @@ class SigSciApi(object):
                                                          self.corp,
                                                          self.site))
 
-    def add_to_header_links(self, data):
+    def add_header_links(self, data):
         """
         Add to header links
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__headerLinks_post
@@ -698,7 +698,7 @@ class SigSciApi(object):
                                                             self.site,
                                                             identifier))
 
-    def delete_from_header_links(self, identifier):
+    def delete_header_links(self, identifier):
         """
         Delete from header links
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__headerLinks__headerLinkID__delete
@@ -747,7 +747,7 @@ class SigSciApi(object):
             json=data,
             method="PATCH")
 
-    def delete_from_site_member(self, email):
+    def delete_site_member(self, email):
         """
         Delete from site members
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__delete

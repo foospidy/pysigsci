@@ -69,6 +69,7 @@ def main():
         choices=['corps', 'corp', 'corp-users', 'corp-user', 'overview-report',
                  'corp-sites', 'corp-site', 'custom-alerts', 'custom-alert',
                  'events', 'event', 'requests', 'request', 'request-feed',
+                 'request-rules', 'signal-rules', 'templated-rules', 'advanced-rules',
                  'whitelist', 'blacklist', 'redactions', 'integrations',
                  'integration', 'parameter-whitelist', 'parameter-whitelist-param',
                  'path-whitelist', 'path-whitelist-path', 'activity',
@@ -79,7 +80,7 @@ def main():
         '--add',
         help='Add data via the API.',
         choices=['corp-user', 'custom-alert', 'whitelist', 'blacklist',
-                 'redaction', 'integration', 'parameter-whitelst',
+                 'redaction', 'integration', 'parameter-whitelist',
                  'path-whitelist', 'header-links', 'site-member'])
     parser.add_argument(
         '--update',
