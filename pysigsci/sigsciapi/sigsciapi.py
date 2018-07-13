@@ -50,9 +50,9 @@ class SigSciApi(object):
         elif method == "POST_JSON":
             result = requests.post(url, json=j.loads(json), headers=headers)
         elif method == "PUT":
-            result = requests.put(url, json=json, headers=headers)
+            result = requests.put(url, json=j.loads(json), headers=headers)
         elif method == "PATCH":
-            result = requests.patch(url, json=json, headers=headers)
+            result = requests.patch(url, json=j.loads(json), headers=headers)
         elif method == "DELETE":
             result = requests.delete(url, params=params, headers=headers)
         else:
@@ -389,7 +389,7 @@ class SigSciApi(object):
                                                        self.corp,
                                                        self.site))
 
-    def add_to_blacklist(self, data):
+    def add_blacklist(self, data):
         """
         Add to blacklist
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__blacklist_put
