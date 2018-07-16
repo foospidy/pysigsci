@@ -200,7 +200,7 @@ def main():
                 params['q'] = args.query
 
             if args.data:
-                data = args.data
+                data = json.loads(args.data)
 
             if args.email:
                 identifier = args.email
@@ -209,7 +209,10 @@ def main():
                 identifier = args.field
 
             if args.site:
-                identifier = args.site
+                if args.get == 'corp-site':
+                    identifier = args.site
+                else:
+                    sigsci.site = args.site
 
             if args.id:
                 identifier = args.id
