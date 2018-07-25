@@ -27,6 +27,6 @@ setup(
         "Programming Language :: Python :: 2.7",
         "License :: OSI Approved :: MIT License",
     ],
-    install_requires=['json', 'requests', 'pyopenssl', 'deepdiff'],
+    install_requires=['requests', 'pyopenssl', 'deepdiff'],
     scripts=['pysigsci/bin/pysigsci', 'pysigsci/bin/pysigscia'],
 )
