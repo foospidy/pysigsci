@@ -70,7 +70,7 @@ $ pysigscia --compare <site_name> --to <site_name> --configs redactions
 
 When specifying a specific config the following are supported:
 
-- equest_rules
+- request_rules
 - signal_rules
 - templated_rules
 - advanced_rules
