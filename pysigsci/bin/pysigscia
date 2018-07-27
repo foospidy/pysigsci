@@ -215,7 +215,7 @@ def main():
 
             for site in sites:
                 print(
-                    'Retreiving configuration for {}...'.format(
+                    'Retrieving configuration for {}...'.format(
                         site['name']))
                 get_site_config(sigsci, name=site['name'])
 
