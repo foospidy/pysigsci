@@ -52,12 +52,6 @@ def main():
         print('SIGSCI_CORP required.')
         sys.exit()
 
-    if "SIGSCI_SITE" in os.environ:
-        sigsci.site = os.environ['SIGSCI_SITE']
-    else:
-        print('SIGSCI_SITE required.')
-        sys.exit()
-
     # Parse arguments
     parser = argparse.ArgumentParser(
         description="CLI tool for the Signal Sciences REST API \
