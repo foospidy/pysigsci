@@ -134,6 +134,11 @@ def main():
         '--site',
         help='Corp site short name.')
     parser.add_argument(
+        '--all-sites',
+        help='Command to be run against all sites in the corp.',
+        default=False,
+        action="store_true")
+    parser.add_argument(
         '--id',
         help='Record identfier.')
     parser.add_argument(
@@ -215,16 +220,25 @@ def main():
                 identifier = args.alert_tag_name
 
             num_params = len(params)
+            apply_to_sites = [sigsci.site]
 
-            if num_params > 0:
-                print_json_data(method(parameters=params), args.pretty)
-            elif args.data:
-                print_json_data(method(data=data), args.pretty)
-            else:
-                if identifier is not None:
-                    print_json_data(method(identifier), args.pretty)
+            if args.all_sites:
+                apply_to_sites.pop(0)
+                for site in sigsci.get_corp_sites()['data']:
+                    apply_to_sites.append(site['name'])
+
+            for site in apply_to_sites:
+                sigsci.site = site
+
+                if num_params > 0:
+                    print_json_data(method(parameters=params), args.pretty)
+                elif args.data:
+                    print_json_data(method(data=data), args.pretty)
                 else:
-                    print_json_data(method(), args.pretty)
+                    if identifier is not None:
+                        print_json_data(method(identifier), args.pretty)
+                    else:
+                        print_json_data(method(), args.pretty)
 
         except Exception as error:
             print(str(error))
