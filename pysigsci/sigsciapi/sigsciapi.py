@@ -551,8 +551,8 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/sites/{siteName}/integrations/{integrationID}
         """
         return self._make_request(
-            endpoint="{}/{}/users/{}".format(self.ep_corps,
-                                             self.corp, identifier),
+            endpoint="{}/{}/sites/{}/integrations/{}".format(self.ep_corps,
+                                                             self.corp, self.site, identifier),
             method="DELETE")
 
     # PARAMETER WHITELIST
