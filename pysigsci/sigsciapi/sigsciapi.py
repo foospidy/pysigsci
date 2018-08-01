@@ -423,6 +423,19 @@ class SigSciApi(object):
             endpoint="{}/{}/sites/{}/requestRules".format(self.ep_corps,
                                                           self.corp,
                                                           self.site))
+    def add_request_rules(self, data):
+        """
+        Add Request Rules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/requestRules
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/requestRules".format(self.ep_corps,
+                                                          self.corp,
+                                                          self.site),
+            json=data,
+            method="POST_JSON")
 
     def get_signal_rules(self):
         """
