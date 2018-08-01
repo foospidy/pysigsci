@@ -145,6 +145,14 @@ def main():
         '--alert-tag-name',
         help='Specify an alert tagName.')
     parser.add_argument(
+        '--status',
+        help='Specify a status.',
+        choices=['active', 'expired'])
+    parser.add_argument(
+        '--limit',
+        help='Specify a response records limit.',
+        type=int)
+    parser.add_argument(
         '--pretty',
         help='Print JSON in pretty format.',
         default=False,
@@ -197,6 +205,12 @@ def main():
 
             if args.query:
                 params['q'] = args.query
+
+            if args.status:
+                params['status'] = args.status
+
+            if args.limit:
+                params['limit'] = args.limit
 
             if args.data:
                 data = json.loads(args.data)

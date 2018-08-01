@@ -269,16 +269,18 @@ class SigSciApi(object):
             method="DELETE")
 
     # EVENTS
-    def get_events(self):
+    def get_events(self, parameters=dict()):
         """
         List events
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__events_get
         GET /corps/{corpName}/sites/{siteName}/events
         """
+
         return self._make_request(
             endpoint="{}/{}/sites/{}/events".format(self.ep_corps,
                                                     self.corp,
-                                                    self.site))
+                                                    self.site),
+            params=parameters)
 
     def get_event(self, identifier):
         """
@@ -302,7 +304,8 @@ class SigSciApi(object):
             endpoint="{}/{}/sites/{}/events/{}/expire".format(self.ep_corps,
                                                               self.corp,
                                                               self.site,
-                                                              event_id))
+                                                              event_id),
+            method="POST")
 
     # REQUESTS
     def get_requests(self, parameters=dict()):
