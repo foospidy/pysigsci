@@ -74,7 +74,7 @@ def main():
         '--add',
         help='Add data via the API.',
         choices=['corp-user', 'custom-alert', 'whitelist', 'blacklist',
-                 'signal-rules',
+                 'request-rules', 'signal-rules',
                  'redaction', 'integration', 'parameter-whitelist',
                  'path-whitelist', 'header-links', 'site-member'])
     parser.add_argument(
