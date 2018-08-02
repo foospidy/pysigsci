@@ -452,6 +452,20 @@ class SigSciApi(object):
                                                          self.corp,
                                                          self.site))
 
+    def add_signal_rules(self, data):
+        """
+        Add Signal Rules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/signalRules
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/signalRules".format(self.ep_corps,
+                                                         self.corp,
+                                                         self.site),
+            json=data,
+            method="POST_JSON")
+
     def get_templated_rules(self):
         """
         Get Templated Rules
