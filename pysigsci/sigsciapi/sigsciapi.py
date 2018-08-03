@@ -218,6 +218,20 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
+    def delete_custom_signal(self, identifier):
+        """
+        Delete Custom Signals
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/tags
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/tags/{}".format(self.ep_corps,
+                                                     self.corp,
+                                                     self.site,
+                                                     identifier),
+            method="DELETE")
+
     # CUSTOM ALERTS
     def get_custom_alerts(self):
         """

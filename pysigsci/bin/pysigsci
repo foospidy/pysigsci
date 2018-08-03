@@ -87,7 +87,7 @@ def main():
         help='Delete data via the API.',
         choices=['corp-user', 'custom-alert', 'whitelist', 'blacklist',
                  'redaction', 'integration', 'parameter-whitelst',
-                 'path-whitelist', 'header-links', 'site-member'])
+                 'path-whitelist', 'custom-signal', 'header-links', 'site-member'])
     parser.add_argument(
         '--expire-event',
         help='Expire an event by ID.',
