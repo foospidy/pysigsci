@@ -245,15 +245,18 @@ def main():
             for site in apply_to_sites:
                 sigsci.site = site
 
-                if num_params > 0:
-                    print_json_data(method(parameters=params), args.pretty)
-                elif args.data:
-                    print_json_data(method(data=data), args.pretty)
-                else:
-                    if identifier is not None:
-                        print_json_data(method(identifier), args.pretty)
+                try:
+                    if num_params > 0:
+                        print_json_data(method(parameters=params), args.pretty)
+                    elif args.data:
+                        print_json_data(method(data=data), args.pretty)
                     else:
-                        print_json_data(method(), args.pretty)
+                        if identifier is not None:
+                            print_json_data(method(identifier), args.pretty)
+                        else:
+                            print_json_data(method(), args.pretty)
+                except Exception as error:
+                    print(str(error))
 
         except Exception as error:
             print(str(error))
