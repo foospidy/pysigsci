@@ -205,6 +205,19 @@ class SigSciApi(object):
                                                   self.corp,
                                                   self.site))
 
+    def add_custom_signals(self, data):
+        """
+        Add custom signal
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        POST /corps/{corpName}/sites/{siteName}/tags
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/tags".format(
+                self.ep_corps, self.corp, self.site),
+            json=data,
+            method="POST_JSON")
+
     # CUSTOM ALERTS
     def get_custom_alerts(self):
         """
