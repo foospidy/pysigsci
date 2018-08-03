@@ -506,16 +506,16 @@ class SigSciApi(object):
                                                                  self.site))
 
     def add_templated_rules(self, data):
-            """
-            Add Templated Rules
-            WARNING: This is an undocumented endpoint. No support provided, and the
-            endpoint may change.
-            /corps/{corpName}/sites/{siteName}/configuredtemplates
-            """
-            return self._make_request(
-                endpoint="{}/{}/sites/{}/configuredtemplates".format(self.ep_corps,
-                                                                    self.corp,
-                                                                    self.site),
+        """
+        Add Templated Rules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/configuredtemplates
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/configuredtemplates".format(self.ep_corps,
+                                                                 self.corp,
+                                                                 self.site),
             json=data,
             method="POST_JSON")
 
