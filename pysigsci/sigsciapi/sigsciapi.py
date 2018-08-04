@@ -505,17 +505,18 @@ class SigSciApi(object):
                                                                  self.corp,
                                                                  self.site))
 
-    def add_templated_rules(self, data):
+    def add_templated_rules(self, identifier, data):
         """
         Add Templated Rules
         WARNING: This is an undocumented endpoint. No support provided, and the
         endpoint may change.
-        /corps/{corpName}/sites/{siteName}/configuredtemplates
+        /corps/{corpName}/sites/{siteName}/configuredtemplates/{name}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/configuredtemplates".format(self.ep_corps,
-                                                                 self.corp,
-                                                                 self.site),
+            endpoint="{}/{}/sites/{}/configuredtemplates/{}".format(self.ep_corps,
+                                                                    self.corp,
+                                                                    self.site,
+                                                                    identifier),
             json=data,
             method="POST_JSON")
 
@@ -530,6 +531,47 @@ class SigSciApi(object):
             endpoint="{}/{}/sites/{}/advancedRules".format(self.ep_corps,
                                                            self.corp,
                                                            self.site))
+
+    def add_advanced_rules(self, data):
+        """
+        Add Advanced Rules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/configuredtemplates/{name}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/advancedRules".format(self.ep_corps,
+                                                           self.corp,
+                                                           self.site),
+            json=data,
+            method="POST_JSON")
+
+    # LISTS
+    def get_rule_lists(self):
+        """
+        Get Rule Lists
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/lists
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/ruleLists".format(self.ep_corps,
+                                                   self.corp,
+                                                   self.site))
+    
+    def add_rule_lists(self, data):
+        """
+        Add Rule Lists
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/lists
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/ruleLists".format(self.ep_corps,
+                                                   self.corp,
+                                                   self.site),
+            json=data,
+            method="POST_JSON")
 
     # PRIVACY REDACTIONS
     def get_redactions(self):
