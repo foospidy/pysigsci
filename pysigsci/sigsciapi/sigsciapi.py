@@ -556,9 +556,9 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/ruleLists".format(self.ep_corps,
-                                                   self.corp,
-                                                   self.site))
-    
+                                                       self.corp,
+                                                       self.site))
+
     def add_rule_lists(self, data):
         """
         Add Rule Lists
@@ -568,8 +568,8 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/ruleLists".format(self.ep_corps,
-                                                   self.corp,
-                                                   self.site),
+                                                       self.corp,
+                                                       self.site),
             json=data,
             method="POST_JSON")
 
@@ -589,14 +589,14 @@ class SigSciApi(object):
         """
         Add to redactions
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__redactions_put
-        PUT /corps/{corpName}/sites/{siteName}/redactions
+        POST /corps/{corpName}/sites/{siteName}/redactions
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/redactions".format(self.ep_corps,
                                                         self.corp,
                                                         self.site),
             json=data,
-            method="PUT")
+            method="POST_JSON")
 
     def delete_redactions(self, field):
         """
