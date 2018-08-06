@@ -796,7 +796,7 @@ class SigSciApi(object):
             endpoint="{}/{}/sites/{}/headerLinks".format(
                 self.ep_corps, self.corp, self.site),
             json=data,
-            method="POST")
+            method="POST_JSON")
 
     def get_header_link(self, identifier):
         """
