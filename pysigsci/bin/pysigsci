@@ -64,7 +64,7 @@ def main():
                  'corp-sites', 'corp-site', 'custom-signals', 'custom-alerts', 'custom-alert',
                  'events', 'event', 'requests', 'request', 'request-feed',
                  'request-rules', 'signal-rules', 'templated-rules', 'advanced-rules',
-                 'whitelist', 'blacklist', 'redactions', 'integrations',
+                 'rule-lists', 'whitelist', 'blacklist', 'redactions', 'integrations',
                  'integration', 'parameter-whitelist', 'parameter-whitelist-param',
                  'path-whitelist', 'path-whitelist-path', 'activity',
                  'header-links', 'header-link', 'site-members', 'site-member',
