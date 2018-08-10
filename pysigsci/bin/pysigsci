@@ -61,7 +61,7 @@ def main():
         '--get',
         help='Get data from the API.',
         choices=['corps', 'corp', 'corp-users', 'corp-user', 'overview-report',
-                 'corp-sites', 'corp-site', 'custom-signals', 'custom-alert',
+                 'corp-sites', 'corp-site', 'custom-signals', 'custom-alerts', 'custom-alert',
                  'events', 'event', 'requests', 'request', 'request-feed',
                  'request-rules', 'signal-rules', 'templated-rules', 'advanced-rules',
                  'whitelist', 'blacklist', 'redactions', 'integrations',
