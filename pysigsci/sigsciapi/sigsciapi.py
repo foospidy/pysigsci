@@ -845,6 +845,16 @@ class SigSciApi(object):
                                                         self.site,
                                                         email))
 
+    def get_memberships(self, email):
+        """
+        Get memberships by email
+        GET /corps/{corpName}/users/{siteMemberEmail}/memberships
+        """
+        return self._make_request(
+            endpoint="{}/{}/users/{}/memberships".format(self.ep_corps,
+                                                         self.corp,
+                                                         email))
+
     def update_site_member(self, email, data):
         """
         Update a site member by email
