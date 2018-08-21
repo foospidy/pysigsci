@@ -249,7 +249,10 @@ def main():
                     if num_params > 0:
                         print_json_data(method(parameters=params), args.pretty)
                     elif args.data:
-                        print_json_data(method(data=data), args.pretty)
+                        if identifier is not None:
+                            print_json_data(method(identifier, data=data), args.pretty)
+                        else:
+                            print_json_data(method(data=data), args.pretty)
                     else:
                         if identifier is not None:
                             print_json_data(method(identifier), args.pretty)
