@@ -556,8 +556,8 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/lists".format(self.ep_corps,
-                                                       self.corp,
-                                                       self.site))
+                                                   self.corp,
+                                                   self.site))
 
     def add_rule_lists(self, data):
         """
@@ -568,8 +568,8 @@ class SigSciApi(object):
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/lists".format(self.ep_corps,
-                                                       self.corp,
-                                                       self.site),
+                                                   self.corp,
+                                                   self.site),
             json=data,
             method="POST_JSON")
 
