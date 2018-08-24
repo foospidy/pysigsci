@@ -555,7 +555,7 @@ class SigSciApi(object):
         /corps/{corpName}/sites/{siteName}/lists
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/ruleLists".format(self.ep_corps,
+            endpoint="{}/{}/sites/{}/lists".format(self.ep_corps,
                                                        self.corp,
                                                        self.site))
 
@@ -567,7 +567,7 @@ class SigSciApi(object):
         /corps/{corpName}/sites/{siteName}/lists
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/ruleLists".format(self.ep_corps,
+            endpoint="{}/{}/sites/{}/lists".format(self.ep_corps,
                                                        self.corp,
                                                        self.site),
             json=data,
