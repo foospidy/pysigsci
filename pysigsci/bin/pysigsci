@@ -89,6 +89,10 @@ def main():
                  'redaction', 'integration', 'parameter-whitelst',
                  'path-whitelist', 'custom-signal', 'header-links', 'site-member'])
     parser.add_argument(
+        '--power-rules',
+        help='Use the public power rules repository.',
+        choices=['list'])
+    parser.add_argument(
         '--expire-event',
         help='Expire an event by ID.',
         default=False,
@@ -162,7 +166,9 @@ def main():
     args = parser.parse_args()
 
     try:
-        if args.get:
+        if args.power_rules:
+            print('list')
+        elif args.get:
             method = getattr(sigsci, 'get_' + args.get.replace("-", "_"))
         elif args.add:
             method = getattr(sigsci, 'add_' + args.add.replace("-", "_"))
