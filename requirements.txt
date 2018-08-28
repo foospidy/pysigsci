@@ -2,6 +2,7 @@ future
 requests
 PyCrypto
 deepdiff
+gitpython
 autopep8
 coverage
 flake8
