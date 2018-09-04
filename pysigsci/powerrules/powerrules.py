@@ -57,9 +57,12 @@ class PowerRules(object):
         messages = ''
 
         if os.path.exists(self.REPO_DIR):
-            repo = Repo(self.REPO_DIR)
-            origin = repo.remotes.origin
-            origin.pull()
+            try:
+                repo = Repo(self.REPO_DIR)
+                origin = repo.remotes.origin
+                origin.pull()
+            except Exception as error:
+                print('Error updating repo: {}'.format(error))
         else:
             Repo.clone_from(self.GIT_URL, self.REPO_DIR)
 
