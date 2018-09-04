@@ -92,7 +92,7 @@ def main():
     parser.add_argument(
         '--power-rules',
         help='Use the power rules repository.',
-        choices=['print-list', 'get-list', 'deploy-rulepack'])
+        choices=['print-list', 'get-list', 'deploy-rule-pack'])
     parser.add_argument(
         '--rule-pack',
         help='Specify a rule pack name.'
@@ -175,7 +175,7 @@ def main():
             powerrulepack = powerrules.PowerRules()
             method = getattr(powerrulepack, args.power_rules.replace("-", "_"))
 
-            if args.power_rules == 'deploy-rulepack':
+            if args.power_rules == 'deploy-rule-pack':
                 if args.rule_pack is None:
                     print('--rule-pack is required.')
                     sys.exit(0)
