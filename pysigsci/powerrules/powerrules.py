@@ -45,7 +45,7 @@ class PowerRules(object):
                 count += 1
         print('')
 
-    def deploy_rulepack(self, sigsciapi, rulepack, cli=False):
+    def deploy_rule_pack(self, sigsciapi, rulepack, cli=False):
         """
         Deploy a rule pack
         """

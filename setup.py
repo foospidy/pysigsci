@@ -11,7 +11,7 @@ with open(os.path.join(HERE, 'README.rst')) as f:
 
 setup(
     name="pysigsci",
-    version="1.3.2",
+    version="1.3.3",
     author="foospidy",
     description=("A python wrapper for the Signal Sciences API - "
                  "https://docs.signalsciences.net/api/"),
