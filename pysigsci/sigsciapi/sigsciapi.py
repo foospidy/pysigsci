@@ -11,7 +11,7 @@ class SigSciApi(object):
     """
     base_url = "https://dashboard.signalsciences.net/api/"
     api_version = "v0"
-    token = None
+    bearer_token = None
     corp = None
     site = None
 
@@ -36,7 +36,7 @@ class SigSciApi(object):
         headers = dict()
 
         if endpoint != self.ep_auth:
-            headers["Authorization"] = "Bearer {}".format(self.token['token'])
+            headers["Authorization"] = "Bearer {}".format(self.bearer_token['token'])
             headers["Content-Type"] = "application/json"
 
         url = self.base_url + self.api_version + endpoint
@@ -72,7 +72,7 @@ class SigSciApi(object):
         POST /auth
         """
         data = {"email": email, "password": password}
-        self.token = self._make_request(
+        self.bearer_token = self._make_request(
             endpoint=self.ep_auth,
             data=data,
             method="POST")
