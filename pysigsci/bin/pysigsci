@@ -7,6 +7,9 @@ export SIGSCI_EMAIL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 export SIGSCI_PASSWORD=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 export SIGSCI_CORP=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 export SIGSCI_SITE=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+API Token will take precedence over password
+export SIGSCI_API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 """
 
 from __future__ import print_function
@@ -34,17 +37,30 @@ def main():
     """
     try:
         email = os.environ["SIGSCI_EMAIL"]
-        password = os.environ["SIGSCI_PASSWORD"]
 
     except KeyError as error:
         print("Environment variable not set {}".format(str(error)))
         sys.exit()
 
     # Create sigsciapi object
-    sigsci = sigsciapi.SigSciApi(email, password)
+    # API token has precedence over password
+    if "SIGSCI_API_TOKEN" in os.environ:
+        print('token')
+        sigsci = sigsciapi.SigSciApi(email=email, api_token=os.environ['SIGSCI_API_TOKEN'])
+    elif "SIGSCI_PASSWORD" in os.environ:
+        sigsci = sigsciapi.SigSciApi(email=email, password=os.environ['SIGSCI_PASSWORD'])
 
-    if 'message' in sigsci.token and 'Unauthorized' in sigsci.token['message']:
-        print(sigsci.token['message'])
+        if sigsci.bearer_token is not None:
+            if 'message' in sigsci.bearer_token:
+                if 'Unauthorized' in sigsci.bearer_token['message']:
+                    print(sigsci.bearer_token['message'])
+                    sys.exit()
+
+                if 'Login failed' in sigsci.bearer_token['message']:
+                    print(sigsci.bearer_token['message'])
+                    sys.exit()
+    else:
+        print("API token or password not set.")
         sys.exit()
 
     if "SIGSCI_CORP" in os.environ:
