@@ -28,7 +28,8 @@ lint:
 	pylint pysigsci/powerrules/powerrules.py
 	pylint pysigsci/bin/pysigsci
 	pylint pysigsci/bin/pysigscia
-	pylint example.py
+	pylint example_with_api_token.py
+	pylint example_without_api_token.py
 
 env:
 	virtualenv .env
