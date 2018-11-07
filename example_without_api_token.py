@@ -41,7 +41,7 @@ def main():
         sys.exit()
 
     if sigsci.auth(EMAIL, PASSWORD):
-        print(sigsci.token)
+        print(sigsci.bearer_token)
 
         # List corps
         print(sigsci.get_corps())
