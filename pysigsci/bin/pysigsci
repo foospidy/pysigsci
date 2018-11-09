@@ -45,7 +45,6 @@ def main():
     # Create sigsciapi object
     # API token has precedence over password
     if "SIGSCI_API_TOKEN" in os.environ:
-        print('token')
         sigsci = sigsciapi.SigSciApi(email=email, api_token=os.environ['SIGSCI_API_TOKEN'])
     elif "SIGSCI_PASSWORD" in os.environ:
         sigsci = sigsciapi.SigSciApi(email=email, password=os.environ['SIGSCI_PASSWORD'])
