@@ -10,3 +10,4 @@ mock
 pycodestyle
 pylint
 twine
+gitpython
