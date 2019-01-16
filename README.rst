@@ -38,7 +38,7 @@ Module usage
 .. code-block:: python
 
     from pysigsci import sigsciapi
-    sigsci = sigsciapi.SigSciApi("myemail", "mypassword")
+    sigsci = sigsciapi.SigSciApi(email="myemail", password="mypassword")
     sigsci.corp = "mycorp"
     sigsci.site = "mysite"
 

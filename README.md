@@ -19,7 +19,7 @@ To see all options run: `$ pysigsci --help`
 
 ```
 from pysigsci import sigsciapi
-sigsci = sigsciapi.SigSciApi("myemail", "mypassword")
+sigsci = sigsciapi.SigSciApi(email="myemail", password="mypassword")
 sigsci.corp = "mycorp"
 sigsci.site = "mysite"
 
@@ -83,3 +83,14 @@ When specifying a specific config the following are supported:
 #### Output
 
 The `pysigscia` command outputs to standard out. For large configuration data, it will be best to redirect the output to a text file for review, example: `$ pysigscia --compare <site_name> > $HOME/Desktop/sigsci_config_audit.txt`
+
+## Use Cases
+
+- Command line: https://labs.signalsciences.com/auditing-signal-sciences-configuration
+- Command line: https://labs.signalsciences.com/proactive-update-around-the-health-of-your-signal-sciences-deployment
+- Command line: [Update integrations configuration](https://gist.github.com/foospidy/c93149f206c3bd25a7be8a13152a625c)
+- Command line: [Expire all events](https://gist.github.com/foospidy/576dd824cb2f1026b9515a0969b11d6f)
+- Command line: [Copy custom signal to all sites](https://gist.github.com/foospidy/d4a3c3c248a59eaec328760753784549)
+- Command line: [Copy request rule to all sites](https://gist.github.com/foospidy/6366e2893e3992b0f6052d31f4ac03c1)
+- Command line: [Copy users to all specified sites](https://gist.github.com/foospidy/7b88a1cfed223d4d4caa9f4598d1a405)
+- Module: [Calculate aggregate availability for all sites](https://gist.github.com/foospidy/f02caef7a1d2080e964cad9c7012b9f7)

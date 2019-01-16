@@ -167,8 +167,8 @@ def main():
     # Create sigsciapi object
     sigsci = sigsciapi.SigSciApi(email, password)
 
-    if 'message' in sigsci.token and 'Unauthorized' in sigsci.token['message']:
-        print(sigsci.token['message'])
+    if 'message' in sigsci.bearer_token and 'Unauthorized' in sigsci.bearer_token['message']:
+        print(sigsci.bearer_token['message'])
         sys.exit()
 
     if "SIGSCI_CORP" in os.environ:

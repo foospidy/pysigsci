@@ -7,6 +7,9 @@ export SIGSCI_EMAIL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 export SIGSCI_PASSWORD=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 export SIGSCI_CORP=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 export SIGSCI_SITE=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+API Token will take precedence over password
+export SIGSCI_API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 """
 
 from __future__ import print_function
@@ -15,6 +18,7 @@ import sys
 import json
 import argparse
 from pysigsci import sigsciapi
+from pysigsci import powerrules
 
 
 def print_json_data(json_data, pretty=False):
@@ -33,17 +37,29 @@ def main():
     """
     try:
         email = os.environ["SIGSCI_EMAIL"]
-        password = os.environ["SIGSCI_PASSWORD"]
 
     except KeyError as error:
         print("Environment variable not set {}".format(str(error)))
         sys.exit()
 
     # Create sigsciapi object
-    sigsci = sigsciapi.SigSciApi(email, password)
+    # API token has precedence over password
+    if "SIGSCI_API_TOKEN" in os.environ:
+        sigsci = sigsciapi.SigSciApi(email=email, api_token=os.environ['SIGSCI_API_TOKEN'])
+    elif "SIGSCI_PASSWORD" in os.environ:
+        sigsci = sigsciapi.SigSciApi(email=email, password=os.environ['SIGSCI_PASSWORD'])
 
-    if 'message' in sigsci.token and 'Unauthorized' in sigsci.token['message']:
-        print(sigsci.token['message'])
+        if sigsci.bearer_token is not None:
+            if 'message' in sigsci.bearer_token:
+                if 'Unauthorized' in sigsci.bearer_token['message']:
+                    print(sigsci.bearer_token['message'])
+                    sys.exit()
+
+                if 'Login failed' in sigsci.bearer_token['message']:
+                    print(sigsci.bearer_token['message'])
+                    sys.exit()
+    else:
+        print("API token or password not set.")
         sys.exit()
 
     if "SIGSCI_CORP" in os.environ:
@@ -90,8 +106,12 @@ def main():
                  'path-whitelist', 'custom-signal', 'header-links', 'site-member'])
     parser.add_argument(
         '--power-rules',
-        help='Use the public power rules repository.',
-        choices=['list'])
+        help='Use the power rules repository.',
+        choices=['print-list', 'get-list', 'deploy-rule-pack'])
+    parser.add_argument(
+        '--rule-pack',
+        help='Specify a rule pack name.'
+    )
     parser.add_argument(
         '--expire-event',
         help='Expire an event by ID.',
@@ -167,7 +187,37 @@ def main():
 
     try:
         if args.power_rules:
-            print('list')
+            powerrulepack = powerrules.PowerRules()
+            method = getattr(powerrulepack, args.power_rules.replace("-", "_"))
+
+            if args.power_rules == 'deploy-rule-pack':
+                if args.rule_pack is None:
+                    print('--rule-pack is required.')
+                    sys.exit(0)
+
+                apply_to_sites = [args.site]
+
+                if args.all_sites:
+                    apply_to_sites.pop(0)
+                    for site in sigsci.get_corp_sites()['data']:
+                        apply_to_sites.append(site['name'])
+
+                for site in apply_to_sites:
+                    sigsci.site = site
+                    print('Deploying {} to {}.'.format(args.rule_pack, sigsci.site))
+
+                    response = method(sigsci, args.rule_pack, True)
+
+                    if not response['success']:
+                        print('Errors occured deploying {} on site {}\n'.format(args.rule_pack,
+                                                                                sigsci.site))
+
+            elif args.power_rules == 'print-list':
+                method()
+            else:
+                print_json_data(method(), args.pretty)
+
+            sys.exit(0)
         elif args.get:
             method = getattr(sigsci, 'get_' + args.get.replace("-", "_"))
         elif args.add:
@@ -264,6 +314,7 @@ def main():
                             print_json_data(method(identifier), args.pretty)
                         else:
                             print_json_data(method(), args.pretty)
+
                 except Exception as error:
                     print(str(error))
 

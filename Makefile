@@ -3,6 +3,8 @@ codestyle:
 	pycodestyle pysigsci/__init__.py
 	pycodestyle pysigsci/sigsciapi/__init__.py
 	pycodestyle pysigsci/sigsciapi/sigsciapi.py
+	pycodestyle pysigsci/powerrules/__init__.py
+	pycodestyle pysigsci/powerrules/powerrules.py
 	pycodestyle pysigsci/bin/pysigsci
 	pycodestyle pysigsci/bin/pysigscia
 	pycodestyle example.py
@@ -12,6 +14,8 @@ fix-codestyle:
 	autopep8 --in-place --aggressive pysigsci/__init__.py
 	autopep8 --in-place --aggressive pysigsci/sigsciapi/__init__.py
 	autopep8 --in-place --aggressive pysigsci/sigsciapi/sigsciapi.py
+	autopep8 --in-place --aggressive pysigsci/powerrules/__init__.py
+	autopep8 --in-place --aggressive pysigsci/powerrules/powerrules.py
 	autopep8 --in-place --aggressive pysigsci/bin/pysigsci
 	autopep8 --in-place --aggressive pysigsci/bin/pysigscia
 	autopep8 --in-place --aggressive example.py
@@ -20,9 +24,12 @@ lint:
 	pylint pysigsci/__init__.py
 	pylint pysigsci/sigsciapi/__init__.py
 	pylint pysigsci/sigsciapi/sigsciapi.py
+	pylint pysigsci/powerrules/__init__.py
+	pylint pysigsci/powerrules/powerrules.py
 	pylint pysigsci/bin/pysigsci
 	pylint pysigsci/bin/pysigscia
-	pylint example.py
+	pylint example_with_api_token.py
+	pylint example_without_api_token.py
 
 env:
 	virtualenv .env
