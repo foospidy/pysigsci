@@ -573,6 +573,19 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
+    def update_rule_lists(self, identifier, data):
+        """
+        Update a list by ID
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        PATCH /corps/{corpName}/sites/{siteName}/lists/{listID}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/lists/{}".format(
+                self.ep_corps, self.corp, self.site, identifier),
+            json=data,
+            method="PATCH")
+
     # PRIVACY REDACTIONS
     def get_redactions(self):
         """
