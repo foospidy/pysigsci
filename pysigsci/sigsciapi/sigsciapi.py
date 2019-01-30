@@ -895,10 +895,10 @@ class SigSciApi(object):
         """
         Delete from site members
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__delete
-        DELETE /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
+        DELETE /corps/{corpName}/sites/{siteName}/users/{siteMemberEmail}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/members/{}".format(
+            endpoint="{}/{}/sites/{}/users/{}".format(
                 self.ep_corps, self.corp, self.site, email),
             method="DELETE")
 
