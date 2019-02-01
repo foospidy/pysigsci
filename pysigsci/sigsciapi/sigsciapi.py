@@ -62,6 +62,7 @@ class SigSciApi(object):
         elif method == "PATCH":
             result = requests.patch(url, json=json, headers=headers)
         elif method == "DELETE":
+            headers["Content-Type"] = "application/json"
             result = requests.delete(url, params=params, headers=headers)
         else:
             raise Exception("InvalidRequestMethod: " + str(method))
@@ -895,10 +896,10 @@ class SigSciApi(object):
         """
         Delete from site members
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__delete
-        DELETE /corps/{corpName}/sites/{siteName}/users/{siteMemberEmail}
+        DELETE /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/users/{}".format(
+            endpoint="{}/{}/sites/{}/members/{}".format(
                 self.ep_corps, self.corp, self.site, email),
             method="DELETE")
 
