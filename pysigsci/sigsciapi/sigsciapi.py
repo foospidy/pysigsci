@@ -202,6 +202,18 @@ class SigSciApi(object):
             json=data,
             method="PATCH")
 
+    def create_corp_site(self, data):
+        """
+        Create site in corp
+        https://docs.signalsciences.net/api/#_corps__corpName__sites_post
+        POST /corps/{corpName}/sites
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites".format(self.ep_corps,
+                                          self.corp),
+            json=data,
+            method="POST")
+
     # CUSTOM SIGNALS (TAGS)
     def get_custom_signals(self):
         """
