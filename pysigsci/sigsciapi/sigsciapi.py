@@ -622,6 +622,20 @@ class SigSciApi(object):
             json=data,
             method="PATCH")
 
+    def delete_rule_lists(self, identifier):
+        """
+        Delete a list by ID
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/lists/{ID}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/lists/{}".format(self.ep_corps,
+                                                      self.corp,
+                                                      self.site,
+                                                      identifier),
+            method="DELETE")
+
     # PRIVACY REDACTIONS
     def get_redactions(self):
         """
