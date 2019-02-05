@@ -489,6 +489,20 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
+    def delete_request_rule(self, identifier):
+        """
+        Delete Request Rules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/rules/{ID}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/rule/{}".format(self.ep_corps,
+                                                     self.corp,
+                                                     self.site,
+                                                     identifier),
+            method="DELETE")
+
     def get_signal_rules(self):
         """
         Get Signal Rules
