@@ -743,41 +743,6 @@ class SigSciApi(object):
                                                             self.corp,
                                                             self.site))
 
-    def add_parameter_whitelist(self, data):
-        """
-        Add to parameter whitelist
-        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__paramwhitelist_post
-        POST /corps/{corpName}/sites/{siteName}/paramwhitelist
-        """
-        return self._make_request(
-            endpoint="{}/{}/sites/{}/paramwhitelist".format(
-                self.ep_corps, self.corp, self.site),
-            json=data,
-            method="POST")
-
-    def get_parameter_whitelist_param(self, identifier):
-        """
-        Get whitelisted parameter by ID
-        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__paramwhitelist__paramID__get
-        GET /corps/{corpName}/sites/{siteName}/paramwhitelist/{paramID}
-        """
-        return self._make_request(
-            endpoint="{}/{}/sites/{}/paramwhitelist/{}".format(self.ep_corps,
-                                                               self.corp,
-                                                               self.site,
-                                                               identifier))
-
-    def delete_parameter_whitelist(self, identifier):
-        """
-        Delete from parameter whitelist
-        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__paramwhitelist__paramID__delete
-        DELETE /corps/{corpName}/sites/{siteName}/paramwhitelist/{paramID}
-        """
-        return self._make_request(
-            endpoint="{}/{}/sites/{}/paramwhitelist/{}".format(
-                self.ep_corps, self.corp, self.site, identifier),
-            method="DELETE")
-
     # PATH WHITELIST
     def get_path_whitelist(self):
         """
@@ -789,41 +754,6 @@ class SigSciApi(object):
             endpoint="{}/{}/sites/{}/pathwhitelist".format(self.ep_corps,
                                                            self.corp,
                                                            self.site))
-
-    def add_path_whitelist(self, data):
-        """
-        Add to path whitelist
-        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__pathwhitelist_post
-        POST /corps/{corpName}/sites/{siteName}/pathwhitelist
-        """
-        return self._make_request(
-            endpoint="{}/{}/sites/{}/pathwhitelist".format(
-                self.ep_corps, self.corp, self.site),
-            json=data,
-            method="POST")
-
-    def get_path_whitelist_path(self, identifier):
-        """
-        Get whitelisted path by ID
-        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__pathwhitelist__pathID__get
-        GET /corps/{corpName}/sites/{siteName}/pathwhitelist/{pathID}
-        """
-        return self._make_request(
-            endpoint="{}/{}/sites/{}/pathwhitelist/{}".format(self.ep_corps,
-                                                              self.corp,
-                                                              self.site,
-                                                              identifier))
-
-    def delete_path_whitelist(self, identifier):
-        """
-        Delete from path whitelist
-        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__pathwhitelist__pathID__delete
-        DELETE /corps/{corpName}/sites/{siteName}/pathwhitelist/{pathID}
-        """
-        return self._make_request(
-            endpoint="{}/{}/sites/{}/pathwhitelist/{}".format(
-                self.ep_corps, self.corp, self.site, identifier),
-            method="DELETE")
 
     # ACTIVITY
     def get_activity(self):
