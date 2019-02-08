@@ -81,8 +81,8 @@ def main():
                  'events', 'event', 'requests', 'request', 'request-feed',
                  'request-rules', 'signal-rules', 'templated-rules', 'advanced-rules',
                  'rule-lists', 'whitelist', 'blacklist', 'redactions', 'integrations',
-                 'integration', 'parameter-whitelist', 'parameter-whitelist-param',
-                 'path-whitelist', 'path-whitelist-path', 'activity',
+                 'integration', 'parameter-whitelist',
+                 'path-whitelist', 'activity',
                  'header-links', 'header-link', 'site-members', 'site-member',
                  'site-monitor', 'agents', 'agent', 'agent-logs',
                  'suspicious-ips', 'top-attacks', 'timeseries-requests'])
@@ -91,8 +91,8 @@ def main():
         help='Add data via the API.',
         choices=['corp-user', 'custom-alert', 'whitelist', 'blacklist',
                  'request-rules', 'signal-rules', 'custom-signals',
-                 'redaction', 'integration', 'parameter-whitelist',
-                 'path-whitelist', 'header-links', 'site-member'])
+                 'redaction', 'integration',
+                 'header-links', 'site-member'])
     parser.add_argument(
         '--update',
         help='Update data via the API.',
@@ -102,8 +102,8 @@ def main():
         '--delete',
         help='Delete data via the API.',
         choices=['corp-user', 'custom-alert', 'whitelist', 'blacklist',
-                 'redaction', 'integration', 'parameter-whitelst',
-                 'path-whitelist', 'custom-signal', 'header-links', 'site-member'])
+                 'redaction', 'integration',
+                 'custom-signal', 'header-links', 'site-member'])
     parser.add_argument(
         '--power-rules',
         help='Use the power rules repository.',
