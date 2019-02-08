@@ -170,9 +170,10 @@ def main():
     # Create sigsciapi object
     sigsci = sigsciapi.SigSciApi(**params)
 
-    if 'password' in params and 'message' in sigsci.bearer_token and 'Unauthorized' in sigsci.bearer_token['message']:
-        print(sigsci.bearer_token['message'])
-        sys.exit()
+    if 'password' in params:
+        if 'message' in sigsci.bearer_token and 'Unauthorized' in sigsci.bearer_token['message']:
+            print(sigsci.bearer_token['message'])
+            sys.exit()
 
     if "SIGSCI_CORP" in os.environ:
         sigsci.corp = os.environ['SIGSCI_CORP']
