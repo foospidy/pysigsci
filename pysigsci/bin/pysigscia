@@ -156,18 +156,21 @@ def main():
     """
     Main function for Signal Sciences CLI Tool for Auditing Corp Config
     """
+    params = {}
     try:
-        email = os.environ["SIGSCI_EMAIL"]
-        password = os.environ["SIGSCI_PASSWORD"]
-
+        params['email'] = os.environ["SIGSCI_EMAIL"]
+        if "SIGSCI_API_TOKEN" in os.environ:
+            params['api_token'] = os.environ["SIGSCI_API_TOKEN"]
+        else:
+            params['password'] = os.environ["SIGSCI_PASSWORD"]
     except KeyError as error:
         print("Environment variable not set {}".format(str(error)))
         sys.exit()
 
     # Create sigsciapi object
-    sigsci = sigsciapi.SigSciApi(email, password)
+    sigsci = sigsciapi.SigSciApi(**params)
 
-    if 'message' in sigsci.bearer_token and 'Unauthorized' in sigsci.bearer_token['message']:
+    if 'password' in params and 'message' in sigsci.bearer_token and 'Unauthorized' in sigsci.bearer_token['message']:
         print(sigsci.bearer_token['message'])
         sys.exit()
 
