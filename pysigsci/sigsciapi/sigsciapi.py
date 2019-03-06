@@ -212,7 +212,7 @@ class SigSciApi(object):
             endpoint="{}/{}/sites".format(self.ep_corps,
                                           self.corp),
             json=data,
-            method="POST")
+            method="POST_JSON")
 
     # CUSTOM SIGNALS (TAGS)
     def get_custom_signals(self):
