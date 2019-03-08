@@ -3,6 +3,7 @@ pysigsci setup
 """
 import os
 from setuptools import setup
+import pysigsci
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,7 +12,7 @@ with open(os.path.join(HERE, 'README.rst')) as f:
 
 setup(
     name="pysigsci",
-    version="2.0.6",
+    version=pysigsci.VERSION,
     author="foospidy",
     description=("A python wrapper for the Signal Sciences API - "
                  "https://docs.signalsciences.net/api/"),

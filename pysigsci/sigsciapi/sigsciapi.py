@@ -3,6 +3,7 @@ Signal Sciences API Client
 """
 
 import requests
+import pysigsci
 
 
 class SigSciApi(object):
@@ -47,6 +48,7 @@ class SigSciApi(object):
         elif endpoint != self.ep_auth:
             headers["X-Api-User"] = self.api_user
             headers['X-Api-Token'] = self.api_token
+        headers['User-Agent'] = 'pysigsci v' + pysigsci.VERSION
 
         url = self.base_url + self.api_version + endpoint
 
