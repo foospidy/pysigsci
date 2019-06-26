@@ -216,7 +216,7 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
-    # CUSTOM SIGNALS (TAGS)
+    # CORP/SITE SIGNALS (TAGS)
     def get_custom_signals(self):
         """
         Get Custom Signals
@@ -254,6 +254,43 @@ class SigSciApi(object):
                                                      self.corp,
                                                      self.site,
                                                      identifier),
+            method="DELETE")
+
+    def get_corp_signals(self):
+        """
+        Get Corp Signals
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/tags
+        """
+        return self._make_request(
+            endpoint="{}/{}/tags".format(self.ep_corps,
+                                         self.corp))
+
+    def add_corp_signals(self, data):
+        """
+        Add Corp Signals
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/tags
+        """
+        return self._make_request(
+            endpoint="{}/{}//tags".format(
+                self.ep_corps, self.corp),
+            json=data,
+            method="POST_JSON")
+
+    def delete_corp_signals(self, identifier):
+        """
+        Delete Corp Signals
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/tags
+        """
+        return self._make_request(
+            endpoint="{}/{}/tags/{}".format(self.ep_corps,
+                                            self.corp,
+                                            identifier),
             method="DELETE")
 
     # CUSTOM ALERTS
