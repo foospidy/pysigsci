@@ -77,7 +77,8 @@ def main():
         '--get',
         help='Get data from the API.',
         choices=['corps', 'corp', 'corp-users', 'corp-user', 'overview-report',
-                 'corp-sites', 'corp-site', 'custom-signals', 'custom-alerts', 'custom-alert',
+                 'corp-sites', 'corp-site', 'custom-alerts', 'custom-alert',
+                 'custom-signals', 'site-signals', 'corp-signals',
                  'events', 'event', 'requests', 'request', 'request-feed',
                  'request-rules', 'signal-rules', 'templated-rules', 'advanced-rules',
                  'rule-lists', 'whitelist', 'blacklist', 'redactions', 'integrations',
@@ -91,6 +92,7 @@ def main():
         help='Add data via the API.',
         choices=['corp-user', 'custom-alert', 'whitelist', 'blacklist',
                  'request-rules', 'signal-rules', 'custom-signals',
+                 'site-signals', 'corp-signals',
                  'redaction', 'integration',
                  'header-links', 'site-member'])
     parser.add_argument(
@@ -103,7 +105,8 @@ def main():
         help='Delete data via the API.',
         choices=['corp-user', 'custom-alert', 'whitelist', 'blacklist',
                  'redaction', 'integration',
-                 'custom-signal', 'header-links', 'site-member'])
+                 'custom-signal', 'site-signals', 'corp-signals',
+                 'header-links', 'site-member'])
     parser.add_argument(
         '--power-rules',
         help='Use the power rules repository.',
