@@ -219,7 +219,25 @@ class SigSciApi(object):
     # CORP/SITE SIGNALS (TAGS)
     def get_custom_signals(self):
         """
-        Get Custom Signals
+        Get Custom Signals - Here for backwards compatability
+        """
+        return self.get_site_signals()
+
+    def add_custom_signals(self, data):
+        """
+        Add custom signal - Here for backwards compatability
+        """
+        return self.add_signal_rules(data)
+
+    def delete_custom_signal(self, identifier):
+        """
+        Delete Custom Signals - Here for backwards compatability
+        """
+        return self.delete_site_signal(identifier)
+
+    def get_site_signals(self):
+        """
+        Get Site Signals
         WARNING: This is an undocumented endpoint. No support provided, and the
         endpoint may change.
         /corps/{corpName}/sites/{siteName}/tags
@@ -229,7 +247,7 @@ class SigSciApi(object):
                                                   self.corp,
                                                   self.site))
 
-    def add_custom_signals(self, data):
+    def add_site_signals(self, data):
         """
         Add custom signal
         WARNING: This is an undocumented endpoint. No support provided, and the
@@ -242,7 +260,7 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
-    def delete_custom_signal(self, identifier):
+    def delete_site_signal(self, identifier):
         """
         Delete Custom Signals
         WARNING: This is an undocumented endpoint. No support provided, and the
