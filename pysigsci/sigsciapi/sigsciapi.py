@@ -15,6 +15,7 @@ class SigSciApi(object):
     bearer_token = None
     api_user = None
     api_token = None
+    cookies = None
     corp = None
     site = None
 
@@ -41,6 +42,7 @@ class SigSciApi(object):
                       json=None,
                       method="GET"):
         headers = dict()
+        cookies = None
 
         if endpoint != self.ep_auth and self.bearer_token != None:
             headers["Authorization"] = "Bearer {}".format(self.bearer_token['token'])
@@ -48,24 +50,28 @@ class SigSciApi(object):
         elif endpoint != self.ep_auth:
             headers["X-Api-User"] = self.api_user
             headers['X-Api-Token'] = self.api_token
+
         headers['User-Agent'] = 'pysigsci v' + pysigsci.VERSION
+
+        if self.cookies is not None:
+            cookies = self.cookies
 
         url = self.base_url + self.api_version + endpoint
 
         result = None
         if method == "GET":
-            result = requests.get(url, params=params, headers=headers)
+            result = requests.get(url, params=params, headers=headers, cookies=cookies)
         elif method == "POST":
-            result = requests.post(url, data=data, headers=headers)
+            result = requests.post(url, data=data, headers=headers, cookies=cookies)
         elif method == "POST_JSON":
-            result = requests.post(url, json=json, headers=headers)
+            result = requests.post(url, json=json, headers=headers, cookies=cookies)
         elif method == "PUT":
-            result = requests.put(url, json=json, headers=headers)
+            result = requests.put(url, json=json, headers=headers, cookies=cookies)
         elif method == "PATCH":
-            result = requests.patch(url, json=json, headers=headers)
+            result = requests.patch(url, json=json, headers=headers, cookies=cookies)
         elif method == "DELETE":
             headers["Content-Type"] = "application/json"
-            result = requests.delete(url, params=params, headers=headers)
+            result = requests.delete(url, params=params, headers=headers, cookies=cookies)
         else:
             raise Exception("InvalidRequestMethod: " + str(method))
 
