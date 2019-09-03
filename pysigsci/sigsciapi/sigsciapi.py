@@ -913,17 +913,12 @@ class SigSciApi(object):
 
     def update_site_member(self, email, data):
         """
+        !!! DEPRICATED !!!
         Update a site member by email
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__patch
         PATCH /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
         """
-        return self._make_request(
-            endpoint="{}/{}/sites/{}/members/{}".format(self.ep_corps,
-                                                        self.corp,
-                                                        self.site,
-                                                        email),
-            json=data,
-            method="PATCH")
+        raise Exception("This endpoint has been depricated.")
 
     def delete_site_member(self, email):
         """
