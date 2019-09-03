@@ -122,6 +122,12 @@ def main():
         action='store_true'
     )
     parser.add_argument(
+        '--expire-all-site-events',
+        help='Expire all events for a site.',
+        default=False,
+        action='store_true'
+    )
+    parser.add_argument(
         '--generate-site-monitor-url',
         help='Generate site monitor URL.',
         default=False,
@@ -240,6 +246,10 @@ def main():
                     "_"))
         elif args.expire_event:
             method = getattr(sigsci, 'expire_event')
+        elif args.expire_all_site_events:
+            sigsci.site = args.site
+            expire_all_site_events(sigsci, args.site)
+            sys.exit()
         elif args.generate_site_monitor_url:
             method = getattr(sigsci, 'generate_site_monitor_url')
         else:
@@ -323,6 +333,38 @@ def main():
 
         except Exception as error:
             print(str(error))
+
+def expire_all_site_events(sigsci, site):
+    """
+    Expires all events for a site
+    """
+    if site is None:
+        print("Please specify a site.")
+        return
+
+    next_page = True
+    parameters = {
+        "status": "active",
+        "page": 1
+    }
+
+    while next_page:
+        events = sigsci.get_events(parameters=parameters)
+
+        for event in events['data']:
+            response = sigsci.expire_event(event['id'])
+
+            if 'message' in response:
+                print('{} with event id {}'.format(response['message'], event['id']))
+            else:
+                print('Expired event id {}'.format(event['id']))
+
+        if 'next' in events:
+            page_parameter = events['next']['uri'].split('&')[1]
+            page_number = page_parameter.split('=')[1]
+            parameters['page'] = page_number
+        else:
+            next_page = False
 
 
 if __name__ == '__main__':

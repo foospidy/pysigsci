@@ -38,6 +38,11 @@ env:
 	&& pip install --upgrade setuptools \
 	&& pip install --upgrade -r requirements.txt
 
+update_env:
+	# FOR DEVELOPMENT ONLY
+	cp pysigsci/bin/pysigsci .env/bin/pysigsci
+	cp pysigsci/sigsciapi/sigsciapi.py .env/lib/python2.7/site-packages/pysigsci/sigsciapi/
+
 install:
 	pip install -r requirements.txt
 
