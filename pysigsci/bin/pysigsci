@@ -98,8 +98,7 @@ def main():
     parser.add_argument(
         '--update',
         help='Update data via the API.',
-        choices=['corp', 'corp-site', 'custom-alert', 'integration',
-                 'site-member'])
+        choices=['corp', 'corp-site', 'custom-alert', 'integration'])
     parser.add_argument(
         '--delete',
         help='Delete data via the API.',

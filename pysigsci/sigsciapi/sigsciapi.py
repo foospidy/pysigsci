@@ -924,15 +924,6 @@ class SigSciApi(object):
                                                          self.corp,
                                                          email))
 
-    def update_site_member(self, email, data):
-        """
-        !!! DEPRICATED !!! See update corp user as replacement.
-        Update a site member by email
-        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__patch
-        PATCH /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
-        """
-        raise Exception("This endpoint has been depricated. See update_corp_user() as a replacement.")
-
     def delete_site_member(self, email):
         """
         Delete from site members
