@@ -165,6 +165,19 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
+    def update_corp_user(self, email, data):
+        """
+        Update corp user by email
+        https://docs.signalsciences.net/api/#_corps__corpName__users__userEmail__patch
+        PATCH /corps/{corpName}/users/{userEmail}
+        """
+        return self._make_request(
+            endpoint="{}/{}/users/{}".format(self.ep_corps,
+                                             self.corp,
+                                             email),
+            json=data,
+            method="PATCH")
+
     # OVERVIEW REPORT
     def get_overview_report(self, parameters=dict()):
         """
@@ -913,12 +926,12 @@ class SigSciApi(object):
 
     def update_site_member(self, email, data):
         """
-        !!! DEPRICATED !!!
+        !!! DEPRICATED !!! See update corp user as replacement.
         Update a site member by email
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members__siteMemberEmail__patch
         PATCH /corps/{corpName}/sites/{siteName}/members/{siteMemberEmail}
         """
-        raise Exception("This endpoint has been depricated.")
+        raise Exception("This endpoint has been depricated. See update_corp_user() as a replacement.")
 
     def delete_site_member(self, email):
         """
