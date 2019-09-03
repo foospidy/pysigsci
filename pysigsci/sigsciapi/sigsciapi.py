@@ -46,11 +46,11 @@ class SigSciApi(object):
 
         if endpoint != self.ep_auth and self.bearer_token != None:
             headers["Authorization"] = "Bearer {}".format(self.bearer_token['token'])
-            headers["Content-Type"] = "application/json"
         elif endpoint != self.ep_auth:
             headers["X-Api-User"] = self.api_user
             headers['X-Api-Token'] = self.api_token
 
+        headers["Content-Type"] = "application/json"
         headers['User-Agent'] = 'pysigsci v' + pysigsci.VERSION
 
         if self.cookies is not None:
