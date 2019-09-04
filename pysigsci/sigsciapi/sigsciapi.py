@@ -44,7 +44,7 @@ class SigSciApi(object):
         headers = dict()
         cookies = None
 
-        if endpoint != self.ep_auth and self.bearer_token != None:
+        if endpoint != self.ep_auth and self.bearer_token is not None:
             headers["Authorization"] = "Bearer {}".format(self.bearer_token['token'])
         elif endpoint != self.ep_auth:
             headers["X-Api-User"] = self.api_user
@@ -551,6 +551,7 @@ class SigSciApi(object):
             endpoint="{}/{}/sites/{}/requestRules".format(self.ep_corps,
                                                           self.corp,
                                                           self.site))
+
     def add_request_rules(self, data):
         """
         Add Request Rules

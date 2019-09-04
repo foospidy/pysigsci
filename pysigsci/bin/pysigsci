@@ -19,6 +19,7 @@ import json
 import argparse
 from pysigsci import sigsciapi
 from pysigsci import powerrules
+from pysigsci import releases
 
 
 def print_json_data(json_data, pretty=False):
@@ -35,38 +36,6 @@ def main():
     """
     Main function for Signal Sciences CLI tool
     """
-    try:
-        email = os.environ["SIGSCI_EMAIL"]
-
-    except KeyError as error:
-        print("Environment variable not set {}".format(str(error)))
-        sys.exit()
-
-    # Create sigsciapi object
-    # API token has precedence over password
-    if "SIGSCI_API_TOKEN" in os.environ:
-        sigsci = sigsciapi.SigSciApi(email=email, api_token=os.environ['SIGSCI_API_TOKEN'])
-    elif "SIGSCI_PASSWORD" in os.environ:
-        sigsci = sigsciapi.SigSciApi(email=email, password=os.environ['SIGSCI_PASSWORD'])
-
-        if sigsci.bearer_token is not None:
-            if 'message' in sigsci.bearer_token:
-                if 'Unauthorized' in sigsci.bearer_token['message']:
-                    print(sigsci.bearer_token['message'])
-                    sys.exit()
-
-                if 'Login failed' in sigsci.bearer_token['message']:
-                    print(sigsci.bearer_token['message'])
-                    sys.exit()
-    else:
-        print("API token or password not set.")
-        sys.exit()
-
-    if "SIGSCI_CORP" in os.environ:
-        sigsci.corp = os.environ['SIGSCI_CORP']
-    else:
-        print('SIGSCI_CORP required.')
-        sys.exit()
 
     # Parse arguments
     parser = argparse.ArgumentParser(
@@ -133,6 +102,24 @@ def main():
         action='store_true'
     )
     parser.add_argument(
+        '--latest-modules',
+        help='Get latest module versions',
+        default=False,
+        action='store_true'
+    )
+    parser.add_argument(
+        '--latest-module',
+        help='Get latest version for module',
+        choices=releases.MODULES,
+        default='apache'
+    )
+    parser.add_argument(
+        '--latest-agent',
+        help='Get latest agent version',
+        default=False,
+        action='store_true'
+    )
+    parser.add_argument(
         '--enable',
         help='Enable site monitor.',
         choices=['site-monitor', 'agent-alerts', 'agent-alerts-all-sites']
@@ -192,6 +179,51 @@ def main():
         action="store_true")
 
     args = parser.parse_args()
+
+    # Actions that do not require authn
+    if args.latest_modules:
+        print_json_data(releases.get_latest_module_versions(), args.pretty)
+        sys.exit()
+    elif args.latest_modules is not None:
+        print_json_data(releases.get_latest_module_version(args.latest_module), args.pretty)
+        sys.exit()
+    elif args.latest_agent:
+        print_json_data(releases.get_latest_agent_version(), args.pretty)
+        sys.exit()
+
+    # Authenticate
+    try:
+        email = os.environ["SIGSCI_EMAIL"]
+
+    except KeyError as error:
+        print("Environment variable not set {}".format(str(error)))
+        sys.exit()
+
+    # Create sigsciapi object
+    # API token has precedence over password
+    if "SIGSCI_API_TOKEN" in os.environ:
+        sigsci = sigsciapi.SigSciApi(email=email, api_token=os.environ['SIGSCI_API_TOKEN'])
+    elif "SIGSCI_PASSWORD" in os.environ:
+        sigsci = sigsciapi.SigSciApi(email=email, password=os.environ['SIGSCI_PASSWORD'])
+
+        if sigsci.bearer_token is not None:
+            if 'message' in sigsci.bearer_token:
+                if 'Unauthorized' in sigsci.bearer_token['message']:
+                    print(sigsci.bearer_token['message'])
+                    sys.exit()
+
+                if 'Login failed' in sigsci.bearer_token['message']:
+                    print(sigsci.bearer_token['message'])
+                    sys.exit()
+    else:
+        print("API token or password not set.")
+        sys.exit()
+
+    if "SIGSCI_CORP" in os.environ:
+        sigsci.corp = os.environ['SIGSCI_CORP']
+    else:
+        print('SIGSCI_CORP required.')
+        sys.exit()
 
     try:
         if args.power_rules:
