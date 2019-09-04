@@ -5,6 +5,8 @@ codestyle:
 	pycodestyle pysigsci/sigsciapi/sigsciapi.py
 	pycodestyle pysigsci/powerrules/__init__.py
 	pycodestyle pysigsci/powerrules/powerrules.py
+	pycodestyle pysigsci/releases/__init__.py
+	pycodestyle pysigsci/releases/releases.py
 	pycodestyle pysigsci/bin/pysigsci
 	pycodestyle pysigsci/bin/pysigscia
 	pycodestyle example.py
@@ -16,6 +18,8 @@ fix-codestyle:
 	autopep8 --in-place --aggressive pysigsci/sigsciapi/sigsciapi.py
 	autopep8 --in-place --aggressive pysigsci/powerrules/__init__.py
 	autopep8 --in-place --aggressive pysigsci/powerrules/powerrules.py
+	autopep8 --in-place --aggressive pysigsci/releases/__init__.py
+	autopep8 --in-place --aggressive pysigsci/releases/releases.py
 	autopep8 --in-place --aggressive pysigsci/bin/pysigsci
 	autopep8 --in-place --aggressive pysigsci/bin/pysigscia
 	autopep8 --in-place --aggressive example.py
@@ -26,6 +30,8 @@ lint:
 	pylint pysigsci/sigsciapi/sigsciapi.py
 	pylint pysigsci/powerrules/__init__.py
 	pylint pysigsci/powerrules/powerrules.py
+	pylint pysigsci/releases/__init__.py
+	pylint pysigsci/releases/releases.py
 	pylint pysigsci/bin/pysigsci
 	pylint pysigsci/bin/pysigscia
 	pylint example_with_api_token.py
