@@ -20,7 +20,7 @@ setup(
     keywords="wrapper library signal sciences sigsci pysigsci api cli",
     url="https://github.com/foospidy/pysigsci",
     download_url="https://github.com/foospidy/pysigsci",
-    packages=['pysigsci', 'pysigsci.sigsciapi', 'pysigsci.powerrules'],
+    packages=['pysigsci', 'pysigsci.sigsciapi', 'pysigsci.powerrules', 'pysigsci.releases'],
     long_description=LONG_DESC,
     classifiers=[
         "Intended Audience :: Developers",
