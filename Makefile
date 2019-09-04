@@ -48,6 +48,8 @@ update_env:
 	# FOR DEVELOPMENT ONLY
 	cp pysigsci/bin/pysigsci .env/bin/pysigsci
 	cp pysigsci/sigsciapi/sigsciapi.py .env/lib/python2.7/site-packages/pysigsci/sigsciapi/
+	cp pysigsci/releases/__init__.py .env/lib/python2.7/site-packages/pysigsci/releases/
+	cp pysigsci/releases/releases.py .env/lib/python2.7/site-packages/pysigsci/releases/
 
 install:
 	pip install -r requirements.txt

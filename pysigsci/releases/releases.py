@@ -6,12 +6,14 @@ import requests
 
 
 MODULES = ['apache',
+           'ats',
            'dotnet',
            'golang',
            'haproxy',
            'iis',
            'java',
            'nginx',
+           'nginx-native',
            'nodejs',
            'php',
            'python']
@@ -35,7 +37,7 @@ def get_latest_module_version(module='apache'):
 
     url = 'https://dl.signalsciences.net/sigsci-module-{}/VERSION'.format(module)
     response = requests.get(url)
-    return response.text.strip()
+    return {module: '{}'.format(response.text.strip())}
 
 def get_latest_agent_version():
     """
@@ -43,4 +45,4 @@ def get_latest_agent_version():
     """
 
     response = requests.get('https://dl.signalsciences.net/sigsci-agent/VERSION')
-    return response.text.strip()
+    return {"agent": '{}'.format(response.text.strip())}
