@@ -551,6 +551,7 @@ class SigSciApi(object):
             endpoint="{}/{}/sites/{}/requestRules".format(self.ep_corps,
                                                           self.corp,
                                                           self.site))
+
     def add_request_rules(self, data):
         """
         Add Request Rules
