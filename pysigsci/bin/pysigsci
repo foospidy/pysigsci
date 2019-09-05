@@ -110,8 +110,7 @@ def main():
     parser.add_argument(
         '--latest-module',
         help='Get latest version for module',
-        choices=releases.MODULES,
-        default='apache'
+        choices=releases.MODULES
     )
     parser.add_argument(
         '--latest-agent',
@@ -184,7 +183,7 @@ def main():
     if args.latest_modules:
         print_json_data(releases.get_latest_module_versions(), args.pretty)
         sys.exit()
-    elif args.latest_modules is not None:
+    elif args.latest_module is not None:
         print_json_data(releases.get_latest_module_version(args.latest_module), args.pretty)
         sys.exit()
     elif args.latest_agent:
