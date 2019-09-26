@@ -246,7 +246,7 @@ class SigSciApi(object):
         """
         Add custom signal - Here for backwards compatability
         """
-        return self.add_signal_rules(data)
+        return self.add_site_signals(data)
 
     def delete_custom_signal(self, identifier):
         """
