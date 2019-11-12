@@ -606,6 +606,19 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
+    def get_templated_rule(self, identifier):
+        """
+        Get Templated Rule
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/configuredtemplates
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/configuredtemplates/{}".format(self.ep_corps,
+                                                                    self.corp,
+                                                                    self.site,
+                                                                    identifier))
+
     def get_templated_rules(self):
         """
         Get Templated Rules
@@ -625,6 +638,34 @@ class SigSciApi(object):
         endpoint may change.
         /corps/{corpName}/sites/{siteName}/configuredtemplates/{name}
         """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/configuredtemplates/{}".format(self.ep_corps,
+                                                                    self.corp,
+                                                                    self.site,
+                                                                    identifier),
+            json=data,
+            method="POST_JSON")
+
+    def delete_templated_rule(self, identifier):
+        """
+        Add Templated Rules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/configuredtemplates/{name}
+        """
+        data = {
+            "alertAdds": [],
+            "alertDeletes": [],
+            "alertUpdates": [],
+            "detectionAdds": [],
+            "detectionDeletes": [],
+            "detectionUpdates": []
+        }
+        templated_rule = self.get_templated_rule(identifier)
+
+        data['alertDeletes'] = templated_rule['alerts']
+        data['detectionDeletes'] = templated_rule['detections']
+
         return self._make_request(
             endpoint="{}/{}/sites/{}/configuredtemplates/{}".format(self.ep_corps,
                                                                     self.corp,
