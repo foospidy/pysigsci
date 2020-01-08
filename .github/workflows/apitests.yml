@@ -24,7 +24,7 @@ jobs:
     - name: Run commands
       env: |
         SIGSCI_EMAIL: ${{ secrets.API_ACCESS_EMAIL }}
-        SIGSCI_API_TOKEN=${{ secrets.API_ACCESS_TOKEN }}
+        SIGSCI_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
       run: |
         pysigsci -h
         pysigsci --get requests
