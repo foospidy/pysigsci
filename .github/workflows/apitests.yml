@@ -19,5 +19,7 @@ jobs:
         pip install -r requirements.txt
     - name: Make wheel package
       run: make wheel
-    - name: Install package
+    - name: Install wheel package
       run: pip install dist/*.whl
+    - name: Run commands
+      run: pysigsci -h
