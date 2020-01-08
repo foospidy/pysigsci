@@ -20,12 +20,11 @@ jobs:
     - name: Make wheel package
       run: make wheel
     - name: Install wheel package
-      run: pip install dist/*.whl
-    - name: Export API creds
+      run: pip install dist/*.whl      
+    - name: Run commands
       env: |
         SIGSCI_EMAIL: ${{ secrets.API_ACCESS_EMAIL }}
         SIGSCI_API_TOKEN=${{ secrets.API_ACCESS_TOKEN }}
-    - name: Run commands
       run: |
         pysigsci -h
         pysigsci --get requests
