@@ -12,7 +12,7 @@ jobs:
       with:
         python-version: 2.7
     - name: Test env
-      env: |
+      env:
         test: "test"
       run: echo ${test}
     - name: Install dependencies
@@ -24,8 +24,8 @@ jobs:
     - name: Install wheel package
       run: pip install dist/*.whl      
     - name: Run commands
-      run: |
-        pysigsci -h
-      env: |
+      env:
         SIGSCI_EMAIL: ${{ secrets.API_ACCESS_EMAIL }}
         SIGSCI_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+      run: |
+        pysigsci -h
