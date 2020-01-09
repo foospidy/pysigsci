@@ -1,7 +1,9 @@
 # pysigsci
 
 [![Latest Version](https://img.shields.io/pypi/v/pysigsci.svg)](https://pypi.python.org/pypi/pysigsci/)
-[![Build Status](https://travis-ci.org/foospidy/pysigsci.svg?branch=master)](https://travis-ci.org/foospidy/pysigsci)
+![Python 2.7](https://github.com/foospidy/pysigsci/workflows/Python%202/badge.svg)
+![Python 2.7](https://github.com/foospidy/pysigsci/workflows/Python%203/badge.svg)
+![Python 2.7](https://github.com/foospidy/pysigsci/workflows/API%20Tests/badge.svg)
 
 Python module and CLI tool for the [Signal Sciences](https://docs.signalsciences.net/api/) API.
 
