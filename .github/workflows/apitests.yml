@@ -4,11 +4,7 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    env: |
-      SIGSCI_EMAIL: ${{ secrets.API_ACCESS_EMAIL }}
-      SIGSCI_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 2.7
@@ -26,3 +22,6 @@ jobs:
     - name: Run commands
       run: |
         pysigsci -h
+      env: |
+        SIGSCI_EMAIL: ${{ secrets.API_ACCESS_EMAIL }}
+        SIGSCI_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
