@@ -25,23 +25,23 @@ jobs:
         SIGSCI_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
         SIGSCI_CORP: "pxmx"
       run: |
-      pysigsci --site pysigsci --get events
-      pysigsci --site pysigsci --get requests
-      pysigsci --site pysigsci --get request-feed
-      pysigsci --site pysigsci --get request-rules
-      pysigsci --site pysigsci --get signal-rules
-      pysigsci --site pysigsci --get templated-rules
-      pysigsci --site pysigsci --get advanced-rules
-      pysigsci --site pysigsci --get rule-lists
-      pysigsci --site pysigsci --get whitelist
-      pysigsci --site pysigsci --get blacklist
-      pysigsci --site pysigsci --get redactions
-      pysigsci --site pysigsci --get integrations
-      pysigsci --site pysigsci --get activity
-      pysigsci --site pysigsci --get header-link
-      pysigsci --site pysigsci --get agents
-      pysigsci --site pysigsci --get agent-logs
-      pysigsci --site pysigsci --get suspicious-ips
-      pysigsci --site pysigsci --get top-attacks
-      pysigsci --site pysigsci --get timeseries-requests
+        pysigsci --site pysigsci --get events
+        pysigsci --site pysigsci --get requests
+        pysigsci --site pysigsci --get request-feed
+        pysigsci --site pysigsci --get request-rules
+        pysigsci --site pysigsci --get signal-rules
+        pysigsci --site pysigsci --get templated-rules
+        pysigsci --site pysigsci --get advanced-rules
+        pysigsci --site pysigsci --get rule-lists
+        pysigsci --site pysigsci --get whitelist
+        pysigsci --site pysigsci --get blacklist
+        pysigsci --site pysigsci --get redactions
+        pysigsci --site pysigsci --get integrations
+        pysigsci --site pysigsci --get activity
+        pysigsci --site pysigsci --get header-link
+        pysigsci --site pysigsci --get agents
+        pysigsci --site pysigsci --get agent-logs
+        pysigsci --site pysigsci --get suspicious-ips
+        pysigsci --site pysigsci --get top-attacks
+        pysigsci --site pysigsci --get timeseries-requests
       
