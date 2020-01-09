@@ -44,4 +44,3 @@ jobs:
         pysigsci --site pysigsci --get suspicious-ips
         pysigsci --site pysigsci --get top-attacks
         pysigsci --site pysigsci --get timeseries-requests
-      
