@@ -24,6 +24,5 @@ jobs:
         SIGSCI_EMAIL: ${{ secrets.API_ACCESS_EMAIL }}
         SIGSCI_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
         SIGSCI_CORP: "pxmx"
-        SIGSCI_SITE: "pysigsci"
       run: |
-        pysigsci --get requests
+        pysigsci --get requests --site pysigsci
