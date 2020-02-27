@@ -700,13 +700,18 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
-    # LISTS
+    # CORP/SITE LISTS
     def get_rule_lists(self):
         """
+        Get site lists - Here for backwards compatability
+        """
+        return self.get_site_rule_lists()
+
+    def get_site_rule_lists(self):
+        """
         Get Rule Lists
-        WARNING: This is an undocumented endpoint. No support provided, and the
-        endpoint may change.
-        /corps/{corpName}/sites/{siteName}/lists
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__lists_get
+        GET /corps/{corpName}/sites/{siteName}/lists
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/lists".format(self.ep_corps,
@@ -715,10 +720,15 @@ class SigSciApi(object):
 
     def add_rule_lists(self, data):
         """
-        Add Rule Lists
-        WARNING: This is an undocumented endpoint. No support provided, and the
-        endpoint may change.
-        /corps/{corpName}/sites/{siteName}/lists
+        Add a site list - Here for backwards compatability
+        """
+        return self.add_site_rule_lists(data)
+
+    def add_site_rule_lists(self, data):
+        """
+        Add Site Rule Lists
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__lists_post
+        POST /corps/{corpName}/sites/{siteName}/lists
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/lists".format(self.ep_corps,
@@ -729,10 +739,15 @@ class SigSciApi(object):
 
     def update_rule_lists(self, identifier, data):
         """
-        Update a list by ID
-        WARNING: This is an undocumented endpoint. No support provided, and the
-        endpoint may change.
-        PATCH /corps/{corpName}/sites/{siteName}/lists/{listID}
+        Update a site list - Here for backwards compatability
+        """
+        return self.update_site_rule_lists(identifier, data)
+
+    def update_site_rule_lists(self, identifier, data):
+        """
+        Update a site list by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__lists__id__patch
+        PATCH /corps/{corpName}/sites/{siteName}/lists/{id}
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/lists/{}".format(
@@ -742,16 +757,67 @@ class SigSciApi(object):
 
     def delete_rule_lists(self, identifier):
         """
-        Delete a list by ID
-        WARNING: This is an undocumented endpoint. No support provided, and the
-        endpoint may change.
-        /corps/{corpName}/sites/{siteName}/lists/{ID}
+        Delete site list - Here for backwards compatability
+        """
+        return self.delete_site_rule_lists(identifier)
+
+    def delete_site_rule_lists(self, identifier):
+        """
+        Delete a site list by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__lists__id__delete
+        DELETE /corps/{corpName}/sites/{siteName}/lists/{id}
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/lists/{}".format(self.ep_corps,
                                                       self.corp,
                                                       self.site,
                                                       identifier),
+            method="DELETE")
+
+    def get_corp_rule_lists(self):
+        """
+        Get Corp Rule Lists
+        https://docs.signalsciences.net/api/#_corps__corpName__lists_get
+        GET /corps/{corpName}/lists
+        """
+        return self._make_request(
+            endpoint="{}/{}/lists".format(self.ep_corps,
+                                          self.corp))
+
+    def add_corp_rule_lists(self, data):
+        """
+        Add Corp Rule Lists
+        https://docs.signalsciences.net/api/#_corps__corpName__lists_post
+        POST /corps/{corpName}/lists
+        """
+        return self._make_request(
+            endpoint="{}/{}/lists".format(self.ep_corps,
+                                          self.corp),
+            json=data,
+            method="POST_JSON")
+
+    def update_corp_rule_lists(self, identifier, data):
+        """
+        Update a corp list by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__lists__id__patch
+        PATCH /corps/{corpName}/lists/{id}
+        """
+        return self._make_request(
+            endpoint="{}/{}/lists/{}".format(
+                self.ep_corps, self.corp, identifier),
+            json=data,
+            method="PATCH")
+
+    def delete_corp_rule_lists(self, identifier):
+        """
+        Delete a corp list by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__lists__id__delete
+        DELETE /corps/{corpName}/lists/{id}
+        """
+        return self._make_request(
+            endpoint="{}/{}/lists/{}".format(self.ep_corps,
+                                             self.corp,
+                                             identifier),
             method="DELETE")
 
     # PRIVACY REDACTIONS
