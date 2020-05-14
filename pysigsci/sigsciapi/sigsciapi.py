@@ -700,6 +700,21 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
+    def edit_advanced_rule(self, identifier, data):
+        """
+        Edit Advanced Rule
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/sites/{siteName}/configuredtemplates/{identifier}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/advancedRules/{}".format(self.ep_corps,
+                                                              self.corp,
+                                                              self.site,
+                                                              identifier),
+            json=data,
+            method="PATCH")
+
     def copy_advanced_rule(self, rule_name, from_site):
         """
         Copy Advanced Rule
