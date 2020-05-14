@@ -68,6 +68,7 @@ class SigSciApi(object):
         elif method == "PUT":
             result = requests.put(url, json=json, headers=headers, cookies=cookies)
         elif method == "PATCH":
+            headers["Content-Type"] = "application/json"
             result = requests.patch(url, json=json, headers=headers, cookies=cookies)
         elif method == "DELETE":
             headers["Content-Type"] = "application/json"
