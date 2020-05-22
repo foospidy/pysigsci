@@ -749,6 +749,18 @@ class SigSciApi(object):
                                                    self.corp,
                                                    self.site))
 
+    def get_site_rule_list(self, identifier):
+        """
+        Get Rule List by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__lists__id__get
+        GET /corps/{corpName}/sites/{siteName}/lists/{id}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/lists/{}".format(self.ep_corps,
+                                                      self.corp,
+                                                      self.site,
+                                                      identifier))
+
     def add_rule_lists(self, data):
         """
         Add a site list - Here for backwards compatability
@@ -814,6 +826,17 @@ class SigSciApi(object):
         return self._make_request(
             endpoint="{}/{}/lists".format(self.ep_corps,
                                           self.corp))
+
+    def get_corp_rule_list(self, identifier):
+        """
+        Get Corp Rule List by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__lists__id__get
+        GET /corps/{corpName}/lists/{id}
+        """
+        return self._make_request(
+            endpoint="{}/{}/lists/{}".format(self.ep_corps,
+                                             self.corp,
+                                             identifier))
 
     def add_corp_rule_lists(self, data):
         """
