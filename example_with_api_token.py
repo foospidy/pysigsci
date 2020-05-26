@@ -7,6 +7,7 @@ from __future__ import print_function
 import os
 import sys
 from pysigsci import sigsciapi
+from pysigsci.sigsciapi import parse_time_delta
 
 if "SIGSCI_EMAIL" in os.environ:
     EMAIL = os.environ['SIGSCI_EMAIL']
@@ -59,7 +60,11 @@ def main():
     print(sigsci.get_requests(parameters=params))
     # Get request feed
     sigsci.site = "mysite"
-    params = {"from": "-1d", "tags": "xss"}
+    params = {
+        "from": parse_time_delta("-1d"),
+        "until": parse_time_delta("-5m"),
+        "tags": "xss"
+        }
     print(sigsci.get_request_feed(parameters=params))
 
 
