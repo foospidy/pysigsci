@@ -15,6 +15,7 @@ class SigSciApi(object):
     bearer_token = None
     api_user = None
     api_token = None
+    headers = dict()
     cookies = None
     corp = None
     site = None
@@ -41,7 +42,7 @@ class SigSciApi(object):
                       data=None,
                       json=None,
                       method="GET"):
-        headers = dict()
+        headers = self.headers
         cookies = None
 
         if endpoint != self.ep_auth and self.bearer_token is not None:
