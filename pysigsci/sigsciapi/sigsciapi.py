@@ -1065,6 +1065,19 @@ class SigSciApi(object):
                                                      self.corp,
                                                      self.site))
 
+    def add_members_to_site(self, data):
+        """
+        Add members to site
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__members_post
+        POST /corps/{corpName}/sites/{siteName}/members
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/members".format(self.ep_corps,
+                                                     self.corp,
+                                                     self.site),
+            json=data,
+            method="POST_JSON")
+
     def get_site_member(self, email):
         """
         Get site member by email
