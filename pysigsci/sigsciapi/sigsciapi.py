@@ -180,6 +180,20 @@ class SigSciApi(object):
             json=data,
             method="PATCH")
 
+    # CORP RULES
+    def add_corp_rules(self, data):
+        """
+        Add Corp rules
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        /corps/{corpName}/rules
+        """
+        return self._make_request(
+            endpoint="{}/{}/rules".format(
+                self.ep_corps, self.corp),
+            json=data,
+            method="POST_JSON")
+    
     # OVERVIEW REPORT
     def get_overview_report(self, parameters=dict()):
         """
