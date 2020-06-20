@@ -211,6 +211,16 @@ class SigSciApi(object):
         return self._make_request(
             endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, identifier))
 
+    def delete_corp_rule(self, identifier):
+        """
+        Delete rule from corp
+        https://docs.signalsciences.net/api/#_corps__corpName__rules__id__delete
+        DELETE /corps/{corpName}/rules/{id}
+        """
+        return self._make_request(
+            endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, identifier),
+            method="DELETE")
+
     # OVERVIEW REPORT
     def get_overview_report(self, parameters=dict()):
         """
