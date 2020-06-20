@@ -314,7 +314,7 @@ class SigSciApi(object):
         /corps/{corpName}/tags
         """
         return self._make_request(
-            endpoint="{}/{}//tags".format(
+            endpoint="{}/{}/tags".format(
                 self.ep_corps, self.corp),
             json=data,
             method="POST_JSON")
