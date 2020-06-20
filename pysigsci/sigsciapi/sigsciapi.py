@@ -209,7 +209,7 @@ class SigSciApi(object):
         GET /corps/{corpName}/rules/{id}
         """
         return self._make_request(
-            endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, identifier))
+            endpoint="{}/{}/rules/{}".format(self.ep_corps, self.corp, identifier))
 
     def update_corp_rule(self, identifier, data):
         """
