@@ -211,6 +211,19 @@ class SigSciApi(object):
         return self._make_request(
             endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, identifier))
 
+    def update_corp_rule(self, identifier, data):
+        """
+        Update corp user by email
+        https://docs.signalsciences.net/api/#_corps__corpName__rules__id__put
+        PUT /corps/{corpName}/rules/{id}
+        """
+        return self._make_request(
+            endpoint="{}/{}/rules/{}".format(self.ep_corps,
+                                             self.corp,
+                                             identifier),
+            json=data,
+            method="PUT")
+
     def delete_corp_rule(self, identifier):
         """
         Delete rule from corp
@@ -218,7 +231,7 @@ class SigSciApi(object):
         DELETE /corps/{corpName}/rules/{id}
         """
         return self._make_request(
-            endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, identifier),
+            endpoint="{}/{}/rules/{}".format(self.ep_corps, self.corp, identifier),
             method="DELETE")
 
     # OVERVIEW REPORT
