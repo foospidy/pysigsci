@@ -181,6 +181,15 @@ class SigSciApi(object):
             method="PATCH")
 
     # CORP RULES
+    def get_corp_rules(self):
+        """
+        List rules in corp
+        https://docs.signalsciences.net/api/#_corps__corpName__rules_get
+        GET /corps/{corpName}/rules
+        """
+        return self._make_request(
+            endpoint="{}/{}/rules".format(self.ep_corps, self.corp))
+
     def add_corp_rule(self, data):
         """
         Create corp rule
