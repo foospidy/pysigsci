@@ -202,6 +202,15 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
+    def get_corp_rule(self, identifier):
+        """
+        Get corp rule by id
+        https://docs.signalsciences.net/api/#_corps__corpName__rules__id__get
+        GET /corps/{corpName}/rules/{id}
+        """
+        return self._make_request(
+            endpoint="{}/{}/users/{}".format(self.ep_corps, self.corp, identifier))
+
     # OVERVIEW REPORT
     def get_overview_report(self, parameters=dict()):
         """
