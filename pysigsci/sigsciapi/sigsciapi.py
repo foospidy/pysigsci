@@ -620,7 +620,7 @@ class SigSciApi(object):
             json=data,
             method="POST_JSON")
 
-    def update_site_rule(self, identifier):
+    def update_site_rule(self, identifier, data):
         """
         Update site rules
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules__id__put
@@ -631,6 +631,7 @@ class SigSciApi(object):
                                                      self.corp,
                                                      self.site,
                                                      identifier),
+            json=data,
             method="PUT")
 
     def delete_site_rule(self, identifier):
