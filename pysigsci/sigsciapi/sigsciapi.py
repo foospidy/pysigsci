@@ -126,6 +126,17 @@ class SigSciApi(object):
             json=data,
             method="PATCH")
 
+    # CORP ACTIVITY EVENTS
+    def get_corp_activity(self, parameters=dict()):
+        """
+        List corp activity events
+        https://docs.signalsciences.net/api/#_corps__corpName__activity_get
+        GET /corps/{corpName}/activity
+        """
+        return self._make_request(
+            endpoint="{}/{}/activity".format(self.ep_corps, self.corp),
+            params=parameters)
+
     # CORP USERS
     def get_corp_users(self):
         """
