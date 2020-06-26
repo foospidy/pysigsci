@@ -596,27 +596,39 @@ class SigSciApi(object):
             method="DELETE")
 
     # SITE RULES
+    def get_request_rules(self):
+        """
+        Get request rules - Here for backwards compatability
+        """
+        return self.get_site_rules()
+
     def get_site_rules(self):
         """
-        Get site rules
+        List rules in site
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules_get
-        /corps/{corpName}/sites/{siteName}/rules
+        GET /corps/{corpName}/sites/{siteName}/rules
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/rules".format(self.ep_corps,
-                                                          self.corp,
-                                                          self.site))
+                                                   self.corp,
+                                                   self.site))
+
+    def add_request_rules(self, data):
+        """
+        Add request rules - Here for backwards compatability
+        """
+        return self.add_site_rules(data)
 
     def add_site_rules(self, data):
         """
-        Add site rules
+        Create site rule
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules_post
-        /corps/{corpName}/sites/{siteName}/rules
+        POST /corps/{corpName}/sites/{siteName}/rules
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/rules".format(self.ep_corps,
-                                                          self.corp,
-                                                          self.site),
+                                                   self.corp,
+                                                   self.site),
             json=data,
             method="POST_JSON")
 
@@ -624,29 +636,34 @@ class SigSciApi(object):
         """
         Update site rules
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules__id__put
-        /corps/{corpName}/sites/{siteName}/rules/{ID}
+        PUT /corps/{corpName}/sites/{siteName}/rules/{id}
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/rules/{}".format(self.ep_corps,
-                                                     self.corp,
-                                                     self.site,
-                                                     identifier),
+                                                      self.corp,
+                                                      self.site,
+                                                      identifier),
             json=data,
             method="PUT")
+
+    def delete_request_rule(self, identifier):
+        """
+        Delete request rule - Here for backwards compatability
+        """
+        return self.delete_site_rule(identifier)
 
     def delete_site_rule(self, identifier):
         """
         Delete Request Rules
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules__id__delete
-        /corps/{corpName}/sites/{siteName}/rules/{ID}
+        DELETE /corps/{corpName}/sites/{siteName}/rules/{id}
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/rules/{}".format(self.ep_corps,
-                                                     self.corp,
-                                                     self.site,
-                                                     identifier),
+                                                      self.corp,
+                                                      self.site,
+                                                      identifier),
             method="DELETE")
-
 
     def get_signal_rules(self):
         """
