@@ -595,46 +595,58 @@ class SigSciApi(object):
                 self.ep_corps, self.corp, self.site, identifier),
             method="DELETE")
 
-    # RULES
-    def get_request_rules(self):
+    # SITE RULES
+    def get_site_rules(self):
         """
-        Get Request Rules
-        WARNING: This is an undocumented endpoint. No support provided, and the
-        endpoint may change.
-        /corps/{corpName}/sites/{siteName}/requestRules
+        Get site rules
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules_get
+        /corps/{corpName}/sites/{siteName}/rules
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/requestRules".format(self.ep_corps,
+            endpoint="{}/{}/sites/{}/rules".format(self.ep_corps,
                                                           self.corp,
                                                           self.site))
 
-    def add_request_rules(self, data):
+    def add_site_rules(self, data):
         """
-        Add Request Rules
-        WARNING: This is an undocumented endpoint. No support provided, and the
-        endpoint may change.
-        /corps/{corpName}/sites/{siteName}/requestRules
+        Add site rules
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules_post
+        /corps/{corpName}/sites/{siteName}/rules
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/requestRules".format(self.ep_corps,
+            endpoint="{}/{}/sites/{}/rules".format(self.ep_corps,
                                                           self.corp,
                                                           self.site),
             json=data,
             method="POST_JSON")
 
-    def delete_request_rule(self, identifier):
+    def update_site_rule(self, identifier, data):
         """
-        Delete Request Rules
-        WARNING: This is an undocumented endpoint. No support provided, and the
-        endpoint may change.
+        Update site rules
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules__id__put
         /corps/{corpName}/sites/{siteName}/rules/{ID}
         """
         return self._make_request(
-            endpoint="{}/{}/sites/{}/rule/{}".format(self.ep_corps,
+            endpoint="{}/{}/sites/{}/rules/{}".format(self.ep_corps,
+                                                     self.corp,
+                                                     self.site,
+                                                     identifier),
+            json=data,
+            method="PUT")
+
+    def delete_site_rule(self, identifier):
+        """
+        Delete Request Rules
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules__id__delete
+        /corps/{corpName}/sites/{siteName}/rules/{ID}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/rules/{}".format(self.ep_corps,
                                                      self.corp,
                                                      self.site,
                                                      identifier),
             method="DELETE")
+
 
     def get_signal_rules(self):
         """

@@ -166,7 +166,7 @@ class PowerRules(object):
 
                     messages += message
 
-                    sigsciapi.add_request_rules(json.loads(json_data))
+                    sigsciapi.add_site_rules(json.loads(json_data))
 
             except Exception as error:
                 success = False
