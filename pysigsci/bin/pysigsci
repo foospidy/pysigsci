@@ -295,10 +295,20 @@ def main():
             identifier = None
 
             if args.from_time:
-                params['from'] = args.from_time
+                converted = sigsciapi.parse_time_delta(args.from_time)
+
+                if converted:
+                    params['from'] = converted
+                else:
+                    params['from'] = args.from_time
 
             if args.until_time:
-                params['until'] = args.until_time
+                converted = sigsciapi.parse_time_delta(args.until_time)
+
+                if converted:
+                    params['until'] = converted
+                else:
+                    params['until'] = args.until_time
 
             if args.tag:
                 params['tag'] = args.tag

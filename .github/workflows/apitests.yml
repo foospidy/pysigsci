@@ -25,9 +25,11 @@ jobs:
         SIGSCI_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
         SIGSCI_CORP: "pxmx"
       run: |
+        pysigsci --site pysigsci --get corps
+        pysigsci --site pysigsci --get corp
         pysigsci --site pysigsci --get events
         pysigsci --site pysigsci --get requests
-        pysigsci --site pysigsci --get request-feed
+        pysigsci --site pysigsci --get request-feed --from-time=-30m --until-time=-5m
         pysigsci --site pysigsci --get request-rules
         pysigsci --site pysigsci --get signal-rules
         pysigsci --site pysigsci --get templated-rules
