@@ -126,6 +126,17 @@ class SigSciApi(object):
             json=data,
             method="PATCH")
 
+    # CORP ACTIVITY EVENTS
+    def get_corp_activity(self, parameters=dict()):
+        """
+        List corp activity events
+        https://docs.signalsciences.net/api/#_corps__corpName__activity_get
+        GET /corps/{corpName}/activity
+        """
+        return self._make_request(
+            endpoint="{}/{}/activity".format(self.ep_corps, self.corp),
+            params=parameters)
+
     # CORP USERS
     def get_corp_users(self):
         """
@@ -1078,7 +1089,7 @@ class SigSciApi(object):
                                                            self.site))
 
     # ACTIVITY
-    def get_activity(self):
+    def get_activity(self, parameters=dict()):
         """
         List activity events
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__analytics_events_get
@@ -1087,7 +1098,8 @@ class SigSciApi(object):
         return self._make_request(
             endpoint="{}/{}/sites/{}/analytics/events".format(self.ep_corps,
                                                               self.corp,
-                                                              self.site))
+                                                              self.site),
+            params=parameters)
 
     # HEADER LINKS
     def get_header_links(self):
