@@ -45,7 +45,7 @@ jobs:
         pysigsci --site pysigsci --get agent-logs
         pysigsci --site pysigsci --get suspicious-ips
         pysigsci --site pysigsci --get top-attacks
-        pysigsci --site pysigsci --get timeseries-requests
+        pysigsci --site pysigsci --get timeseries-requests --tag XSS
         pysigsci --site pysigsci --get overview-report
         pysigsci --site pysigsci --get corp-signals
         pysigsci --site pysigsci --get site-signals
