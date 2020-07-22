@@ -35,7 +35,6 @@ class SigSciApi(object):
             self.api_user = email
             self.api_token = api_token
 
-
     def _make_request(self,
                       endpoint,
                       params=None,
@@ -787,7 +786,6 @@ class SigSciApi(object):
         Add Advanced Rules
         WARNING: This is an undocumented endpoint. No support provided, and the
         endpoint may change.
-        /corps/{corpName}/sites/{siteName}/configuredtemplates/{name}
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/advancedRules".format(self.ep_corps,
@@ -801,7 +799,6 @@ class SigSciApi(object):
         Edit Advanced Rule
         WARNING: This is an undocumented endpoint. No support provided, and the
         endpoint may change.
-        /corps/{corpName}/sites/{siteName}/configuredtemplates/{identifier}
         """
         return self._make_request(
             endpoint="{}/{}/sites/{}/advancedRules/{}".format(self.ep_corps,
@@ -825,6 +822,19 @@ class SigSciApi(object):
                                                                           rule_name,
                                                                           from_site),
             method="PUT")
+
+    def delete_advanced_rule(self, identifier):
+        """
+        Delete Advanced Rule
+        WARNING: This is an undocumented endpoint. No support provided, and the
+        endpoint may change.
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/advancedRules/{}".format(self.ep_corps,
+                                                              self.corp,
+                                                              self.site,
+                                                              identifier),
+            method="DELETE")
 
     # CORP/SITE LISTS
     def get_rule_lists(self):
