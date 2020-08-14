@@ -979,6 +979,19 @@ class SigSciApi(object):
                                              identifier),
             method="DELETE")
 
+    def replace_corp_rule_lists(self, identifier, data):
+        """
+        Replace a corp list wholesale by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__lists__id__put
+        PUT /corps/{corpName}/lists/{id}
+        """
+        return self._make_request(
+            endpoint="{}/{}/lists/{}".format(self.ep_corps,
+                                             self.corp,
+                                             identifier),
+            json=data,
+            method="PUT")
+
     # PRIVACY REDACTIONS
     def get_redactions(self):
         """
