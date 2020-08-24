@@ -692,19 +692,11 @@ class SigSciApi(object):
                                                          self.corp,
                                                          self.site))
 
-    def add_signal_rules(self, data):
+    def get_site_ratelimit_rules(self):
         """
-        Add Signal Rules
-        WARNING: This is an undocumented endpoint. No support provided, and the
-        endpoint may change.
-        /corps/{corpName}/sites/{siteName}/signalRules
+        Get site rate limit rules via get_site_rules() method
         """
-        return self._make_request(
-            endpoint="{}/{}/sites/{}/signalRules".format(self.ep_corps,
-                                                         self.corp,
-                                                         self.site),
-            json=data,
-            method="POST_JSON")
+        return self.get_site_rules(rule_type="rateLimit")
 
     def get_templated_rule(self, identifier):
         """
