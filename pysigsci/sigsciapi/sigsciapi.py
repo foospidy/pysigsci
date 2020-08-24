@@ -612,16 +612,21 @@ class SigSciApi(object):
         """
         return self.get_site_rules()
 
-    def get_site_rules(self):
+    def get_site_rules(self, rule_type=""):
         """
         List rules in site
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__rules_get
         GET /corps/{corpName}/sites/{siteName}/rules
         """
+        type_parameter = ""
+        if rule_type in ['request', 'signal', 'rateLimit']:
+            type_parameter = "?type={}".format(rule_type)
+
         return self._make_request(
-            endpoint="{}/{}/sites/{}/rules".format(self.ep_corps,
-                                                   self.corp,
-                                                   self.site))
+            endpoint="{}/{}/sites/{}/rules{}".format(self.ep_corps,
+                                                     self.corp,
+                                                     self.site,
+                                                     type_parameter))
 
     def add_request_rules(self, data):
         """
