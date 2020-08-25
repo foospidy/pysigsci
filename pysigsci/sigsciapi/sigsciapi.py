@@ -921,6 +921,19 @@ class SigSciApi(object):
                                                       self.site,
                                                       identifier),
             method="DELETE")
+    def replace_site_rule_lists(self, identifier, data):
+        """
+        Replace a site list wholesale by ID
+        https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__lists__id__put
+        PUT /corps/{corpName}/sites/{siteName}/lists/{id}
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/lists/{}".format(self.ep_corps,
+                                                      self.corp,
+                                                      self.site,
+                                                      identifier),
+            json=data,
+            method="PUT")
 
     def get_corp_rule_lists(self):
         """
