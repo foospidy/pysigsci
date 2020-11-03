@@ -49,3 +49,4 @@ jobs:
         pysigsci --site pysigsci --get overview-report
         pysigsci --site pysigsci --get corp-signals
         pysigsci --site pysigsci --get site-signals
+        pysigsci --site pysigsci --get custom-alerts
