@@ -40,9 +40,8 @@ jobs:
         pysigsci --site pysigsci --get redactions
         pysigsci --site pysigsci --get integrations
         pysigsci --site pysigsci --get activity
-        pysigsci --site pysigsci --get header-link
+        pysigsci --site pysigsci --get header-links
         pysigsci --site pysigsci --get agents
-        pysigsci --site pysigsci --get agent-logs
         pysigsci --site pysigsci --get suspicious-ips
         pysigsci --site pysigsci --get top-attacks
         pysigsci --site pysigsci --get timeseries-requests --tag XSS
