@@ -402,7 +402,13 @@ class SigSciApi(object):
     # CUSTOM ALERTS
     def get_custom_alerts(self):
         """
-        List custom alerts
+        Get custom alerts - Here for backwards compatability
+        """
+        return self.get_site_alerts()
+
+    def get_site_alerts(self):
+        """
+        List site alerts
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts_get
         GET /corps/{corpName}/sites/{siteName}/alerts
         """
@@ -413,7 +419,13 @@ class SigSciApi(object):
 
     def get_custom_alert(self, identifier):
         """
-        Get custom alert
+        Get custom alert - Here for backwards compatability
+        """
+        return self.get_site_alert(identifier)
+
+    def get_site_alert(self, identifier):
+        """
+        Get site alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__get
         GET /corps/{corpName}/sites/{siteName}/alerts/{alertID}
         """
@@ -425,7 +437,13 @@ class SigSciApi(object):
 
     def add_custom_alert(self, data):
         """
-        Create custom alert
+        Add custom alert - Here for backwards compatability
+        """
+        return self.add_site_alert(data)
+
+    def add_site_alert(self, data):
+        """
+        Create site alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts_post
         POST /corps/{corpName}/sites/{siteName}/alerts
         """
@@ -437,7 +455,13 @@ class SigSciApi(object):
 
     def update_custom_alert(self, identifier, data):
         """
-        Update custom alert
+        Update custom alert - Here for backwards compatability
+        """
+        return self.update_site_alert(identifier, data)
+
+    def update_site_alert(self, identifier, data):
+        """
+        Update site alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__patch
         PATCH /corps/{corpName}/sites/{siteName}/alerts/{alertID}
         """
@@ -451,7 +475,13 @@ class SigSciApi(object):
 
     def delete_custom_alert(self, identifier):
         """
-        Delete alert
+        Update custom alert - Here for backwards compatability
+        """
+        return self.delete_site_alert(identifier)
+
+    def delete_site_alert(self, identifier):
+        """
+        Delete site alert
         https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__alerts__alertID__delete
         DELETE /corps/{corpName}/sites/{siteName}/alerts/{alertID}
         """
