@@ -62,6 +62,7 @@ class SigSciApi(object):
         if method == "GET":
             result = requests.get(url, params=params, headers=headers, cookies=cookies)
         elif method == "POST":
+            headers["Content-Type"] = "application/x-www-form-urlencoded"
             result = requests.post(url, data=data, headers=headers, cookies=cookies)
         elif method == "POST_JSON":
             result = requests.post(url, json=json, headers=headers, cookies=cookies)
