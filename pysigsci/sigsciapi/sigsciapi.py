@@ -65,8 +65,10 @@ class SigSciApi(object):
             headers["Content-Type"] = "application/x-www-form-urlencoded"
             result = requests.post(url, data=data, headers=headers, cookies=cookies)
         elif method == "POST_JSON":
+            headers["Content-Type"] = "application/json"
             result = requests.post(url, json=json, headers=headers, cookies=cookies)
         elif method == "PUT":
+            headers["Content-Type"] = "application/json"
             result = requests.put(url, json=json, headers=headers, cookies=cookies)
         elif method == "PATCH":
             headers["Content-Type"] = "application/json"
