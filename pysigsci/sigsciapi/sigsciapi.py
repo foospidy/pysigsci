@@ -140,14 +140,20 @@ class SigSciApi(object):
             params=parameters)
 
     # CORP USERS
-    def get_corp_users(self):
+    def get_corp_users(self, expand=None):
         """
         List users in corp
-        https://docs.signalsciences.net/api/#list-users-in-corp
+        https://docs.signalsciences.net/api/#_corps__corpName__users_get
         GET /corps/{corpName}/users
         """
-        return self._make_request(
-            endpoint="{}/{}/users".format(self.ep_corps, self.corp))
+        if expand in ['announcements', 'defaultDashboards','memberships']:
+            return self._make_request(
+                endpoint="{}/{}/users?expand={}".format(self.ep_corps, self.corp, expand))
+        elif expand is None:
+            return self._make_request(
+                endpoint="{}/{}/users".format(self.ep_corps, self.corp))
+        else:
+            raise Exception('Improper value passed to expand.')
 
     def get_corp_user(self, email):
         """
