@@ -146,7 +146,7 @@ class SigSciApi(object):
         https://docs.signalsciences.net/api/#_corps__corpName__users_get
         GET /corps/{corpName}/users
         """
-        if expand in ['announcements', 'defaultDashboards','memberships']:
+        if expand in ['announcements', 'defaultDashboards', 'memberships']:
             return self._make_request(
                 endpoint="{}/{}/users?expand={}".format(self.ep_corps, self.corp, expand))
         elif expand is None:
