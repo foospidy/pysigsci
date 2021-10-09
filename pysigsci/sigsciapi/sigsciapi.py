@@ -1473,6 +1473,18 @@ class SigSciApi(object):
 
         return responses
 
+    # AGENT KEYS
+    def get_agent_keys(self):
+        """
+        List agent keys
+        https://docs.fastly.com/signalsciences/api/#_corps__corpName__sites__siteName__agentKeys_get
+        GET /corps/{corpName}/sites/{siteName}/agentKeys
+        """
+        return self._make_request(
+            endpoint="{}/{}/sites/{}/agentKeys".format(self.ep_corps,
+                                                       self.corp,
+                                                       self.site))
+
     # SUSPICIOUS IPS
     def get_suspicious_ips(self):
         """
