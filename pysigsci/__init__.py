@@ -1,3 +1,3 @@
 """The version string for this application"""
 
-VERSION = "3.18.0"
+VERSION = "3.18.1"
