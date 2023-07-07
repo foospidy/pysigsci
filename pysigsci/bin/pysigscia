@@ -65,6 +65,9 @@ def diff_config(config, site1, site2, directory='/tmp/pysigsci/audit'):
     """
     with open('{}/{}.{}.json'.format(directory, site1, config), 'r') as infile:
         config1 = json.load(infile)['data']
+ 
+        if config1 is None:
+            config1 = {}
         size1 = len(config1)
 
         for i in range(size1):
@@ -100,6 +103,8 @@ def diff_config(config, site1, site2, directory='/tmp/pysigsci/audit'):
 
     with open('{}/{}.{}.json'.format(directory, site2, config), 'r') as infile:
         config2 = json.load(infile)['data']
+        if config2 is None:
+            config2 = {}
         size2 = len(config2)
 
         for i in range(size2):
