@@ -38,7 +38,7 @@ lint:
 	pylint example_without_api_token.py
 
 env:
-	virtualenv .env
+	python3 -m venv .env
 	. .env/bin/activate \
 	&& pip install --upgrade pip \
 	&& pip install --upgrade setuptools \
@@ -47,9 +47,10 @@ env:
 update_env:
 	# FOR DEVELOPMENT ONLY
 	cp pysigsci/bin/pysigsci .env/bin/pysigsci
-	cp pysigsci/sigsciapi/sigsciapi.py .env/lib/python2.7/site-packages/pysigsci/sigsciapi/
-	cp pysigsci/releases/__init__.py .env/lib/python2.7/site-packages/pysigsci/releases/
-	cp pysigsci/releases/releases.py .env/lib/python2.7/site-packages/pysigsci/releases/
+	cp pysigsci/bin/pysigscia .env/bin/pysigscia
+	cp pysigsci/sigsciapi/sigsciapi.py .env/lib/python3.10/site-packages/pysigsci/sigsciapi/
+	cp pysigsci/releases/__init__.py .env/lib/python3.10/site-packages/pysigsci/releases/
+	cp pysigsci/releases/releases.py .env/lib/python3.10/site-packages/pysigsci/releases/
 
 install:
 	pip install -r requirements.txt
